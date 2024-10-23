@@ -44,7 +44,7 @@ const ClubManage = () => {
 export default ClubManage;
 
 const Content = styled.div`
-width: 1220px;
+width: 75%;
 display: flex;
 flex-direction: column;
 gap: 20px;
