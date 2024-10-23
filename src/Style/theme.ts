@@ -3,7 +3,7 @@ const color = {
   black: '#000000',
   red: "#CA4545",
   blue: {
-    100: '#CAD4E7',
+    100: '#D5E3FF',
     200: '#A3C3FF',
     300: '#1F62E4',
     400: '#1E59CC',
