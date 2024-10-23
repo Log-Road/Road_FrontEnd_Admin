@@ -1,3 +1,5 @@
 export * from "./Bell"
 export * from "./Search"
 export * from "./User"
+export * from "./Plus"
+export * from "./Logo"
