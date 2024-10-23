@@ -1,7 +1,12 @@
 const color = {
   white: '#FFFFFF',
   black: '#000000',
-  red: "#CA4545",
+  red: {
+    100: "#FFDBDB",
+    200: "#CA4545",
+    300: "#BC372F",
+    400: "#B82118"
+  },
   blue: {
     100: '#D5E3FF',
     200: '#A3C3FF',
