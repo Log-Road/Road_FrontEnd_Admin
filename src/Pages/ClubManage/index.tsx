@@ -3,6 +3,7 @@ import Button from "../../Components/Management/Button";
 import { Plus } from "../../Assets"
 import { color, font } from "../../Style";
 import ActiveButton from "../../Components/Management/ActiveButton";
+import { Club } from "../../Components/Dummy/Club";
 
 const ClubManage = () => {
   return (
@@ -22,22 +23,18 @@ const ClubManage = () => {
         </TableHeader>
 
         <TableContent>
-          <Tr>
-            <StateText>활성화</StateText>
-            <ClubName>Log</ClubName>
-            <ButtonWrap>
-              <ActiveButton text="상태 변경" active={true} />
-              <ActiveButton text="삭제하기" active={false} />
-            </ButtonWrap>
-          </Tr>
-          <Tr>
-            <StateText>활성화</StateText>
-            <ClubName>Logadfdgshdj</ClubName>
-            <ButtonWrap>
-              <ActiveButton text="상태 변경" active={true} />
-              <ActiveButton text="삭제하기" active={false} />
-            </ButtonWrap>
-          </Tr>
+          {Club.map(({ club_id, club_name, is_active = false }) => (
+            <Tr key={club_id}>
+              <StateText active={is_active}>
+                {is_active ? "활성화" : "비활성화"}
+              </StateText>
+              <ClubName active={is_active}>{club_name}</ClubName>
+              <ButtonWrap>
+                <ActiveButton text="상태 변경" active={true} />
+                <ActiveButton text="삭제하기" active={false} />
+              </ButtonWrap>
+            </Tr>
+          ))}
         </TableContent>
       </Table>
     </Content>
@@ -108,16 +105,19 @@ color: ${color.gray[500]};
 `
 
 const TableTitle = styled.p`
+width: 70px;
 ${font.medium14}
 color: ${color.white};
 `
 
-const StateText = styled.p`
+const StateText = styled.p<{ active: boolean }>`
+width: 70px;
 ${font.regular16}
-color: ${color.blue[300]};
+color: ${({ active }) => active ? color.blue[300] : color.gray[300]};
 `
 
-const ClubName = styled.p`
+const ClubName = styled.p<{ active: boolean }>`
 ${font.regular16}
-flex-grow: 1;
+flex-grow: 12;
+color: ${({ active }) => active ? color.black : color.gray[300]};
 `
