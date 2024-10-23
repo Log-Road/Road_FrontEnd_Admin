@@ -12,10 +12,10 @@ export default function AddClubModal() {
       <S.WriteIconWrap>
         <EditNote size={20} color={color.blue[500]} />
       </S.WriteIconWrap>
-      <S.TextWrap>
+      <div>
         <S.Title>동아리를 추가해주세요</S.Title>
         <S.Info>새로운 동아리 이름을 작성해주세요</S.Info>
-      </S.TextWrap>
+      </div>
       <S.InputWrap>
         <S.Label>동아리명</S.Label>
         <S.Input placeholder="동아리 이름을 작성해주세요" />
