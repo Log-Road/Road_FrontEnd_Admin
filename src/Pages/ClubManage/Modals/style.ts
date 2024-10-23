@@ -27,8 +27,6 @@ border-radius: 100px;
 background-color: ${color.blue[100]};
 `
 
-export const TextWrap = styled.div``
-
 export const Title = styled.p`
 ${font.medium18}
 `
