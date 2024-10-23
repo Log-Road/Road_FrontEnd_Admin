@@ -1,5 +1,5 @@
 import styled from "styled-components"
-import { color } from "../../Style"
+import { color } from "@/Style"
 
 interface PropsType {
   width?: string,

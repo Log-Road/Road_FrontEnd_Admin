@@ -1,7 +1,7 @@
-import { Logo } from "../../Assets/Logo"
+import { Logo } from "@/Assets/Logo"
 import styled from "styled-components"
-import { FooterInformation } from "../../Constants"
-import { color, font } from "../../Style"
+import { FooterInformation } from "@/Constants"
+import { color, font } from "@/Style"
 
 export default function Footer() {
   return (

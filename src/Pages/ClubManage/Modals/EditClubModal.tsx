@@ -1,13 +1,13 @@
 import * as S from "./style"
-import { X, EditNote } from "../../../Assets"
-import Button from "../../../Components/Common/Button"
-import { color } from "../../../Style"
+import { X, EditNote } from "@/Assets"
+import Button from "@/Components/Common/Button";
+import { color } from "@/Style";
 
 export default function EditClubModal() {
   return (
     <S.Container>
       <S.CancelWrap>
-        <X size={16} color={color.gray[500]} />
+        <X size={16} color={color.gray[500]}/>
       </S.CancelWrap>
       <S.WriteIconWrap>
         <EditNote size={20} color={color.blue[500]} />

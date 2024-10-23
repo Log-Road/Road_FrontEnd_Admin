@@ -1,4 +1,4 @@
-import font from "./font";
-import color from "./theme";
+import font from "@/Style/font";
+import color from "@/Style/theme";
 
 export { font, color };

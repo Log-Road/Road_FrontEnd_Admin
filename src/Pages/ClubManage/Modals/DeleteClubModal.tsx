@@ -1,7 +1,7 @@
-import { X, NoMassage } from "../../../Assets"
-import Button from "../../../Components/Common/Button"
+import { X, NoMassage } from "@/Assets"
+import Button from "@/Components/Common/Button"
 import styled from "styled-components"
-import { color, font } from "../../../Style"
+import { color, font } from "@/Style"
 
 export default function DeleteClubModal() {
   return (

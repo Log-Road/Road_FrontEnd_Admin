@@ -1,6 +1,6 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Layout from "../Components/Layout";
-import ClubManage from "../Pages/ClubManage";
+import Layout from "@/Components/Layout";
+import ClubManage from "@/Pages/ClubManage";
 
 export default function Router() {
   return (
