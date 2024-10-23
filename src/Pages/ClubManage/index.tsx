@@ -119,5 +119,4 @@ color: ${({ active }) => active ? color.blue[300] : color.gray[300]};
 const ClubName = styled.p<{ active: boolean }>`
 ${font.regular16}
 flex-grow: 12;
-color: ${({ active }) => active ? color.black : color.gray[300]};
 `

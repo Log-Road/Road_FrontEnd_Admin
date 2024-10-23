@@ -18,6 +18,6 @@ export const Club: ClubType[] = [
     {
       "club_id" : 1,
       "is_active" : false,
-      "club_name" : "LOGLOG"
+      "club_name" : "LOG"
     },
 ]
