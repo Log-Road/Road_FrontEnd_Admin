@@ -1,7 +1,7 @@
 import * as S from "./style"
 import { X, EditNote } from "@/Assets"
 import Button from "@/Components/Common/Button"
-import { color } from "@/Style"
+import { color } from "@/Styles"
 
 export default function AddClubModal() {
   return (

@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import Button from "@/Components/Management/Button";
 import { Plus } from "@/Assets";
-import { color, font } from "@/Style";
+import { color, font } from "@/Styles";
 import ActiveButton from "@/Components/Management/ActiveButton";
 import { Club } from "@/Components/Dummy/Club";
 

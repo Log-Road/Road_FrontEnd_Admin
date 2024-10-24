@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { color, font } from "@/Style";
+import { color, font } from "@/Styles";
 
 export const Container = styled.div`
 min-width: 300px;
