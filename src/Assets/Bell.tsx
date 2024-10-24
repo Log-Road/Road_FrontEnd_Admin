@@ -1,4 +1,4 @@
-import { color as themeColor } from "../Style"
+import { color as themeColor } from "@/Styles"
 
 interface PropsType {
   size?: number,

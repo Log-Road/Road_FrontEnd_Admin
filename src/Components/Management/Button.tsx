@@ -1,5 +1,5 @@
 import styled from "styled-components"
-import { font, color } from "../../Style"
+import { font, color } from "@/Styles"
 
 interface ButtonProps {
   icon?: React.ComponentType<{ color?: string }>,
