@@ -1,23 +1,21 @@
-interface ClubType {
-  club_id?: number,
-  is_active?: boolean,
-  club_name?: string
-}
+import { ClubListDefaultType } from "@/Models/ClubList";
 
-export const Club: ClubType[] = [
+export const Club: ClubListDefaultType = {
+  "clubs": [
     {
-      "club_id" : 1,
-      "is_active" : true,
-      "club_name" : "LOG"
+      "clubId": 1,
+      "isActive": true,
+      "clubName": "LOG"
     },
     {
-      "club_id" : 1,
-      "is_active" : true,
-      "club_name" : "LOG"
+      "clubId": 2,
+      "isActive": true,
+      "clubName": "MATH"
     },
     {
-      "club_id" : 1,
-      "is_active" : false,
-      "club_name" : "LOG"
-    },
-]
+      "clubId": 3,
+      "isActive": false,
+      "clubName": "SCIENCE"
+    }
+  ]
+}

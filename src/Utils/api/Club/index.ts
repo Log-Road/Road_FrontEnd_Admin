@@ -1,6 +1,6 @@
 import { useMutation, useQuery } from 'react-query';
 import instance from '@/Utils/axios';
-import { clubListDefaultType } from '@/Models/ClubList';
+import { ClubListDefaultType } from '@/Models/ClubList';
 import ApiError from '@/Utils/axios/ApiError';
 import toast from 'react-hot-toast';
 
@@ -12,12 +12,12 @@ const path = '/club'
  * @returns 동아리 전체 목록 조회 data
  */
 
-export const useGetAllClubList = () => {
+export const useGetClubList = () => {
   const { handleError } = ApiError()
   
   return useQuery(['getAllClubList'], async() => {
     try {
-      const { data } = await instance.get<clubListDefaultType>(`${path}`)
+      const { data } = await instance.get<ClubListDefaultType>(`${path}`)
       return data
     } catch(error) {
       handleError(error)
