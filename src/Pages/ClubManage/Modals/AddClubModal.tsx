@@ -1,9 +1,27 @@
 import * as S from "./style"
 import { X, EditNote } from "@/Assets"
 import Button from "@/Components/Common/Button"
+import LabelInput from "@/Components/Common/LabelInput"
 import { color } from "@/Styles"
+import { useFrom } from "@/Hooks/useForm"
 
 export default function AddClubModal() {
+
+  const {
+    form: clubForm,
+    setForm: setClubForm,
+    handleChange: clubFormChange
+  } = useFrom({
+    club: '',
+    name: '',
+  })
+
+  const { club, name } = clubForm
+
+  const handleClickAddButton = () => {
+    
+  }
+
   return (
     <S.Container>
       <S.CancelWrap>
@@ -16,11 +34,19 @@ export default function AddClubModal() {
         <S.Title>동아리를 추가해주세요</S.Title>
         <S.Info>새로운 동아리 이름을 작성해주세요</S.Info>
       </div>
-      <S.InputWrap>
-        <S.Label>동아리명</S.Label>
-        <S.Input placeholder="동아리 이름을 작성해주세요" />
-      </S.InputWrap>
-      <Button text="추가하기" active={false} />
+      <LabelInput
+        type="text"
+        name="club"
+        value={club}
+        label="동아리명"
+        placeholder="동아리 이름을 작성해주세요"
+        onChange={clubFormChange}
+      />
+      <Button
+        text="추가하기"
+        active={false}
+        onClick={handleClickAddButton}
+      />
     </S.Container>
   )
 }
