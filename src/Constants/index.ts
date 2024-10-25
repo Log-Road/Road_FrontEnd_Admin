@@ -1,4 +1,4 @@
-import { FooterInformationType } from "../Models"
+import { FooterInformationType } from "@/Models"
 
 export const FooterInformation: FooterInformationType[] = [
   {title: "DSM을 위한 프로젝트 저장소", info: "BackEnd 유나현 | FrontEnd 김호선 박예빈 임다영"},

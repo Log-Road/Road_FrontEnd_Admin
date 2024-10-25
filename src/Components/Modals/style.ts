@@ -1,21 +1,5 @@
 import styled from "styled-components";
-import { color, font } from "../../../Style"
-
-export const Container = styled.div`
-min-width: 300px;
-max-height: 320px;
-display: flex;
-flex-direction: column;
-justify-content: space-between;
-padding: 20px 20px 30px;
-border-radius: 20px;
-border: 1.2px solid ${color.gray[200]};
-`
-
-export const CancelWrap = styled.div`
-display: flex;
-justify-content: flex-end;
-`
+import { color, font } from "@/Styles";
 
 export const WriteIconWrap = styled.div`
 width: 55px;

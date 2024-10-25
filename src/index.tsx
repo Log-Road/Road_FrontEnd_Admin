@@ -1,8 +1,9 @@
 import React from 'react';
 import App from './App';
 import ReactDOM from 'react-dom/client';
-import { GlobalStyle } from './Style/GlobalStyle';
-import { QueryClient, QueryClientProvider } from 'react-query';
+import { GlobalStyle } from '@/Styles/GlobalStyle';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { Toaster } from 'react-hot-toast';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -22,6 +23,7 @@ root.render(
   <React.StrictMode>
     <QueryClientProvider client={queryClient} >
       <GlobalStyle />
+      <Toaster />
       <App />
     </QueryClientProvider>
   </React.StrictMode>

@@ -1,11 +1,44 @@
 import styled from "styled-components";
-import Button from "../../Components/Management/Button";
-import { Plus } from "../../Assets"
-import { color, font } from "../../Style";
-import ActiveButton from "../../Components/Management/ActiveButton";
-import { Club } from "../../Components/Dummy/Club";
+import Button from "@/Components/Management/Button";
+import { Plus } from "@/Assets";
+import { color, font } from "@/Styles";
+import ActiveButton from "@/Components/Management/ActiveButton";
+import { Club } from "@/Components/Dummy/Club";
+import { useModal } from "@/Context/ModalContext";
+import { useGetClubList, useModifyClub } from "@/Utils/api/Club";
+import { ClubType } from "@/Models/ClubList";
+import { DeleteClub } from "@/Components/Modals";
 
 const ClubManage = () => {
+  const { openModal } = useModal()
+  const { mutate: modifyClub } = useModifyClub();
+
+  const {
+    data: clubListData,
+    isLoading: clubListLoading,
+    isError: clubListError
+  } = useGetClubList()
+
+  const handleChangeStatus = (clubId: number) => {
+    try {
+      modifyClub({ clubId }, {
+        onSuccess: () => {
+          window.location.reload();
+        },
+        onError: (error) => {
+          console.log(error.message);
+        }
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleClickDelete = (clubId: number) => {
+    openModal('DeleteClub')
+    DeleteClub({clubId})
+  };
+
   return (
     <Content>
       <PageInfoWrap>
@@ -13,29 +46,43 @@ const ClubManage = () => {
           <Title>동아리 관리</Title>
           <Info>학교 동아리 정보를 편집하고 관리할 수 있어요</Info>
         </TextWrap>
-        <Button icon={Plus} text="동아리 추가" />
+        <Button icon={Plus} text="동아리 추가" onClick={() => openModal('AddClub')} />
       </PageInfoWrap>
 
       <Table>
-        <TableHeader>
-          <TableTitle>현상태</TableTitle>
-          <TableTitle>동아리명</TableTitle>
-        </TableHeader>
+        {clubListLoading && <div>Loading...</div>}
+        {clubListError && <div>Error</div>}
+        {clubListData && (
+        <>
+          <TableHeader>
+            <TableTitle>현상태</TableTitle>
+            <TableTitle>동아리명</TableTitle>
+          </TableHeader>
 
-        <TableContent>
-          {Club.map(({ club_id, club_name, is_active = false }) => (
-            <Tr key={club_id}>
-              <StateText active={is_active}>
-                {is_active ? "활성화" : "비활성화"}
-              </StateText>
-              <ClubName active={is_active}>{club_name}</ClubName>
-              <ButtonWrap>
-                <ActiveButton text="상태 변경" active={true} />
-                <ActiveButton text="삭제하기" active={false} />
-              </ButtonWrap>
-            </Tr>
-          ))}
-        </TableContent>
+          <TableContent>
+            {Club.clubs.map(({ clubId, clubName, isActive = false }: ClubType) => (
+              <Tr key={clubId}>
+                <StateText active={isActive}>
+                  {isActive ? "활성화" : "비활성화"}
+                </StateText>
+                <ClubName active={isActive}>{clubName}</ClubName>
+                <ButtonWrap>
+                  <ActiveButton
+                    text="상태 변경"
+                    active={true}
+                    onClick={() => handleChangeStatus(clubId)}
+                  />
+                  <ActiveButton
+                    text="삭제하기"
+                    active={false}
+                    onClick={() => handleClickDelete(clubId)}
+                  />
+                </ButtonWrap>
+              </Tr>
+            ))}
+          </TableContent>
+        </>
+      )}
       </Table>
     </Content>
   )

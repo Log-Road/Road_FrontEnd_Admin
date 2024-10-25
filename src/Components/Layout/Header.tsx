@@ -1,6 +1,6 @@
 import styled from "styled-components"
-import { Bell, Search, User } from "../../Assets";
-import { color, font } from "../../Style";
+import { Bell, Search, User } from "@/Assets";
+import { color, font } from "@/Styles";
 
 export default function Header() {
   const list = ["대회관리", "인원관리", "동아리 관리"];
@@ -11,7 +11,9 @@ export default function Header() {
       <LogoAndListWrap>
         <Logo>ROAD</Logo>
         <ListWrap>
-          {list.map(value => <Text>{value}</Text>)}
+          {list.map((value) =>
+            <Text key={value}>{value}</Text>
+          )}
         </ListWrap>
       </LogoAndListWrap>
       <ListWrap>
