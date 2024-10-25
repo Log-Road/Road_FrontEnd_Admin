@@ -11,7 +11,9 @@ export default function Header() {
       <LogoAndListWrap>
         <Logo>ROAD</Logo>
         <ListWrap>
-          {list.map(value => <Text>{value}</Text>)}
+          {list.map((value) =>
+            <Text key={value}>{value}</Text>
+          )}
         </ListWrap>
       </LogoAndListWrap>
       <ListWrap>
