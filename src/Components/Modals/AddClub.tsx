@@ -1,11 +1,14 @@
 import * as S from "./style"
-import { X, EditNote } from "@/Assets"
+import { EditNote } from "@/Assets"
 import Button from "@/Components/Common/Button"
 import LabelInput from "@/Components/Common/LabelInput"
 import { color } from "@/Styles"
 import { useFrom } from "@/Hooks/useForm"
+import { useState } from "react"
 
-export default function AddClubModal() {
+export default function AddClub() {
+
+  const [active, setActive] = useState<boolean>(false)
 
   const {
     form: clubForm,
@@ -13,20 +16,16 @@ export default function AddClubModal() {
     handleChange: clubFormChange
   } = useFrom({
     club: '',
-    name: '',
   })
 
-  const { club, name } = clubForm
+  const { club } = clubForm
 
-  const handleClickAddButton = () => {
-    
+  const handleClickSubmit = () => {
+    setActive(club.length > 0)
   }
 
   return (
-    <S.Container>
-      <S.CancelWrap>
-        <X size={16} color={color.gray[500]} />
-      </S.CancelWrap>
+    <>
       <S.WriteIconWrap>
         <EditNote size={20} color={color.blue[500]} />
       </S.WriteIconWrap>
@@ -44,9 +43,9 @@ export default function AddClubModal() {
       />
       <Button
         text="추가하기"
-        active={false}
-        onClick={handleClickAddButton}
+        active={active}
+        onClick={handleClickSubmit}
       />
-    </S.Container>
+    </>
   )
 }

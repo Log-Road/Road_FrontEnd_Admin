@@ -1,14 +1,11 @@
 import * as S from "./style"
-import { X, EditNote } from "@/Assets"
+import { EditNote } from "@/Assets"
 import Button from "@/Components/Common/Button";
 import { color } from "@/Styles";
 
-export default function EditClubModal() {
+export default function EditClub() {
   return (
-    <S.Container>
-      <S.CancelWrap>
-        <X size={16} color={color.gray[500]} />
-      </S.CancelWrap>
+    <>
       <S.WriteIconWrap>
         <EditNote size={20} color={color.blue[500]} />
       </S.WriteIconWrap>
@@ -21,6 +18,6 @@ export default function EditClubModal() {
         <S.Input placeholder="동아리 이름을 작성해주세요" />
       </S.InputWrap>
       <Button text="수정하기" active={false} />
-    </S.Container>
+    </>
   )
 }

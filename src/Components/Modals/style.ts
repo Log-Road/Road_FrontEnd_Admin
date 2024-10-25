@@ -1,24 +1,6 @@
 import styled from "styled-components";
 import { color, font } from "@/Styles";
 
-export const Container = styled.div`
-min-width: 340px;
-max-height: 320px;
-display: flex;
-flex-direction: column;
-justify-content: space-between;
-padding: 20px 20px 30px;
-gap: 8px;
-border-radius: 20px;
-border: 1.2px solid ${color.gray[200]};
-background-color: ${color.white};
-`
-
-export const CancelWrap = styled.div`
-display: flex;
-justify-content: flex-end;
-`
-
 export const WriteIconWrap = styled.div`
 width: 55px;
 height: 55px;

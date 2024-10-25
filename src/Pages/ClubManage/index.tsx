@@ -7,9 +7,8 @@ import { Club } from "@/Components/Dummy/Club";
 import { useModal } from "@/Context/ModalContext";
 
 const ClubManage = () => {
-
   const { openModal } = useModal()
-  
+
   return (
     <Content>
       <PageInfoWrap>
@@ -17,7 +16,7 @@ const ClubManage = () => {
           <Title>동아리 관리</Title>
           <Info>학교 동아리 정보를 편집하고 관리할 수 있어요</Info>
         </TextWrap>
-        <Button icon={Plus} text="동아리 추가" onClick={() => openModal()}/>
+        <Button icon={Plus} text="동아리 추가" onClick={() => openModal('AddClub')} />
       </PageInfoWrap>
 
       <Table>
