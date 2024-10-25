@@ -3,6 +3,7 @@ import instance from '@/Utils/axios';
 import { AxiosError } from 'axios';
 import { clubListDefaultType } from '@/Models/ClubList';
 import ApiError from '@/Utils/axios/ApiError';
+import toast from 'react-hot-toast';
 
 const path = '/club'
 
@@ -28,7 +29,7 @@ export const useGetAllClubList = () => {
 /**
  * 동아리 개별 추가 API
  * @params
- * @returns 동아리 ID
+ * @returns
  */
 
 export const useAddClub = (isActive: boolean, clubName: string) => {
@@ -41,12 +42,33 @@ export const useAddClub = (isActive: boolean, clubName: string) => {
           isActive,
           clubName
       })
-        return response.data
+      toast.success("동아리가 성공적으로 추가되었습니디.", { duration: 1500 })
+      return response.data
       } catch(error: any) {
         if(error.response?.status === 409) {
-          console.log("동아리 이름이 중복되었습니다")
+          toast.error("입력하신 동아리 이름은 이미 존재합니다. 다른 이름을 입력해주세요.", { duration: 1500 })
         }
         handleError(error)
       }}
   )
+}
+
+/**
+ * 동아리 개별 상태 수정 API
+ * @params clubID
+ * @returns
+ */
+
+export const useModifyClub = (clubID: number) => {
+  const { handleError } = ApiError();
+
+  return useMutation(async () => {
+    try {
+      const response = await instance.patch(`${path}/modify/${clubID}`, { clubID });
+      toast.success("동아리 정보 변경을 성공했습니다.", { duration: 1500 });
+      return response.data;
+    } catch (error) {
+      handleError(error);
+    }
+  });
 }
