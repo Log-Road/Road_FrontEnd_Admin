@@ -1,6 +1,6 @@
-import { useMutation, useQuery } from 'react-query';
+import { useMutation, useQuery } from "@tanstack/react-query";
 import instance from '@/Utils/axios';
-import { ClubListDefaultType } from '@/Models/ClubList';
+import { ClubListDefaultType, ClubType } from '@/Models/ClubList';
 import ApiError from '@/Utils/axios/ApiError';
 import toast from 'react-hot-toast';
 
@@ -13,17 +13,21 @@ const path = '/club'
  */
 
 export const useGetClubList = () => {
-  const { handleError } = ApiError()
-  
-  return useQuery(['getAllClubList'], async() => {
-    try {
-      const { data } = await instance.get<ClubListDefaultType>(`${path}`)
-      return data
-    } catch(error) {
-      handleError(error)
-    }
-  })
-}
+  const { handleError } = ApiError();
+
+  return useQuery<ClubListDefaultType[], Error>({
+    queryKey: ["ClubList"],
+    queryFn: async () => {
+      try {
+        const response = await instance.get<ClubListDefaultType[]>(`${path}`);
+        return response.data;
+      } catch (error) {
+        handleError(error);
+        throw error;
+      }
+    },
+  });
+};
 
 /**
  * 동아리 개별 추가 API
@@ -31,26 +35,29 @@ export const useGetClubList = () => {
  * @returns
  */
 
-export const useAddClub = (isActive: boolean, clubName: string) => {
-  const { handleError } = ApiError()
-  
-  return useMutation(
-    async () => {
+export const useAddClub = () => {
+  const { handleError } = ApiError();
+
+  return useMutation<{ club_id: number }, Error, { isActive: boolean; clubName: string }>(
+    async ({ isActive, clubName }) => {
       try {
-        const response = await instance.post(`${path}`,{
+        const response = await instance.post(`${path}`, {
           isActive,
-          clubName
-      })
-      toast.success("동아리가 성공적으로 추가되었습니디.", { duration: 1500 })
-      return response.data
-      } catch(error: any) {
-        if(error.response?.status === 409) {
-          toast.error("입력하신 동아리 이름은 이미 존재합니다. 다른 이름을 입력해주세요.", { duration: 1500 })
+          clubName,
+        });
+        toast.success("동아리가 성공적으로 추가되었습니다.", { duration: 1500 });
+        return response.data;
+      } catch (error: any) {
+        if (error.response?.status === 409) {
+          toast.error("입력하신 동아리 이름은 이미 존재합니다. 다른 이름을 입력해주세요.", { duration: 1500 });
         }
-        handleError(error)
-      }}
-  )
-}
+        handleError(error);
+        throw error;
+      }
+    }
+  );
+};
+
 
 /**
  * 동아리 개별 상태 수정 API
