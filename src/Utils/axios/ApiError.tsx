@@ -9,23 +9,23 @@ type HandleType = {
 const ApiError = () => {
 
   const handle400: ErrorHandler = () => {
-    alert("Bad Request, 요청 값 오류")
+    alert("400 잘못된 요청입니다")
   }
 
   const handle401: ErrorHandler = () => {
-    alert("Unauthorized, 인증되지 않은 사용자의 접근")
+    alert("401 인증되지 않았습니다. 로그인 후 서비스를 이용해주세요")
   }
 
   const handle403: ErrorHandler = () => {
-    alert("Forbidden, 인증되었지만 권한이 없는 사용자의 접근")
+    alert("403 관리자 계정으로 서비스를 이용해주세요")
   }
 
   const handle404: ErrorHandler = () => {
-    alert("Not Found")
+    alert("404 페이지를 찾을 수 없습니다")
   }
 
   const handle500: ErrorHandler = () => {
-    alert("Internal Server Error, 데이터베이스 트랜잭션 오류")
+    alert("500 요청을 처리하는 동안 문제가 발생했습니다. 네트워크 연결 상태를 확인해주세요")
   }
 
   const handleDefault: ErrorHandler = () => {
@@ -51,7 +51,7 @@ const ApiError = () => {
       alert(`오류가 발생했습니다 ${error.message}`);
     }
   }, [])
-  
+
   return { handleError }
 }
 
