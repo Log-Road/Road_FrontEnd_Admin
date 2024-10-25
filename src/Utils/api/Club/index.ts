@@ -55,18 +55,38 @@ export const useAddClub = (isActive: boolean, clubName: string) => {
 
 /**
  * 동아리 개별 상태 수정 API
- * @params clubID
+ * @params clubId
  * @returns
  */
 
-export const useModifyClub = (clubID: number) => {
+export const useModifyClub = (clubId: number) => {
   const { handleError } = ApiError();
 
   return useMutation(async () => {
     try {
-      const response = await instance.patch(`${path}/modify/${clubID}`, { clubID });
+      const response = await instance.patch(`${path}/modify/${clubId}`, { clubId });
       toast.success("동아리 정보 변경을 성공했습니다.", { duration: 1500 });
       return response.data;
+    } catch (error) {
+      handleError(error);
+    }
+  });
+}
+
+/**
+ * 동아리 개별 삭제 API
+ * @params clubId
+ * @returns
+ */
+
+export const useDeleteClub = (clubId: number) => {
+  const { handleError } = ApiError();
+
+  return useMutation(async () => {
+    try {
+      await instance.delete(`${path}/${clubId}`);
+      toast.success("동아리를 성공적으로 삭제하였습니다.", { duration: 1500 });
+      return true
     } catch (error) {
       handleError(error);
     }
