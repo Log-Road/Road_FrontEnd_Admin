@@ -3,7 +3,7 @@ import { EditNote } from "@/Assets"
 import Button from "@/Components/Common/Button";
 import { color } from "@/Styles";
 
-export default function EditClub() {
+export default function EditClub({ clubId }: { clubId: number }) {
   return (
     <>
       <S.WriteIconWrap>

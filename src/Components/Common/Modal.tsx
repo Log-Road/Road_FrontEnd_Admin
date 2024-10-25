@@ -6,7 +6,7 @@ import { useModal } from "@/Context/ModalContext";
 import { AddClub, EditClub, DeleteClub } from "@/Components/Modals";
 
 export default function Modal() {
-  const { closeModal, modalState } = useModal();
+  const { closeModal, modalState, modalData } = useModal();
 
   const modalRef = useRef<HTMLDivElement>(null);
 
@@ -19,8 +19,9 @@ export default function Modal() {
   const renderContent = () => {
     switch (modalState) {
       case 'AddClub': return <AddClub />
-      case 'EditClub': return <EditClub />
-      case 'DeleteClub': return <DeleteClub />
+      case 'EditClub': return modalData ? <EditClub clubId={modalData} /> : null;
+      case 'DeleteClub': return modalData ? <DeleteClub clubId={modalData} /> : null;
+      default: return null
     }
   }
 
