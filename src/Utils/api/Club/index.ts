@@ -1,6 +1,5 @@
-import { MutateOptions, useMutation, useQuery } from 'react-query';
+import { useMutation, useQuery } from 'react-query';
 import instance from '@/Utils/axios';
-import { AxiosError } from 'axios';
 import { clubListDefaultType } from '@/Models/ClubList';
 import ApiError from '@/Utils/axios/ApiError';
 import toast from 'react-hot-toast';
