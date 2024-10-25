@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-export function useFrom<T>(initialState: T) {
+export function useForm<T>(initialState: T) {
   
   const [form, setForm] = useState(initialState)
 
