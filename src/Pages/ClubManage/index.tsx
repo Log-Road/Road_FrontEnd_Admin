@@ -5,17 +5,39 @@ import { color, font } from "@/Styles";
 import ActiveButton from "@/Components/Management/ActiveButton";
 import { Club } from "@/Components/Dummy/Club";
 import { useModal } from "@/Context/ModalContext";
-import { useGetClubList, useModifyClub, useDeleteClub } from "@/Utils/api/Club";
+import { useGetClubList, useModifyClub } from "@/Utils/api/Club";
 import { ClubType } from "@/Models/ClubList";
+import { DeleteClub } from "@/Components/Modals";
 
 const ClubManage = () => {
   const { openModal } = useModal()
+  const { mutate: modifyClub } = useModifyClub();
 
   const {
     data: clubListData,
     isLoading: clubListLoading,
     isError: clubListError
   } = useGetClubList()
+
+  const handleChangeStatus = (clubId: number) => {
+    try {
+      modifyClub({ clubId }, {
+        onSuccess: () => {
+          window.location.reload();
+        },
+        onError: (error) => {
+          console.log(error.message);
+        }
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleClickDelete = (clubId: number) => {
+    openModal('DeleteClub')
+    DeleteClub({clubId})
+  };
 
   return (
     <Content>
@@ -31,28 +53,36 @@ const ClubManage = () => {
         {clubListLoading && <div>Loading...</div>}
         {clubListError && <div>Error</div>}
         {clubListData && (
-          <>
-            <TableHeader>
-              <TableTitle>현상태</TableTitle>
-              <TableTitle>동아리명</TableTitle>
-            </TableHeader>
+        <>
+          <TableHeader>
+            <TableTitle>현상태</TableTitle>
+            <TableTitle>동아리명</TableTitle>
+          </TableHeader>
 
-            <TableContent>
-              {clubListData.clubs.map(({ clubId, clubName, isActive = false }: ClubType) => (
-                <Tr key={clubId}>
-                  <StateText active={isActive}>
-                    {isActive ? "활성화" : "비활성화"}
-                  </StateText>
-                  <ClubName active={isActive}>{clubName}</ClubName>
-                  <ButtonWrap>
-                    <ActiveButton text="상태 변경" active={true} />
-                    <ActiveButton text="삭제하기" active={false} />
-                  </ButtonWrap>
-                </Tr>
-              ))}
-            </TableContent>
-          </>
-        )}
+          <TableContent>
+            {Club.clubs.map(({ clubId, clubName, isActive = false }: ClubType) => (
+              <Tr key={clubId}>
+                <StateText active={isActive}>
+                  {isActive ? "활성화" : "비활성화"}
+                </StateText>
+                <ClubName active={isActive}>{clubName}</ClubName>
+                <ButtonWrap>
+                  <ActiveButton
+                    text="상태 변경"
+                    active={true}
+                    onClick={() => handleChangeStatus(clubId)}
+                  />
+                  <ActiveButton
+                    text="삭제하기"
+                    active={false}
+                    onClick={() => handleClickDelete(clubId)}
+                  />
+                </ButtonWrap>
+              </Tr>
+            ))}
+          </TableContent>
+        </>
+      )}
       </Table>
     </Content>
   )

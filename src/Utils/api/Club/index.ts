@@ -36,28 +36,27 @@ export const useGetClubList = () => {
  */
 
 export const useAddClub = () => {
-  const { handleError } = ApiError();
+  const { handleError } = ApiError()
 
-  return useMutation<{ club_id: number }, Error, { isActive: boolean; clubName: string }>(
-    async ({ isActive, clubName }) => {
+  return useMutation<{clubId: number}, Error, { isActive: boolean, clubName: string }>({
+    mutationFn: async (params) => {
       try {
         const response = await instance.post(`${path}`, {
-          isActive,
-          clubName,
-        });
+          isActive: params.isActive,
+          clubName: params.isActive
+        })
         toast.success("동아리가 성공적으로 추가되었습니다.", { duration: 1500 });
         return response.data;
-      } catch (error: any) {
-        if (error.response?.status === 409) {
-          toast.error("입력하신 동아리 이름은 이미 존재합니다. 다른 이름을 입력해주세요.", { duration: 1500 });
+      } catch(error: any) {
+        if(error.response?.status === 409) {
+          toast.error("입력하신 동아리 이름은 이미 존재합니다. 다른 이름을 입력해주세요.", { duration: 1500 })
         }
-        handleError(error);
-        throw error;
+        handleError(error)
+        throw error
       }
     }
-  );
-};
-
+  })
+}
 
 /**
  * 동아리 개별 상태 수정 API
@@ -65,18 +64,21 @@ export const useAddClub = () => {
  * @returns
  */
 
-export const useModifyClub = (clubId: number) => {
-  const { handleError } = ApiError();
+export const useModifyClub = () => {
+  const { handleError } = ApiError()
 
-  return useMutation(async () => {
-    try {
-      const response = await instance.patch(`${path}/modify/${clubId}`, { clubId });
-      toast.success("동아리 정보 변경을 성공했습니다.", { duration: 1500 });
-      return response.data;
-    } catch (error) {
-      handleError(error);
+  return useMutation<ClubType[], Error, { clubId: number }>({
+    mutationFn: async({ clubId }) => {
+      try {
+        const response = await instance.patch(`${path}/modify/${clubId}`, { clubId });
+        toast.success("동아리 정보 변경을 성공했습니다.", { duration: 1500 });
+        return response.data
+      } catch(error) {
+        handleError(error)
+        throw error
+      }
     }
-  });
+  })
 }
 
 /**
@@ -85,16 +87,18 @@ export const useModifyClub = (clubId: number) => {
  * @returns
  */
 
-export const useDeleteClub = (clubId: number) => {
-  const { handleError } = ApiError();
+export const useDeleteClub = () => {
+  const { handleError } = ApiError()
 
-  return useMutation(async () => {
-    try {
-      await instance.delete(`${path}/${clubId}`);
-      toast.success("동아리를 성공적으로 삭제하였습니다.", { duration: 1500 });
-      return true
-    } catch (error) {
-      handleError(error);
+  return useMutation<void, Error, { clubId: number }>({
+    mutationFn: async (params) => {
+      try {
+        const response = await instance.delete(`${path}/${params.clubId}`);
+        return response.data
+      } catch (error: any) {
+        handleError(error)
+        throw error
+      }
     }
-  });
+  })
 }
