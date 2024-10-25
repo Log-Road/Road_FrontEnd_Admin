@@ -5,9 +5,17 @@ import { color, font } from "@/Styles";
 import ActiveButton from "@/Components/Management/ActiveButton";
 import { Club } from "@/Components/Dummy/Club";
 import { useModal } from "@/Context/ModalContext";
+import { useGetClubList, useModifyClub, useDeleteClub } from "@/Utils/api/Club";
+import { ClubType } from "@/Models/ClubList";
 
 const ClubManage = () => {
   const { openModal } = useModal()
+
+  const {
+    data: clubListData,
+    isLoading: clubListLoading,
+    isError: clubListError
+  } = useGetClubList()
 
   return (
     <Content>
@@ -20,25 +28,31 @@ const ClubManage = () => {
       </PageInfoWrap>
 
       <Table>
-        <TableHeader>
-          <TableTitle>현상태</TableTitle>
-          <TableTitle>동아리명</TableTitle>
-        </TableHeader>
+        {clubListLoading && <div>Loading...</div>}
+        {clubListError && <div>Error</div>}
+        {clubListData && (
+          <>
+            <TableHeader>
+              <TableTitle>현상태</TableTitle>
+              <TableTitle>동아리명</TableTitle>
+            </TableHeader>
 
-        <TableContent>
-          {Club.map(({ club_id, club_name, is_active = false }) => (
-            <Tr key={club_id}>
-              <StateText active={is_active}>
-                {is_active ? "활성화" : "비활성화"}
-              </StateText>
-              <ClubName active={is_active}>{club_name}</ClubName>
-              <ButtonWrap>
-                <ActiveButton text="상태 변경" active={true} />
-                <ActiveButton text="삭제하기" active={false} />
-              </ButtonWrap>
-            </Tr>
-          ))}
-        </TableContent>
+            <TableContent>
+              {clubListData.clubs.map(({ clubId, clubName, isActive = false }: ClubType) => (
+                <Tr key={clubId}>
+                  <StateText active={isActive}>
+                    {isActive ? "활성화" : "비활성화"}
+                  </StateText>
+                  <ClubName active={isActive}>{clubName}</ClubName>
+                  <ButtonWrap>
+                    <ActiveButton text="상태 변경" active={true} />
+                    <ActiveButton text="삭제하기" active={false} />
+                  </ButtonWrap>
+                </Tr>
+              ))}
+            </TableContent>
+          </>
+        )}
       </Table>
     </Content>
   )
