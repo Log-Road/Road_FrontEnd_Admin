@@ -4,8 +4,12 @@ import { Plus } from "@/Assets";
 import { color, font } from "@/Styles";
 import ActiveButton from "@/Components/Management/ActiveButton";
 import { Club } from "@/Components/Dummy/Club";
+import { useModal } from "@/Context/ModalContext";
 
 const ClubManage = () => {
+
+  const { openModal } = useModal()
+  
   return (
     <Content>
       <PageInfoWrap>
@@ -13,7 +17,7 @@ const ClubManage = () => {
           <Title>동아리 관리</Title>
           <Info>학교 동아리 정보를 편집하고 관리할 수 있어요</Info>
         </TextWrap>
-        <Button icon={Plus} text="동아리 추가" />
+        <Button icon={Plus} text="동아리 추가" onClick={() => openModal()}/>
       </PageInfoWrap>
 
       <Table>

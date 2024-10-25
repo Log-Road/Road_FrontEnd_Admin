@@ -1,9 +1,11 @@
 import Router from "@/Router/Router";
+import ModalProvider from "@/Context/ModalContext";
 
 function App() {
-
   return (
-    <Router />
+    <ModalProvider>
+      <Router />
+    </ModalProvider>
   );
 }
 
