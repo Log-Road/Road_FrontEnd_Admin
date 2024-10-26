@@ -2,7 +2,7 @@ import styled from "styled-components"
 import * as S from "./style"
 import Button from "@/Components/Common/Button"
 import { font, color } from "@/Styles"
-import Tag from "@/Components/Register/AwardTag"
+import Tag from "@/Components/Common/Tag"
 
 const Check = () => {
   return (
