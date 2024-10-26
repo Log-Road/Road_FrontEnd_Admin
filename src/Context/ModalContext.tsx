@@ -4,7 +4,8 @@ export type ModalStateType =
   | ''
   | 'AddClub'
   | 'EditClub'
-  | 'DeleteClub';
+  | 'DeleteClub'
+  | 'EditStudent';
 
 type ModalType = {
   modalState: ModalStateType,
