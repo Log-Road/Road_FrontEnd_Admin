@@ -24,7 +24,7 @@ export default function AssentButton({
       case "CANCEL":
         return active ? color.red[300] : color.red[200];
       case "PREV":
-        return color.gray[300];
+        return active ? color.gray[400] : color.gray[300];
       default:
         return color.black;
     }
@@ -52,6 +52,8 @@ const Container = styled.button<{ width: string; type: "CHECK" | "CANCEL" | "PRE
   color: ${color.white};
   
   &:hover {
-    background-color: ${({ type }) => type === "CHECK" ? color.blue[500] : color.red[300]};
+    background-color: ${({ type }) => type === "CHECK" ? color.blue[500]
+    : type === "CANCEL" ? color.red[300]
+      : color.gray[400]};
   }
 `;
