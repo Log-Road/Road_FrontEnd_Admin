@@ -1,3 +1,4 @@
+import * as S from "./style"
 import styled from "styled-components"
 import Input from "@/Components/Common/Input"
 import Calendar from "@/Pages/Register/Calendar"
@@ -10,16 +11,16 @@ import Button from "@/Components/Common/Button"
 const Register = () => {
   const options = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10']
   return (
-    <Container>
-      <Header>
-        <Title>대회 등록하기</Title>
-        <InfoWrap>
-          <Info>대회에 대한 설명과 필수 정보를 입력해주세요</Info>
-          <Info>등록 버튼을 누른 직후 대회가 진행됩니다</Info>
-        </InfoWrap>
-      </Header>
+    <S.Container>
+      <S.Header>
+        <S.Title>대회 등록하기</S.Title>
+        <S.InfoWrap>
+          <S.Info>대회에 대한 설명과 필수 정보를 입력해주세요</S.Info>
+          <S.Info>등록 버튼을 누른 직후 대회가 진행됩니다</S.Info>
+        </S.InfoWrap>
+      </S.Header>
 
-      <Content>
+      <S.Content>
         <Row>
           <FillText>대회명</FillText>
           <Input placeholder="대회명을 입력해주세요" />
@@ -57,14 +58,14 @@ const Register = () => {
                 />
               </PlusButton>
             </Wrap>
-            <TagWrap>
+            <S.TagWrap>
               <RemovableTag text="금상" count="3" />
-            </TagWrap>
+            </S.TagWrap>
           </AwardWrap>
         </Row>
-      </Content>
+      </S.Content>
 
-      <ButtonWrap>
+      <S.ButtonWrap>
         <Button
           width="200px"
           text="뒤로가기"
@@ -76,44 +77,12 @@ const Register = () => {
           text="다음"
           onClick={() => { }}
         />
-      </ButtonWrap>
-    </Container>
+      </S.ButtonWrap>
+    </S.Container>
   )
 }
 
 export default Register
-
-const Container = styled.div`
-width: 50vw;
-display: flex;
-flex-direction: column;
-align-items: center;
-padding: 80px 0;
-gap: 50px;
-`
-
-const InfoWrap = styled.div`
-display: flex;
-flex-direction: column;
-align-items: center;
-`
-
-const Header = styled.div`
-display: flex;
-flex-direction: column;
-align-items: center;
-gap: 12px;
-`
-
-const Content = styled.div`
-display: flex;
-flex-direction: column;
-gap: 20px;
-padding: 28px 40px 32px;
-border-radius: 20px;
-background-color: ${color.white};
-box-shadow : 0 10px 100px 10px rgba(0, 0, 0, 0.2);
-`
 
 const Row = styled.div`
 display: flex;
@@ -144,33 +113,13 @@ flex-direction: column;
 gap: 8px;
 `
 
-const TagWrap = styled.div`
-display: flex;
-flex-wrap: wrap;
-`
-
 const PlusButton = styled.button`
 border: none;
 border-radius: 8px;
 padding: 4px 8px;
 `
 
-const ButtonWrap = styled.div`
-  display: flex;
-  gap: 8px;
-`
-
 const FillText = styled.p`
 width: 240px;
 ${font.medium14}
-`
-
-const Title = styled.p`
-${font.semi24}
-color: ${color.white};
-`
-
-const Info = styled.p`
-${font.regular12}
-color: ${color.white};
 `
