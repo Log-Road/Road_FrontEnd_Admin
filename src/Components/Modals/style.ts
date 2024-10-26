@@ -38,3 +38,34 @@ border: none;
 border-radius: 4px;
 border: 1px solid ${color.gray[200]};
 `
+
+export const Content = styled.div`
+display: flex;
+flex-direction: column;
+align-items: center;
+gap: 20px;
+` 
+
+export const InfoWrap = styled.div`
+display: flex;
+flex-direction: column;
+gap: 12px;
+align-items: center;
+`
+
+export const Button = styled.div`
+width: 100%;
+display: flex;
+gap: 8px;
+`
+
+export const TextWrap = styled.div`
+display: flex;
+flex-direction: column;
+align-items: center;
+`
+
+export const detailText = styled.div`
+${font.regular14}
+color: ${color.gray[600]};
+`

@@ -3,7 +3,14 @@ import { X } from "@/Assets";
 import { color } from "@/Styles";
 import styled from "styled-components";
 import { useModal } from "@/Context/ModalContext";
-import { AddClub, EditClub, DeleteClub, EditStudent } from "@/Components/Modals";
+import {
+  AddClub,
+  EditClub,
+  DeleteClub,
+  EditStudent,
+  PostApprove,
+  PostRefuse
+} from "@/Components/Modals";
 
 export default function Modal() {
   const { closeModal, modalState, modalData } = useModal();
@@ -22,6 +29,8 @@ export default function Modal() {
       case 'EditClub': return modalData ? <EditClub clubId={modalData} /> : null;
       case 'DeleteClub': return modalData ? <DeleteClub clubId={modalData} /> : null;
       case 'EditStudent': return <EditStudent />
+      case 'PostApprove': return <PostApprove />
+      case 'PostRefuse': return <PostRefuse />
       default: return null
     }
   }
