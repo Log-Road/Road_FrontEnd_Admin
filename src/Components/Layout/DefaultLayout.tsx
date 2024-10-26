@@ -5,7 +5,7 @@ import styled from "styled-components";
 import Modal from "@/Components/Common/Modal";
 import { useModal } from "@/Context/ModalContext";
 
-export default function Layout() {
+export default function DefaultLayout() {
   const { isOpen } = useModal()
 
   return (
