@@ -5,7 +5,7 @@ interface PropsType {
   width?: string;
   text?: string;
   active?: boolean;
-  type?: "CHECK" | "CANCEL";
+  type?: "CHECK" | "CANCEL" | "PREV";
   onClick?: () => void;
 }
 
@@ -23,6 +23,8 @@ export default function AssentButton({
         return active ? color.blue[500] : color.blue[300];
       case "CANCEL":
         return active ? color.red[300] : color.red[200];
+      case "PREV":
+        return color.gray[300];
       default:
         return color.black;
     }
@@ -41,7 +43,7 @@ export default function AssentButton({
   );
 }
 
-const Container = styled.button<{ width: string; type: "CHECK" | "CANCEL"; active: boolean; bgColor: string; }>`
+const Container = styled.button<{ width: string; type: "CHECK" | "CANCEL" | "PREV"; active: boolean; bgColor: string; }>`
   width: ${({ width }) => width};
   padding: 8px;
   border: none;
@@ -50,6 +52,6 @@ const Container = styled.button<{ width: string; type: "CHECK" | "CANCEL"; activ
   color: ${color.white};
   
   &:hover {
-    background-color: ${({ type }) => type === "CHECK" ?  color.blue[500] : color.red[300]};
+    background-color: ${({ type }) => type === "CHECK" ? color.blue[500] : color.red[300]};
   }
 `;
