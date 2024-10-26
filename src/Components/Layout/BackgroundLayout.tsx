@@ -13,11 +13,11 @@ export default function DefaultLayout() {
     <Container>
       <Header />
       <Content>
-        <BackgroundImageWrap />
         <Outlet />
       </Content>
       <Footer />
       {isOpen && <Modal />}
+      <BackgroundImageWrap />
     </Container>
   )
 }
@@ -36,6 +36,7 @@ const Content = styled.div`
 display: flex;
 justify-content: center;
 min-height: calc(100vh - 248px);
+z-index: 10;
 `
 
 const BackgroundImageWrap = styled.img`
