@@ -7,8 +7,10 @@ import { Person } from "@/Components/Dummy/Person";
 import { PersonType } from "@/Models/Manage";
 import { PersonStatus } from "@/Utils/Status";
 import SearchInfo from "@/Pages/PersonManage/SearchInfo";
+import { useModal } from "@/Context/ModalContext";
 
 const PersonManage = () => {
+  const { openModal } = useModal()
 
   return (
     <Container>
@@ -18,7 +20,7 @@ const PersonManage = () => {
           <Info>학생 정보를 편집하고 관리할 수 있어요</Info>
         </HeaderText>
         <ButtonWrap>
-          <Button icon={Plus} text="인원 문서 추가하기" onClick={() => { }} />
+          <Button icon={Plus} text="인원 문서 추가하기" onClick={() => {}} />
           <Button icon={Exchange} text="인원 수정 추가하기" onClick={() => { }} />
         </ButtonWrap>
       </Header>
@@ -28,7 +30,7 @@ const PersonManage = () => {
       <Table>
         <TableHeader>
           {["학년", "반", "번호", "이름", "상태"].map((value) => (
-            <TableTitle>{value}</TableTitle>
+            <TableTitle key={value}>{value}</TableTitle>
           ))}
         </TableHeader>
 
@@ -49,7 +51,7 @@ const PersonManage = () => {
               <ActiveButton
                 text="수정하기"
                 active={false}
-                onClick={() => { }}
+                onClick={() => openModal('EditStudent')}
               />
             </TableRow>
           ))}

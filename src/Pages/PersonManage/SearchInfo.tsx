@@ -8,8 +8,8 @@ import { Reset } from "@/Assets"
 const SearchInfo = () => {
   return (
     <Container>
-      {SearchItems.map(({ label, text, options }) => (
-        <div>
+      {SearchItems.map(({ label, text, options }, index) => (
+        <div key={index}>
           <Label>{label}</Label>
           <DropBox text={text} options={options} />
         </div>
@@ -36,7 +36,7 @@ border: 1px solid ${color.gray[200]};
 `
 
 const SearchItem = styled.div`
-  flex-grow: 1;
+flex-grow: 1;
 `
 
 const Label = styled.p`

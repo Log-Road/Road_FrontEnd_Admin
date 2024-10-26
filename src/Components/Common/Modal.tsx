@@ -3,7 +3,7 @@ import { X } from "@/Assets";
 import { color } from "@/Styles";
 import styled from "styled-components";
 import { useModal } from "@/Context/ModalContext";
-import { AddClub, EditClub, DeleteClub } from "@/Components/Modals";
+import { AddClub, EditClub, DeleteClub, EditStudent } from "@/Components/Modals";
 
 export default function Modal() {
   const { closeModal, modalState, modalData } = useModal();
@@ -21,6 +21,7 @@ export default function Modal() {
       case 'AddClub': return <AddClub />
       case 'EditClub': return modalData ? <EditClub clubId={modalData} /> : null;
       case 'DeleteClub': return modalData ? <DeleteClub clubId={modalData} /> : null;
+      case 'EditStudent': return <EditStudent />
       default: return null
     }
   }
@@ -62,7 +63,7 @@ display: flex;
 flex-direction: column;
 justify-content: space-between;
 padding: 20px 20px 30px;
-gap: 8px;
+gap: 12px;
 border-radius: 20px;
 border: 1.2px solid ${color.gray[200]};
 background-color: ${color.white};
