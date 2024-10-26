@@ -88,7 +88,7 @@ width: 50vw;
 display: flex;
 flex-direction: column;
 align-items: center;
-padding: 100px 0;
+padding: 80px 0;
 gap: 50px;
 `
 
@@ -112,6 +112,7 @@ gap: 20px;
 padding: 28px 40px 32px;
 border-radius: 20px;
 background-color: ${color.white};
+box-shadow : 0 10px 100px 10px rgba(0, 0, 0, 0.2);
 `
 
 const Row = styled.div`
