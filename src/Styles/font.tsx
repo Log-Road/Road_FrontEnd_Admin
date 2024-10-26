@@ -21,8 +21,10 @@ const font = {
   medium18: fontGenerator(500, 18, 140, 0),
   medium16: fontGenerator(500, 16, 140, 0),
   medium14: fontGenerator(500, 14, 140, 0),
+  medium12: fontGenerator(500, 12, 140, 0),
   regular18: fontGenerator(400, 18, 140, 0),
   regular16: fontGenerator(400, 16, 140, 0),
+  regular14: fontGenerator(400, 14, 140, 0),
   regular12: fontGenerator(400, 12, 140, 0),
 };
 
