@@ -4,11 +4,12 @@ import { useState } from "react";
 import styled from "styled-components";
 
 interface DropBoxProps {
+  width?: string,
   text?: string;
   options?: Array<string>;
 }
 
-const DropBox = ({ text = '', options }: DropBoxProps) => {
+const DropBox = ({ width = '150px', text = '', options }: DropBoxProps) => {
   const [showOptions, setShowOptions] = useState<boolean>(false);
   const [selected, setSelected] = useState<string>(text);
 
@@ -18,7 +19,7 @@ const DropBox = ({ text = '', options }: DropBoxProps) => {
   }
 
   return (
-    <Container>
+    <Container width={width}>
       <DropBoxContainer onClick={() => setShowOptions(!showOptions)}>
         <SelectedText>{selected}</SelectedText>
         <Arrow
@@ -42,16 +43,16 @@ const DropBox = ({ text = '', options }: DropBoxProps) => {
 
 export default DropBox;
 
-const Container = styled.div`
+const Container = styled.div<{ width: string }>`
   position: relative;
-  min-width: 150px;
+  min-width: ${({ width }) => width};
 `
 
 const DropBoxContainer = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 4px 12px 4px 16px;
+  padding: 6px 12px 6px 16px;
   gap: 16px;
   border-radius: 8px;
   background-color: ${color.gray[100]};
