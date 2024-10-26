@@ -51,7 +51,7 @@ const DropBoxContainer = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 4px 12px;
+  padding: 4px 12px 4px 16px;
   gap: 16px;
   border-radius: 8px;
   background-color: ${color.gray[100]};
@@ -77,4 +77,5 @@ const OptionItem = styled.div`
 
 const SelectedText = styled.p`
   ${font.medium12}
+  color: ${color.gray[600]};
 `;
