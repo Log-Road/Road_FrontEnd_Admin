@@ -1,7 +1,7 @@
 import { color, font } from "@/Styles";
 import styled from "styled-components";
 
-export default function AwardTag({ text }: { text: string }) {
+export default function Tag({ text }: { text: string }) {
   return (
     <TagContainer>
       <Text>{text}</Text>
