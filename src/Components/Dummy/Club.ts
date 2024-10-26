@@ -1,4 +1,4 @@
-import { ClubListDefaultType } from "@/Models/ClubList";
+import { ClubListDefaultType } from "@/Models/Manage";
 
 export const Club: ClubListDefaultType = {
   "clubs": [

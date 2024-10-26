@@ -1,6 +1,6 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
 import instance from '@/Utils/axios';
-import { ClubListDefaultType, ClubType } from '@/Models/ClubList';
+import { ClubListDefaultType, ClubType } from '@/Models/Manage';
 import ApiError from '@/Utils/axios/ApiError';
 import toast from 'react-hot-toast';
 
