@@ -5,6 +5,7 @@ import ClubManage from "@/Pages/ClubManage";
 import PersonManage from "@/Pages/PersonManage";
 import ContestManage from "@/Pages/ContestManage"
 import Register from "@/Pages/Register";
+import Check from "@/Pages/Register/Check";
 
 export default function Router() {
   return (
@@ -18,6 +19,7 @@ export default function Router() {
 
         <Route path="/" element={<BackgroundLayout />}>
           <Route path="register" element={<Register />} />
+          <Route path="check" element={<Check />} />
         </Route>
       </Routes>
     </BrowserRouter>

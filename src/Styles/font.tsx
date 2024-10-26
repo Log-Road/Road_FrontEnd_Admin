@@ -18,6 +18,7 @@ const font = {
   semi18: fontGenerator(600, 18, 140, 0),
   semi16: fontGenerator(600, 16, 140, 0),
   semi12: fontGenerator(600, 12, 140, 0),
+  medium24: fontGenerator(500, 24, 140, 0),
   medium20: fontGenerator(500, 20, 140, 0),
   medium18: fontGenerator(500, 18, 140, 0),
   medium16: fontGenerator(500, 16, 140, 0),
