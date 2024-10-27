@@ -2,7 +2,7 @@ import { useMutation, useQuery } from "@tanstack/react-query";
 import instance from "@/Utils/axios";
 import ApiError from "@/Utils/axios/ApiError";
 import toast from "react-hot-toast";
-import { PersonListDefaultType, PersonStatusType } from "@/Models/Manage";
+import { PersonListDefaultType, PersonType, PersonStatusType } from "@/Models/Manage";
 
 const path = '/person'
 
@@ -54,6 +54,38 @@ export const useSearchPerson = (
             status,
             query,
           },
+        });
+        return response.data;
+      } catch (error) {
+        handleError(error);
+        throw error;
+      }
+    },
+  });
+};
+
+/**
+ * 인원 개별 수정 API
+ * @params grade / class / status / query
+ * @returns 성공시
+ */
+
+export const useEditPerson = (
+  grade: number | null,
+  classNumber: number | null,
+  status: PersonStatusType | null,
+  query: string | null
+) => {
+  const { handleError } = ApiError();
+
+  return useMutation<PersonType[], Error, { personId: number }>({
+    mutationFn: async ({ personId }) => {
+      try {
+        const response = await instance.patch(`${path}/individual/${personId}`, {
+          grade,
+          class: classNumber,
+          status,
+          query,
         });
         return response.data;
       } catch (error) {
