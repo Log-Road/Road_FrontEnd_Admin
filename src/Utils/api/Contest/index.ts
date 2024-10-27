@@ -1,9 +1,8 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
 import instance from '@/Utils/axios';
-import { ClubListDefaultType, ClubType } from '@/Models/Manage';
 import ApiError from '@/Utils/axios/ApiError';
 import toast from 'react-hot-toast';
-import { ContestDetailType } from "@/Models/Manage";
+import { ContestDetailType, ContestDefaultType } from "@/Models/Manage";
 
 const path = '/competition'
 
@@ -16,7 +15,7 @@ const path = '/competition'
 export const useGetContestDetail = (id: string) => {
   const { handleError } = ApiError();
 
-  return useQuery<ContestDetailType, Error>({
+  return useQuery<ContestDetailType[], Error>({
     queryKey: ["ContestDetail", id],
     queryFn: async () => {
       try {
@@ -30,3 +29,26 @@ export const useGetContestDetail = (id: string) => {
     enabled: !!id
   });
 };
+
+/**
+ * 대회 목록 조회 API
+ * @params page
+ * @returns 대회 목록 data
+ */
+
+export const useGetContestList = (page: string) => {
+  const { handleError } = ApiError()
+
+  return useQuery<ContestDefaultType[], Error>({
+    queryKey: ["ContestList", page],
+    queryFn: async () => {
+      try {
+        const response = await instance.get<ContestDefaultType[]>(`${path}/:${page}`)
+        return response.data
+      } catch(error) {
+        handleError(error);
+        throw error;
+      }
+    }
+  })
+}
