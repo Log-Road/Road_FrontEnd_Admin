@@ -50,3 +50,26 @@ export const useAwarding = () => {
     },
   });
 };
+
+/**
+ * 투표율 조회 API
+ * @params id
+ * @returns 투표 data
+ */
+
+export const useGetVote = (id: string) => {
+  const { handleError } = ApiError()
+
+  return useQuery<{ student: number; teacher: number }, Error>({
+    queryKey: ["Vote", id],
+    queryFn: async () => {
+      try {
+        const response = await instance.get(`${path}/per/${id}`)
+        return response.data
+      } catch (error) {
+        handleError(error)
+        throw error
+      }
+    }
+  })
+}
