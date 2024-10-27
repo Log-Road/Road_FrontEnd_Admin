@@ -40,3 +40,14 @@ export interface ContestDefaultType {
   statusCode: number;
   statusMsg: string;
 }
+
+export interface ContestDetailType {
+  id: string,
+  name: string,
+  status: ContestStatusType,
+  startDate: string,
+  endDate: string,
+  purpose: string,
+  place: string,
+  audience: string
+}
