@@ -103,3 +103,19 @@ export interface NoParticipate {
 export interface NoParticipateList {
   list: NoParticipate[]
 }
+
+export interface ProjectType {
+  id: string,
+  status: string,
+  name: string,
+  image: string,
+  authorCategory: string,
+  member: Array<string>,
+  introduction: string,
+  createdAt: string,
+  like: number
+}
+
+export interface ProjectListType {
+  list: ProjectType[]
+}
