@@ -8,9 +8,16 @@ import { PersonType } from "@/Models/Manage";
 import { PersonStatus } from "@/Utils/Status";
 import SearchInfo from "@/Pages/PersonManage/SearchInfo";
 import { useModal } from "@/Context/ModalContext";
+import { useGetPersonList } from "@/Utils/api/Person";
 
 const PersonManage = () => {
   const { openModal } = useModal()
+
+  const {
+    data: personListData,
+    isLoading: personListLoading,
+    isError: personListError
+  } = useGetPersonList()
 
   return (
     <Container>
@@ -20,7 +27,7 @@ const PersonManage = () => {
           <Info>학생 정보를 편집하고 관리할 수 있어요</Info>
         </HeaderText>
         <ButtonWrap>
-          <Button icon={Plus} text="인원 문서 추가하기" onClick={() => {}} />
+          <Button icon={Plus} text="인원 문서 추가하기" onClick={() => { }} />
           <Button icon={Exchange} text="인원 수정 추가하기" onClick={() => { }} />
         </ButtonWrap>
       </Header>
@@ -28,34 +35,40 @@ const PersonManage = () => {
       <SearchInfo />
 
       <Table>
-        <TableHeader>
-          {["학년", "반", "번호", "이름", "상태"].map((value) => (
-            <TableTitle key={value}>{value}</TableTitle>
-          ))}
-        </TableHeader>
+        {personListLoading && <div>Loading...</div>}
+        {personListError && <div>Error</div>}
+        {personListData && (
+          <>
+            <TableHeader>
+              {["학년", "반", "번호", "이름", "상태"].map((value) => (
+                <TableTitle key={value}>{value}</TableTitle>
+              ))}
+            </TableHeader>
 
-        <TableBody>
-          {Person.arr.map(({ personId, grade, class: classId, number, name, status }: PersonType) => (
-            <TableRow key={personId}>
-              <TableTextWrap>
-                <Text>{grade}</Text>
-                <Text>{classId}</Text>
-                <Text>{number}</Text>
-                <Text>{name}</Text>
+            <TableBody>
+              {Person.arr.map(({ personId, grade, class: classId, number, name, status }: PersonType) => (
+                <TableRow key={personId}>
+                  <TableTextWrap>
+                    <Text>{grade}</Text>
+                    <Text>{classId}</Text>
+                    <Text>{number}</Text>
+                    <Text>{name}</Text>
 
-                <StateText active={status === "ENROLL"}>
-                  {PersonStatus(status)}
-                </StateText>
-              </TableTextWrap>
+                    <StateText active={status === "ENROLL"}>
+                      {PersonStatus(status)}
+                    </StateText>
+                  </TableTextWrap>
 
-              <ActiveButton
-                text="수정하기"
-                active={false}
-                onClick={() => openModal('EditStudent')}
-              />
-            </TableRow>
-          ))}
-        </TableBody>
+                  <ActiveButton
+                    text="수정하기"
+                    active={false}
+                    onClick={() => openModal('EditStudent')}
+                  />
+                </TableRow>
+              ))}
+            </TableBody>
+          </>
+        )}
       </Table>
     </Container>
   )
