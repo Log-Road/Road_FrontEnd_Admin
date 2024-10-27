@@ -1,11 +1,11 @@
 import styled from "styled-components"
-import Write from "@/Pages/PostApproval/Write"
+import Write from "@/Pages/ProjectManage/Project"
 import { Status } from "@/Assets"
 import { color, font } from "@/Styles"
 import Approve from "@/Components/PostCard/Approve"
 import Refuse from "@/Components/PostCard/Refuse"
 
-const PostApproval = () => {
+const Post = () => {
   return (
     <Container>
       <Write />
@@ -21,7 +21,7 @@ const PostApproval = () => {
   )
 }
 
-export default PostApproval
+export default Post
 
 const Container = styled.div`
 width: 920px;
