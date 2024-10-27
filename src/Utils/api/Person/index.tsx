@@ -82,10 +82,12 @@ export const useEditPerson = (
     mutationFn: async ({ personId }) => {
       try {
         const response = await instance.patch(`${path}/individual/${personId}`, {
-          grade,
-          class: classNumber,
-          status,
-          query,
+          params: {
+            grade,
+            class: classNumber,
+            status,
+            query,
+          }
         });
         return response.data;
       } catch (error) {
@@ -95,3 +97,51 @@ export const useEditPerson = (
     },
   });
 };
+
+/**
+ * 인원 문서 추가 API
+ * @params
+ * @returns
+ */
+
+export const useAddDocument = () => {
+  const { handleError } = ApiError();
+
+  return useMutation<void, Error, { document: DocumentType }>({
+    mutationFn: async ({ document }) => {
+      try {
+        await instance.post(`${path}/document`, {
+          document,
+        });
+        toast.success("파일이 성공적으로 업로드 되었습니다.", { duration: 1500 });
+      } catch (error) {
+        handleError(error);
+        throw error;
+      }
+    },
+  });
+};
+
+/**
+ * 인원 문서 수정 API
+ * @params 
+ * @returns
+ */
+
+export const useEditDocument = () => {
+  const { handleError } = ApiError()
+
+  return useMutation<void, Error, { document: DocumentType }>({
+    mutationFn: async ({ document }) => {
+      try {
+        await instance.patch(`${path}/document`, {
+          document
+        })
+        toast.success("파일이 성공적으로 업로드 되었습니다.", { duration: 1500 });
+      } catch(error) {
+        handleError(error);
+        throw error;
+      }
+    }
+  })
+}
