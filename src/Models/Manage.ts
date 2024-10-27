@@ -81,3 +81,12 @@ export interface ContestModify {
 export interface RecentContest {
   list: ContestType[]
 }
+
+export interface AwardItem {
+  awardId: string;
+  userId: string[];
+}
+
+export interface AwardingData {
+  list: AwardItem[];
+}
