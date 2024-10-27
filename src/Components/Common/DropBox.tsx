@@ -1,4 +1,4 @@
-import { Arrow } from "@/Assets";
+import { Arrow1 } from "@/Assets";
 import { color, font } from "@/Styles";
 import { useState } from "react";
 import styled from "styled-components";
@@ -22,7 +22,7 @@ const DropBox = ({ width = '150px', text = '', options }: DropBoxProps) => {
     <Container width={width}>
       <DropBoxContainer onClick={() => setShowOptions(!showOptions)}>
         <SelectedText>{selected}</SelectedText>
-        <Arrow
+        <Arrow1
           size={20}
           color={color.gray[500]}
           rotate="bottom"

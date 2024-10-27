@@ -1,4 +1,4 @@
-import { Arrow } from "@/Assets"
+import { Arrow1 } from "@/Assets"
 import styled from "styled-components"
 import { font, color } from "@/Styles"
 
@@ -11,7 +11,7 @@ const Calendar = ({ text }: PropsType) => {
     <>
       <Container>
         <Text>{text}</Text>
-        <Arrow
+        <Arrow1
           size={20}
           color={color.gray[500]}
           rotate="bottom"
