@@ -23,7 +23,7 @@ export interface PersonListDefaultType {
   arr: PersonType[]
 }
 
-type ContestStatusType = "ONGOING" | "IN_PROGRESS" | "PENDING_AWARD" | "CLOSED"
+export type ContestStatusType = "ONGOING" | "IN_PROGRESS" | "PENDING_AWARD" | "CLOSED"
 
 export interface ContestType {
   id: string,
@@ -89,4 +89,33 @@ export interface AwardItem {
 
 export interface AwardingData {
   list: AwardItem[];
+}
+
+export type CategoryType = "student" | "teacher";
+
+export interface NoParticipate {
+  id: string,
+  name: string,
+  number: number,
+  category: CategoryType
+}
+
+export interface NoParticipateList {
+  list: NoParticipate[]
+}
+
+export interface ProjectType {
+  id: string,
+  status: string,
+  name: string,
+  image: string,
+  authorCategory: string,
+  member: Array<string>,
+  introduction: string,
+  createdAt: string,
+  like: number
+}
+
+export interface ProjectListType {
+  list: ProjectType[]
 }
