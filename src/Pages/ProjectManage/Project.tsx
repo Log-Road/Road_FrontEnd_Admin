@@ -3,7 +3,7 @@ import { Heart, Link } from "@/Assets";
 import Tag from "@/Components/Common/Tag";
 import { color, font } from "@/Styles";
 
-const Write = () => {
+const Project = () => {
   return (
     <Container>
       <ContentSection>
@@ -60,7 +60,7 @@ const Write = () => {
   );
 };
 
-export default Write;
+export default Project;
 
 const Container = styled.div`
 width: 720px;

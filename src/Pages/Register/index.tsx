@@ -5,7 +5,7 @@ import Calendar from "@/Pages/Register/Calendar"
 import DropBox from "@/Components/Common/DropBox"
 import { Plus } from "@/Assets"
 import { color, font } from "@/Styles"
-import RemovableTag from "@/Components/Register/RemovableTag"
+import RemovableTag from "@/Components/Management/RemovableTag"
 import Button from "@/Components/Common/Button"
 
 const Register = () => {
