@@ -51,3 +51,18 @@ export interface ContestDetailType {
   place: string,
   audience: string
 }
+
+type Award = {
+  name: string,
+  count: number
+}
+
+export interface ContestCreate {
+  name: string,
+  startDate: string,
+  endDate: string,
+  purpose: string,
+  audience: string,
+  place: string,
+  awards: Award[]
+}

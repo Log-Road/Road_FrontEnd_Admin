@@ -2,7 +2,7 @@ import { useMutation, useQuery } from "@tanstack/react-query";
 import instance from '@/Utils/axios';
 import ApiError from '@/Utils/axios/ApiError';
 import toast from 'react-hot-toast';
-import { ContestDetailType, ContestDefaultType } from "@/Models/Manage";
+import { ContestDetailType, ContestDefaultType, ContestCreate } from "@/Models/Manage";
 
 const path = '/competition'
 
@@ -48,6 +48,28 @@ export const useGetContestList = (page: string) => {
       } catch(error) {
         handleError(error);
         throw error;
+      }
+    }
+  })
+}
+
+/**
+ * 대회 생성 API
+ * @params
+ * @returns id
+ */
+
+export const useAddContest = () => {
+  const { handleError } = ApiError()
+
+  return useMutation<{ id: string }, Error, ContestCreate[]>({
+    mutationFn: async (data: ContestCreate[]) => {
+      try {
+        const response = await instance.post(`${path}`, data)
+        return response.data
+      } catch(error) {
+        handleError(error)
+        throw error
       }
     }
   })
