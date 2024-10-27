@@ -40,3 +40,53 @@ export interface ContestDefaultType {
   statusCode: number;
   statusMsg: string;
 }
+
+export interface ContestDetailType {
+  id: string,
+  name: string,
+  status: ContestStatusType,
+  startDate: string,
+  endDate: string,
+  purpose: string,
+  place: string,
+  audience: string
+}
+
+type Award = {
+  name: string,
+  count: number
+}
+
+export interface ContestCreate {
+  name: string,
+  startDate: string,
+  endDate: string,
+  purpose: string,
+  audience: string,
+  place: string,
+  awards: Award[]
+}
+
+export interface ContestModify {
+  name: string,
+  status: ContestStatusType,
+  startDate: string,
+  endDate: string,
+  purpose: string,
+  audience: string,
+  place: string,
+  awards: Award[]
+}
+
+export interface RecentContest {
+  list: ContestType[]
+}
+
+export interface AwardItem {
+  awardId: string;
+  userId: string[];
+}
+
+export interface AwardingData {
+  list: AwardItem[];
+}

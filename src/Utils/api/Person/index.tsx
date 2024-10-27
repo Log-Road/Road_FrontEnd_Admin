@@ -89,6 +89,7 @@ export const useEditPerson = (
             query,
           }
         });
+        toast.success("학생 정보가 변경되었습니다.", { duration: 1500 });
         return response.data;
       } catch (error) {
         handleError(error);
@@ -115,6 +116,7 @@ export const useAddDocument = () => {
         });
         toast.success("파일이 성공적으로 업로드 되었습니다.", { duration: 1500 });
       } catch (error) {
+        toast.error("파일 업로드가 실패하였습니다", { duration: 1500 });
         handleError(error);
         throw error;
       }
@@ -139,6 +141,7 @@ export const useEditDocument = () => {
         })
         toast.success("파일이 성공적으로 업로드 되었습니다.", { duration: 1500 });
       } catch(error) {
+        toast.error("파일 업로드가 실패하였습니다", { duration: 1500 });
         handleError(error);
         throw error;
       }

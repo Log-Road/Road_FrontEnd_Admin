@@ -6,7 +6,7 @@ import ActiveButton from "@/Components/Management/ActiveButton";
 import { Person } from "@/Components/Dummy/Person";
 import { PersonType } from "@/Models/Manage";
 import { PersonStatus } from "@/Utils/Status";
-import SearchInfo from "@/Pages/PersonManage/SearchInfo";
+import SearchInfo from "@/Pages/PersonManage/Search";
 import { useModal } from "@/Context/ModalContext";
 import { useGetPersonList } from "@/Utils/api/Person";
 
