@@ -24,14 +24,14 @@ export const useGetContestDetail = (id: string) => {
     queryKey: ["ContestDetail", id],
     queryFn: async () => {
       try {
-        const response = await instance.get(`${path}/inform/${id}`); // URL에서 id를 사용
+        const response = await instance.get<ContestDetailType[]>(`${path}/inform/${id}`);
         return response.data;
       } catch (error) {
         handleError(error);
         throw error;
       }
     },
-    enabled: !!id
+    enabled: !! id
   });
 };
 
@@ -80,3 +80,26 @@ export const useAddContest = () => {
     }
   })
 }
+
+/**
+ * 대회 수정 API
+ * @params
+ * @returns id
+ */
+
+export const useEditContest = () => {
+  const { handleError } = ApiError();
+
+  return useMutation<{ id: string }, Error, { id: string; data: ContestModify }>({
+    mutationFn: async ({ id, data }) => {
+      try {
+        const response = await instance.patch(`${path}/${id}`, data);
+        toast.success("대회가 성공적으로 수정되었습니다", { duration: 1500 });
+        return response.data;
+      } catch (error) {
+        handleError(error);
+        throw error;
+      }
+    },
+  });
+};

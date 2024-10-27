@@ -66,3 +66,14 @@ export interface ContestCreate {
   place: string,
   awards: Award[]
 }
+
+export interface ContestModify {
+  name: string,
+  status: ContestStatusType,
+  startDate: string,
+  endDate: string,
+  purpose: string,
+  audience: string,
+  place: string,
+  awards: Award[]
+}
