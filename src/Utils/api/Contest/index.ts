@@ -2,7 +2,12 @@ import { useMutation, useQuery } from "@tanstack/react-query";
 import instance from '@/Utils/axios';
 import ApiError from '@/Utils/axios/ApiError';
 import toast from 'react-hot-toast';
-import { ContestDetailType, ContestDefaultType, ContestCreate } from "@/Models/Manage";
+import {
+  ContestDetailType,
+  ContestDefaultType,
+  ContestCreate,
+  ContestModify
+} from "@/Models/Manage";
 
 const path = '/competition'
 
@@ -66,6 +71,7 @@ export const useAddContest = () => {
     mutationFn: async (data: ContestCreate[]) => {
       try {
         const response = await instance.post(`${path}`, data)
+        toast.success("대회가 성공적으로 생성되었습니다.", { duration: 1500 });
         return response.data
       } catch(error) {
         handleError(error)

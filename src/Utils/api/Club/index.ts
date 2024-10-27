@@ -94,6 +94,7 @@ export const useDeleteClub = () => {
     mutationFn: async (params) => {
       try {
         const response = await instance.delete(`${path}/${params.clubId}`);
+        toast.success("동아리가 삭제되었습니다.", { duration: 1500 })
         return response.data
       } catch (error: any) {
         handleError(error)
