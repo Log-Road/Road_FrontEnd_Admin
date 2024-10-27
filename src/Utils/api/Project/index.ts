@@ -31,3 +31,24 @@ export const useCategoryProjectList = (
     }
   })
 }
+
+/**
+ * 프로젝트 요청 관리 API
+ * @params
+ * @returns
+ */
+
+export const useProjectRequest = () => {
+  const { handleError } = ApiError();
+
+  return useMutation<void, Error, { data: any }>({
+    mutationFn: async (data) => {
+      try {
+        await instance.post(`${path}`, data);
+      } catch (error) {
+        handleError(error);
+        throw error;
+      }
+    }
+  });
+};
