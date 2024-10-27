@@ -52,3 +52,25 @@ export const useProjectRequest = () => {
     }
   });
 };
+
+/**
+ * 프로젝트 승인 취소 API
+ * @params id
+ * @returns
+ */
+
+export const useCancelApproveProject = () => {
+  const { handleError } = ApiError()
+
+  return useMutation<void, Error, { id: string }>({
+    mutationFn: async(params) => {
+      try {
+        await instance.patch(`${path}/:${params.id}`)
+        toast.success("프로젝트 승인이 취소되었습니다.", { duration: 15000 })
+      } catch (error) {
+        handleError(error)
+        throw error
+      }
+    }
+  })
+}
