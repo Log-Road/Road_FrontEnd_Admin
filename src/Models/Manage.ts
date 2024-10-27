@@ -77,3 +77,7 @@ export interface ContestModify {
   place: string,
   awards: Award[]
 }
+
+export interface RecentContest {
+  list: ContestType[]
+}
