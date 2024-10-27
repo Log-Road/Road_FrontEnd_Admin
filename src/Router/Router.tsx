@@ -6,7 +6,10 @@ import PersonManage from "@/Pages/PersonManage";
 import ContestManage from "@/Pages/ContestManage"
 import Register from "@/Pages/Register";
 import Check from "@/Pages/Register/Check";
-import PostApproval from "@/Pages/PostApproval";
+import Post from "@/Pages/ProjectManage/Post";
+import Main from "@/Pages/Main"
+import ProjectManage from "@/Pages/ProjectManage"
+import Award from "@/Pages/Award";
 
 export default function Router() {
   return (
@@ -16,12 +19,15 @@ export default function Router() {
           <Route path="club" element={<ClubManage />} />
           <Route path="person" element={<PersonManage />} />
           <Route path="contest" element={<ContestManage />} />
+          <Route path="main" element={<Main />} />
+          <Route path="project" element={<ProjectManage />} />
+          <Route path="award" element={<Award />} />
         </Route>
 
         <Route path="/" element={<BackgroundLayout />}>
           <Route path="register" element={<Register />} />
           <Route path="check" element={<Check />} />
-          <Route path="post" element={<PostApproval />} />
+          <Route path="post" element={<Post />} />
         </Route>
       </Routes>
     </BrowserRouter>
