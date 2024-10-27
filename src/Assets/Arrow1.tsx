@@ -12,7 +12,7 @@ const rotationAngles: { [key: string]: string } = {
   left: '90deg',
 };
 
-export const Arrow = ({ size = 24, color = '#000', rotate = 'left', onClick }: PropsType) => {
+export const Arrow1 = ({ size = 24, color = '#000', rotate = 'left', onClick }: PropsType) => {
   const rotation = rotationAngles[rotate] || rotationAngles['left'];
   return (
     <svg
