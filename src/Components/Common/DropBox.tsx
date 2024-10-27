@@ -7,16 +7,20 @@ interface DropBoxProps {
   width?: string,
   text?: string;
   options?: Array<string>;
+  onChange?: (selectedOption: string) => void;
 }
 
-const DropBox = ({ width = '150px', text = '', options }: DropBoxProps) => {
+const DropBox = ({ width = '150px', text = '', options, onChange }: DropBoxProps) => {
   const [showOptions, setShowOptions] = useState<boolean>(false);
   const [selected, setSelected] = useState<string>(text);
 
   const handleOptionClick = (option: string) => {
-    setSelected(option)
-    setShowOptions(false)
-  }
+    setSelected(option);
+    setShowOptions(false);
+    if (onChange) {
+      onChange(option);
+    }
+  };
 
   return (
     <Container width={width}>

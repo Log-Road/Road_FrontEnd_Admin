@@ -8,7 +8,7 @@ export interface ClubListDefaultType {
   clubs: ClubType[]
 }
 
-type ClubStatusType = "ENROLL" | "GRADUATE" | "WITHDRAWAL" | "ABSENCE"
+export type PersonStatusType = "ENROLL" | "GRADUATE" | "WITHDRAWAL" | "ABSENCE"
 
 export interface PersonType {
   personId: number,
@@ -16,7 +16,7 @@ export interface PersonType {
   class: number,
   number: number,
   name: string,
-  status: ClubStatusType
+  status: PersonStatusType
 }
 
 export interface PersonListDefaultType {
