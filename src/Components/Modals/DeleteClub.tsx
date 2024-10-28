@@ -4,11 +4,11 @@ import styled from "styled-components"
 import { color, font } from "@/Styles"
 import { useDeleteClub } from "@/Utils/api/Club";
 
-export default function DeleteClub({ clubId }: { clubId: number }) {
+export default function DeleteClub({ clubId }: { clubId: string }) {
 
   const { mutate: deleteClub } = useDeleteClub();
 
-  const handleClickDelete = (clubId: number) => {
+  const handleClickDelete = (clubId: string) => {
     try {
       deleteClub({ clubId }, {
         onSuccess: () => {

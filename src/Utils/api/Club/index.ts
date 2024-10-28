@@ -1,6 +1,6 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
 import instance from '@/Utils/axios';
-import { ClubListDefaultType, ClubType } from '@/Models/Manage';
+import { ClubListDefaultType, ClubType, ClubListInfoType } from '@/Models/Manage';
 import ApiError from '@/Utils/axios/ApiError';
 import toast from 'react-hot-toast';
 
@@ -14,13 +14,13 @@ const path = '/club'
 
 export const useGetClubList = () => {
   const { handleError } = ApiError();
-
-  return useQuery<ClubListDefaultType[], Error>({
+  
+  return useQuery({
     queryKey: ["ClubList"],
     queryFn: async () => {
       try {
-        const response = await instance.get<ClubListDefaultType[]>(`${path}`);
-        return response.data;
+        const { data } = await instance.get<ClubListInfoType>(`${path}`);
+        return data;
       } catch (error) {
         handleError(error);
         throw error;
@@ -42,8 +42,8 @@ export const useAddClub = () => {
     mutationFn: async (params) => {
       try {
         const response = await instance.post(`${path}`, {
-          isActive: params.isActive,
-          clubName: params.isActive
+          is_active: params.isActive,
+          club_name: params.clubName
         })
         toast.success("동아리가 성공적으로 추가되었습니다.", { duration: 1500 });
         return response.data;
@@ -67,7 +67,7 @@ export const useAddClub = () => {
 export const useModifyClub = () => {
   const { handleError } = ApiError()
 
-  return useMutation<ClubType[], Error, { clubId: number }>({
+  return useMutation<ClubType[], Error, { clubId: string }>({
     mutationFn: async({ clubId }) => {
       try {
         const response = await instance.patch(`${path}/modify/${clubId}`, { clubId });
@@ -90,13 +90,13 @@ export const useModifyClub = () => {
 export const useDeleteClub = () => {
   const { handleError } = ApiError()
 
-  return useMutation<void, Error, { clubId: number }>({
-    mutationFn: async (params) => {
+  return useMutation<void, Error, { clubId: string }>({
+    mutationFn: async ({ clubId }) => {
       try {
-        const response = await instance.delete(`${path}/${params.clubId}`);
+        const response = await instance.delete(`${path}/${clubId}`);
         toast.success("동아리가 삭제되었습니다.", { duration: 1500 })
         return response.data
-      } catch (error: any) {
+      } catch (error) {
         handleError(error)
         throw error
       }

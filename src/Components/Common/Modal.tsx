@@ -5,7 +5,6 @@ import styled from "styled-components";
 import { useModal } from "@/Context/ModalContext";
 import {
   AddClub,
-  EditClub,
   DeleteClub,
   EditStudent,
   PostApprove,
@@ -26,7 +25,6 @@ export default function Modal() {
   const renderContent = () => {
     switch (modalState) {
       case 'AddClub': return <AddClub />
-      case 'EditClub': return modalData ? <EditClub clubId={modalData} /> : null;
       case 'DeleteClub': return modalData ? <DeleteClub clubId={modalData} /> : null;
       case 'EditStudent': return <EditStudent />
       case 'PostApprove': return <PostApprove />

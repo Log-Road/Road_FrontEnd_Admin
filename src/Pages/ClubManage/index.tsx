@@ -3,10 +3,8 @@ import Button from "@/Components/Management/Button";
 import { Plus } from "@/Assets";
 import { color, font } from "@/Styles";
 import ActiveButton from "@/Components/Management/ActiveButton";
-import { Club } from "@/Components/Dummy/Club";
 import { useModal } from "@/Context/ModalContext";
 import { useGetClubList, useModifyClub } from "@/Utils/api/Club";
-import { ClubType } from "@/Models/Manage";
 import { DeleteClub } from "@/Components/Modals";
 
 const ClubManage = () => {
@@ -19,7 +17,7 @@ const ClubManage = () => {
     isError: clubListError
   } = useGetClubList()
 
-  const handleChangeStatus = (clubId: number) => {
+  const handleChangeStatus = (clubId: string) => {
     try {
       modifyClub({ clubId }, {
         onSuccess: () => {
@@ -34,9 +32,8 @@ const ClubManage = () => {
     }
   };
 
-  const handleClickDelete = (clubId: number) => {
-    openModal('DeleteClub')
-    DeleteClub({ clubId })
+  const handleClickDelete = (clubId: string) => {
+    openModal('DeleteClub', clubId)
   };
 
   return (
@@ -46,7 +43,7 @@ const ClubManage = () => {
           <Title>동아리 관리</Title>
           <Info>학교 동아리 정보를 편집하고 관리할 수 있어요</Info>
         </HeaderText>
-        <Button icon={Plus} text="동아리 추가" onClick={() => openModal('AddClub')} />
+        <Button icon={Plus} text="동아리 추가" onClick={() => openModal('AddClub', null)} />
       </Header>
 
       <Table>
@@ -60,22 +57,22 @@ const ClubManage = () => {
             </TableHeader>
 
             <TableBody>
-              {Club.clubs.map(({ clubId, clubName, isActive = false }: ClubType) => (
-                <TableRow key={clubId}>
-                  <StateText active={isActive}>
-                    {isActive ? "활성화" : "비활성화"}
+              {clubListData.data.clubs?.map(({ club_id, club_name, is_active }) => (
+                <TableRow key={club_id}>
+                  <StateText active={is_active}>
+                    {is_active ? "활성화" : "비활성화"}
                   </StateText>
-                  <Text active={isActive}>{clubName}</Text>
+                  <Text active={is_active}>{club_name}</Text>
                   <ButtonWrap>
                     <ActiveButton
                       text="상태 변경"
                       active={true}
-                      onClick={() => handleChangeStatus(clubId)}
+                      onClick={() => handleChangeStatus(club_id)}
                     />
                     <ActiveButton
                       text="삭제하기"
                       active={false}
-                      onClick={() => handleClickDelete(clubId)}
+                      onClick={() => handleClickDelete(club_id)}
                     />
                   </ButtonWrap>
                 </TableRow>

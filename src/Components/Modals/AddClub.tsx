@@ -7,18 +7,21 @@ import { useForm } from "@/Hooks/useForm";
 import { useAddClub } from "@/Utils/api/Club";
 import { useState } from "react";
 import toast from 'react-hot-toast';
+import { useModal } from "@/Context/ModalContext";
 
 export default function AddClub() {
   const [isActive, setIsActive] = useState<boolean>(true);
+  
   const { form: clubForm, handleChange: clubFormChange } = useForm({ clubName: "" });
   const { clubName } = clubForm;
-
+  
+  const { closeModal } = useModal()
   const { mutate } = useAddClub();
 
   const handleClickSubmit = async () => {
     if (clubName.trim().length > 0) {
       const result = mutate({ isActive, clubName });
-      console.log("추가된 동아리 id", result)
+      closeModal()
     } else {
       toast.error("동아리 이름을 입력해주세요.");
     }
