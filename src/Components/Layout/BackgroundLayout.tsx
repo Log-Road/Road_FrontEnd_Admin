@@ -23,30 +23,25 @@ export default function DefaultLayout() {
 }
 
 const Container = styled.div`
-  width: 100%;
-  height: 100vh;
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 20px;
+  height: 100%;
+  display: grid;
+  grid-template-rows: 1fr 30px;
 `;
 
 const Content = styled.div`
-  flex: 1;
   display: flex;
   justify-content: center;
-  padding-bottom: 158px; 
-  position: relative;
+  padding: 90px 0;
+  min-height: calc(100vh - 180px);
   z-index: 1;
 `;
 
 const BackgroundImageWrap = styled.img`
   position: absolute;
-  top: 73px;
+  top: 0;
   left: 0;
   width: 100%;
-  height: 55%;
+  height: 70%;
   background-image: url(${BackgroundImage});
   background-size: cover;
   background-position: center;
