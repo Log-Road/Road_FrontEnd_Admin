@@ -1,6 +1,6 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
 import instance from '@/Utils/axios';
-import { ClubListDefaultType, ClubType } from '@/Models/Manage';
+import { ClubListDefaultType, ClubType, ClubListInfoType } from '@/Models/Manage';
 import ApiError from '@/Utils/axios/ApiError';
 import toast from 'react-hot-toast';
 
@@ -14,12 +14,12 @@ const path = '/club'
 
 export const useGetClubList = () => {
   const { handleError } = ApiError();
-  return useQuery<ClubListDefaultType, Error>({
+  return useQuery({
     queryKey: ["ClubList"],
     queryFn: async () => {
       try {
-        const response = await instance.get(`${path}`);
-        return response.data;
+        const { data } = await instance.get<ClubListInfoType>(`${path}`);
+        return data;
       } catch (error) {
         handleError(error);
         throw error;
