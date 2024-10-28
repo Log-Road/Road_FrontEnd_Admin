@@ -1,5 +1,5 @@
 export interface ClubType {
-  club_id: number,
+  club_id: string,
   is_active: boolean,
   club_name: string
 }

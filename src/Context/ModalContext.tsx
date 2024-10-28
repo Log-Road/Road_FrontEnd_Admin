@@ -11,7 +11,7 @@ export type ModalStateType =
 
 type ModalType = {
   modalState: ModalStateType,
-  modalData: number | null,
+  modalData: string | null,
   isOpen: boolean,
   openModal: (state: ModalStateType) => void,
   closeModal: () => void
@@ -23,7 +23,7 @@ const ModalProvider = ({ children }: { children: ReactNode }) => {
 
   const [isOpen, setIsOpen] = useState(false)
   const [modalState, setModalState] = useState<ModalStateType>('')
-  const [modalData, setModalData] = useState<number | null>(null)
+  const [modalData, setModalData] = useState<string | null>(null)
 
   const openModal = (state: ModalStateType) => {
     setModalState(state)

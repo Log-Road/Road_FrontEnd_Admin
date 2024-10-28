@@ -14,6 +14,7 @@ const path = '/club'
 
 export const useGetClubList = () => {
   const { handleError } = ApiError();
+  
   return useQuery({
     queryKey: ["ClubList"],
     queryFn: async () => {
@@ -66,7 +67,7 @@ export const useAddClub = () => {
 export const useModifyClub = () => {
   const { handleError } = ApiError()
 
-  return useMutation<ClubType[], Error, { clubId: number }>({
+  return useMutation<ClubType[], Error, { clubId: string }>({
     mutationFn: async({ clubId }) => {
       try {
         const response = await instance.patch(`${path}/modify/${clubId}`, { clubId });
@@ -89,7 +90,7 @@ export const useModifyClub = () => {
 export const useDeleteClub = () => {
   const { handleError } = ApiError()
 
-  return useMutation<void, Error, { clubId: number }>({
+  return useMutation<void, Error, { clubId: string }>({
     mutationFn: async (params) => {
       try {
         const response = await instance.delete(`${path}/${params.clubId}`);

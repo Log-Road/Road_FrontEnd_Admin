@@ -17,7 +17,7 @@ const ClubManage = () => {
     isError: clubListError
   } = useGetClubList()
 
-  const handleChangeStatus = (clubId: number) => {
+  const handleChangeStatus = (clubId: string) => {
     try {
       modifyClub({ clubId }, {
         onSuccess: () => {
@@ -32,7 +32,7 @@ const ClubManage = () => {
     }
   };
 
-  const handleClickDelete = (clubId: number) => {
+  const handleClickDelete = (clubId: string) => {
     openModal('DeleteClub')
     DeleteClub({ clubId })
   };
