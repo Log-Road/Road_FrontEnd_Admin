@@ -16,7 +16,8 @@ const ContestInfo = () => {
         <Button>투표 미참원 리스트 확인하러가기</Button>
       </InfoWrap>
       <GraphWrap>
-        <Graph />
+        <Graph series={[50.0]} labels={["학생 투표율"]} />
+        <Graph series={[50.0]} labels={["선생님 투표율"]} />
       </GraphWrap>
     </Container>
   )
@@ -77,6 +78,5 @@ color: ${color.gray[600]};
 `
 
 const GraphWrap = styled.div`
-display: flex;
-gap: 8px;
+  display: flex;
 `
