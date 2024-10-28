@@ -20,9 +20,8 @@ export default function Footer() {
 }
 
 const Container = styled.div`
-position : relative;
-transform : translateY(-100%);
 width: 100%;
+height: 180px;
 display: flex;
 flex-direction: column;
 padding: 32px 70px;

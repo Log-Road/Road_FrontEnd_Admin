@@ -21,18 +21,14 @@ export default function DefaultLayout() {
 }
 
 const Container = styled.div`
-  width: 100%;
-  height: 100vh;
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
+  height: 100%;
+  display: grid;
+  grid-template-rows: 1fr 30px;
 `
 
 const Content = styled.div`
-  flex: 1;
   display: flex;
   justify-content: center;
-  padding-bottom: 158px; 
-  position: relative;
+  padding: 90px 0;
+  min-height: calc(100vh - 180px);
 `
