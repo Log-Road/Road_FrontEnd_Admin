@@ -1,11 +1,17 @@
 export interface ClubType {
-  clubId: number,
-  isActive: boolean,
-  clubName: string
+  club_id: number,
+  is_active: boolean,
+  club_name: string
 }
 
 export interface ClubListDefaultType {
   clubs: ClubType[]
+}
+
+export interface ClubListInfoType {
+  data: ClubListDefaultType,
+  statusCode: number,
+  statusMsg: string
 }
 
 export type PersonStatusType = "ENROLL" | "GRADUATE" | "WITHDRAWAL" | "ABSENCE"
