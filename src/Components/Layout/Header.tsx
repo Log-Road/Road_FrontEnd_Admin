@@ -8,32 +8,41 @@ export default function Header() {
 
   return (
     <Container>
-      <LogoAndListWrap>
-        <Logo>ROAD</Logo>
+      <Content>
+        <LogoAndListWrap>
+          <Logo>ROAD</Logo>
+          <ListWrap>
+            {list.map((value) =>
+              <Text key={value}>{value}</Text>
+            )}
+          </ListWrap>
+        </LogoAndListWrap>
         <ListWrap>
-          {list.map((value) =>
-            <Text key={value}>{value}</Text>
-          )}
+          <Bell color={color.gray[500]} />
+          <Search color={color.gray[500]} />
+          <User color={color.gray[500]} />
+          <Text>{userName} 님</Text>
         </ListWrap>
-      </LogoAndListWrap>
-      <ListWrap>
-        <Bell color={color.gray[500]} />
-        <Search color={color.gray[500]} />
-        <User color={color.gray[500]} />
-        <Text>{userName} 님</Text>
-      </ListWrap>
+      </Content>
     </Container>
   );
 };
 
 const Container = styled.div`
+position: fixed;
 width: 100%;
-height: 90px;
-padding: 20px 200px;
+height: 60px;
+display: flex;
+justify-content: center;
+align-items: center;
+background-color: ${color.white};
+z-index: 1000;
+`
+
+const Content = styled.div`
+width: 80%;
 display: flex;
 justify-content: space-between;
-align-items: center;
-background-color: white;
 `
 
 const LogoAndListWrap = styled.div`
