@@ -62,7 +62,7 @@ const PersonManage = () => {
                   <ActiveButton
                     text="수정하기"
                     active={false}
-                    onClick={() => openModal('EditStudent')}
+                    onClick={() => openModal('EditStudent', null)}
                   />
                 </TableRow>
               ))}

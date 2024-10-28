@@ -33,8 +33,7 @@ const ClubManage = () => {
   };
 
   const handleClickDelete = (clubId: string) => {
-    openModal('DeleteClub')
-    DeleteClub({ clubId })
+    openModal('DeleteClub', clubId)
   };
 
   return (
@@ -44,7 +43,7 @@ const ClubManage = () => {
           <Title>동아리 관리</Title>
           <Info>학교 동아리 정보를 편집하고 관리할 수 있어요</Info>
         </HeaderText>
-        <Button icon={Plus} text="동아리 추가" onClick={() => openModal('AddClub')} />
+        <Button icon={Plus} text="동아리 추가" onClick={() => openModal('AddClub', null)} />
       </Header>
 
       <Table>

@@ -3,7 +3,6 @@ import { ReactNode, createContext, useContext, useState } from "react";
 export type ModalStateType =
   | ''
   | 'AddClub'
-  | 'EditClub'
   | 'DeleteClub'
   | 'EditStudent'
   | 'PostApprove'
@@ -13,7 +12,7 @@ type ModalType = {
   modalState: ModalStateType,
   modalData: string | null,
   isOpen: boolean,
-  openModal: (state: ModalStateType) => void,
+  openModal: (state: ModalStateType, data: string | null) => void,
   closeModal: () => void
 }
 
@@ -25,8 +24,9 @@ const ModalProvider = ({ children }: { children: ReactNode }) => {
   const [modalState, setModalState] = useState<ModalStateType>('')
   const [modalData, setModalData] = useState<string | null>(null)
 
-  const openModal = (state: ModalStateType) => {
+  const openModal = (state: ModalStateType, data: string | null) => {
     setModalState(state)
+    setModalData(data || null);
     setIsOpen(true)
   }
 

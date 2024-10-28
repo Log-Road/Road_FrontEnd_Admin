@@ -42,7 +42,7 @@ export default function Refuse({ type }: { type: RefuseType }) {
 
   const handleClick = () => {
     if (type === "Refuse") {
-      openModal("PostRefuse")
+      openModal("PostRefuse", null)
     }
   }
 
