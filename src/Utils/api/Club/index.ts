@@ -14,12 +14,11 @@ const path = '/club'
 
 export const useGetClubList = () => {
   const { handleError } = ApiError();
-
-  return useQuery<ClubListDefaultType[], Error>({
+  return useQuery<ClubListDefaultType, Error>({
     queryKey: ["ClubList"],
     queryFn: async () => {
       try {
-        const response = await instance.get<ClubListDefaultType[]>(`${path}`);
+        const response = await instance.get(`${path}`);
         return response.data;
       } catch (error) {
         handleError(error);
@@ -42,8 +41,8 @@ export const useAddClub = () => {
     mutationFn: async (params) => {
       try {
         const response = await instance.post(`${path}`, {
-          isActive: params.isActive,
-          clubName: params.isActive
+          is_active: params.isActive,
+          club_name: params.clubName
         })
         toast.success("동아리가 성공적으로 추가되었습니다.", { duration: 1500 });
         return response.data;

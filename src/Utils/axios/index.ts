@@ -1,7 +1,8 @@
 import axios, { AxiosError } from "axios"
 import { getToken, setToken } from "@/Utils/function/TokenManager";
 
-const BASEURL = process.env.BASE_URL
+const BASEURL = process.env.REACT_APP_BASE_URL
+const TestToken = process.env.REACT_APP_Test_Token
 
 export const instance = axios.create({
   baseURL: BASEURL,
@@ -15,7 +16,8 @@ export const refreshInstance = axios.create({
 
 instance.interceptors.request.use(
   async function(config) {
-    const { accessToken } = getToken()
+    // const { accessToken } = getToken()
+    const accessToken = TestToken
 
     if(accessToken) {
       config.headers["authorization"] = `Bearer ${accessToken}`
@@ -23,6 +25,7 @@ instance.interceptors.request.use(
     return config
   },
   function (error: AxiosError) {
+    console.error("Request error:", error);
     return Promise.reject(error);
   }
 )
