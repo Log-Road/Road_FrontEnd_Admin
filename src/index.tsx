@@ -4,6 +4,7 @@ import ReactDOM from 'react-dom/client';
 import { GlobalStyle } from '@/Styles/GlobalStyle';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { Toaster } from 'react-hot-toast';
+import { color } from '@/Styles';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -23,7 +24,15 @@ root.render(
   <React.StrictMode>
     <QueryClientProvider client={queryClient} >
       <GlobalStyle />
-      <Toaster />
+      <Toaster
+        position='top-right'
+        toastOptions={{
+          style: {
+            fontFamily: 'Pretendard-Medium',
+            fontSize: 14
+          }
+        }}
+      />
       <App />
     </QueryClientProvider>
   </React.StrictMode>

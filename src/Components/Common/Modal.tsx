@@ -60,7 +60,7 @@ const Background = styled.div`
   align-items: center;
   background-color: rgba(0, 0, 0, 0.2);
   overflow: hidden;
-  z-index: 100;
+  z-index: 10000;
 `;
 
 const Container = styled.div`
