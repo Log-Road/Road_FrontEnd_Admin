@@ -1,3 +1,4 @@
+import font from "@/Styles/font";
 import { createGlobalStyle } from "styled-components";
 
 export const GlobalStyle = createGlobalStyle`
@@ -51,6 +52,7 @@ table {
 * {
   box-sizing: border-box;
   outline: none;
+  ${font.medium12}
 }
 body {
   font-weight: 500;
