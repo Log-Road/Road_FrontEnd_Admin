@@ -59,7 +59,6 @@ const Register = () => {
   };
 
   const handleStartDate = (date: string) => {
-    console.log(date)
     setStartDate(date)
   }
 
@@ -153,7 +152,7 @@ const Register = () => {
         />
         <Button
           width="200px"
-          text="다음"
+          text="등록"
           onClick={handleUpload}
         />
       </S.ButtonWrap>
