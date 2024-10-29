@@ -125,3 +125,9 @@ export interface ProjectType {
 export interface ProjectListType {
   list: ProjectType[]
 }
+
+export interface InputType {
+  property?: string,
+  label?: string,
+  placeholder: string
+}
