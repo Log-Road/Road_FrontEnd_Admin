@@ -1,3 +1,4 @@
+import { useState } from "react"
 import * as S from "./style"
 import styled from "styled-components"
 import Input from "@/Components/Common/Input"
@@ -7,21 +8,14 @@ import { Plus } from "@/Assets"
 import { color, font } from "@/Styles"
 import RemovableTag from "@/Components/Management/RemovableTag"
 import Button from "@/Components/Common/Button"
-import { useForm } from "@/Hooks/useForm"
-import { InputType } from "@/Models/Register"
-import { useState } from "react"
+import { InputType } from "@/Models/Manage"
+import useFormStore from "@/Store/FormStore"
 
 const options = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10']
 
 const RenderInput = ({ property = '', label, placeholder }: InputType) => {
-
-  const { form: registerForm, handleChange: registerFormChange } = useForm({
-    name: "",
-    target: "",
-    locate: ""
-  })
-
-  const value = registerForm[property as keyof typeof registerForm] || "";
+  const { form, handleChange } = useFormStore();
+  const value = (form as Record<string, any>)[property] || '';
 
   return (
     <Row>
@@ -30,16 +24,44 @@ const RenderInput = ({ property = '', label, placeholder }: InputType) => {
         name={property}
         value={value}
         placeholder={placeholder}
-        onChange={registerFormChange}
+        onChange={handleChange}
       />
     </Row>
   )
 }
 
 const Register = () => {
+  const { form, handleChange, setForm } = useFormStore();
+  const { name, target, locate, awardName, purpose } = form;
 
-  const { form: awardForm, handleChange: awardFormChange } = useForm({ awardName: ""})
-  const { awardName } = awardForm
+  const [selectOption, setSelectOption] = useState<string>("")
+  const [awardList, setAwardList] = useState<Array<{ name: string; count: number }>>([]);
+
+  const handleOptionChange = (value: string) => {
+    setSelectOption(value)
+  }
+
+  const handleAddAward = () => {
+    if (awardName && selectOption) {
+      const newAward = {
+        name: awardName,
+        count: parseInt(selectOption),
+      };
+      setAwardList((prevList) => [...prevList, newAward]);
+      setForm({ awardName: '' });
+      setSelectOption("");
+    }
+  };
+
+  const competitionData = {
+    name,
+    startDate: '',
+    endDate: '',
+    purpose,
+    audience: target,
+    place: locate,
+    awards: awardList,
+  };
 
   return (
     <S.Container>
@@ -65,7 +87,11 @@ const Register = () => {
         </Row>
         <Row>
           <FillText>대회 목적</FillText>
-          <TextArea placeholder="대회 목적을 간단하게 작성해주세요" />
+          <TextArea
+            value={purpose}
+            placeholder="대회 목적을 간단하게 작성해주세요"
+            onChange={(e) => setForm({ purpose: e.target.value })}
+          />
         </Row>
         <Row>
           <FillText>상 등록</FillText>
@@ -75,23 +101,26 @@ const Register = () => {
                 name="awardName"
                 value={awardName}
                 placeholder="상 이름을 입력해주세요"
-                onChange={awardFormChange}
+                onChange={handleChange}
               />
               <DropBox
                 width='180px'
                 text="개수를 선택해주세요"
                 options={options}
+                onChange={handleOptionChange}
               />
               <PlusButton>
                 <Plus
                   size={18}
                   color={color.gray[600]}
-                  onClick={() => { }}
+                  onClick={handleAddAward}
                 />
               </PlusButton>
             </Wrap>
             <S.TagWrap>
-              <RemovableTag text="금상" count="3" />
+              {awardList.map(({ name, count }, index) => (
+                <RemovableTag key={index} text={name} count={count} />
+              ))}
             </S.TagWrap>
           </AwardWrap>
         </Row>

@@ -36,6 +36,7 @@ align-items: center;
 export const TagWrap = styled.div`
 display: flex;
 flex-wrap: wrap;
+gap: 8px;
 `
 
 export const ButtonWrap = styled.div`
