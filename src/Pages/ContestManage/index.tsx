@@ -8,6 +8,7 @@ import { ContestType } from "@/Models/Manage";
 import { ISODateAlter } from "@/Utils/Date";
 import { ContestStatus } from "@/Utils/Status";
 import Recent from "@/Pages/ContestManage/Recent";
+import { useNavigate } from "react-router-dom";
 
 type ContestStatusType = "ONGOING" | "IN_PROGRESS" | "PENDING_AWARD" | "CLOSED";
 
@@ -31,6 +32,9 @@ const RenderContestButtons = ({ status }: { status: ContestStatusType }) => {
 };
 
 const ContestManage = () => {
+
+  const navigation = useNavigate()
+
   return (
     <Container>
       <Header>
@@ -38,23 +42,31 @@ const ContestManage = () => {
           <Title>대회 관리</Title>
           <Info>대회를 개최하고 진행 및 관리 할 수 있어요</Info>
         </HeaderText>
-        <Button icon={Plus} text="대회 추가" onClick={() => { }} />
+        <Button
+          icon={Plus}
+          text="대회 추가"
+          onClick={() => navigation('/register')} />
       </Header>
 
       <Recent />
 
       <Table>
         <TableHeader>
-          <TableColumn width="200px">일정</TableColumn>
+          <TableColumn
+            width="170px"
+            style={{ textAlign: "center" }}
+          >
+            대회 일정
+          </TableColumn>
           <TableColumn width="60px">진행상황</TableColumn>
-          <TableColumn width="200px">대회명</TableColumn>
+          <TableColumn width="200px">대회 이름</TableColumn>
         </TableHeader>
 
         <TableBody>
           {Contest.data.list.map(({ id, status, name, startDate, endDate }: ContestType) => (
             <TableRow key={id}>
               <TableData>
-                <Text>{ISODateAlter(startDate)} ~ {ISODateAlter(endDate)}</Text>
+                <DateText>{ISODateAlter(startDate)} ~ {ISODateAlter(endDate)}</DateText>
                 <StateText active={status === "PENDING_AWARD" || status === "IN_PROGRESS"}>
                   {ContestStatus(status)}
                 </StateText>
@@ -141,23 +153,26 @@ const Info = styled.p`
 
 const TableColumn = styled.p<{ width: string }>`
   width: ${({ width }) => width};
-  text-align: center;
   ${font.medium14}
   color: ${color.white};
 `;
 
 const StateText = styled.p<{ active: boolean }>`
   width: 60px;
-  text-align: center;
   ${font.regular16}
-  color: ${({ active }) => (active ? color.blue[300] : color.gray[300])};
+  color: ${({ active }) => (active ? color.blue[300] : color.gray[500])};
 `;
 
 const Text = styled.p`
   width: 200px;
-  text-align: center;
   ${font.regular16}
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
 `;
+
+const DateText = styled.p`
+  width: 170px;
+  ${font.regular14}
+  color: ${color.gray[500]};
+`
