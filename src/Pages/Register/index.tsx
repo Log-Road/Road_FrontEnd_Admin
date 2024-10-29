@@ -7,9 +7,40 @@ import { Plus } from "@/Assets"
 import { color, font } from "@/Styles"
 import RemovableTag from "@/Components/Management/RemovableTag"
 import Button from "@/Components/Common/Button"
+import { useForm } from "@/Hooks/useForm"
+import { InputType } from "@/Models/Register"
+import { useState } from "react"
+
+const options = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10']
+
+const RenderInput = ({ property = '', label, placeholder }: InputType) => {
+
+  const { form: registerForm, handleChange: registerFormChange } = useForm({
+    name: "",
+    target: "",
+    locate: ""
+  })
+
+  const value = registerForm[property as keyof typeof registerForm] || "";
+
+  return (
+    <Row>
+      <FillText>{label}</FillText>
+      <Input
+        name={property}
+        value={value}
+        placeholder={placeholder}
+        onChange={registerFormChange}
+      />
+    </Row>
+  )
+}
 
 const Register = () => {
-  const options = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10']
+
+  const { form: awardForm, handleChange: awardFormChange } = useForm({ awardName: ""})
+  const { awardName } = awardForm
+
   return (
     <S.Container>
       <S.Header>
@@ -21,18 +52,10 @@ const Register = () => {
       </S.Header>
 
       <S.Content>
-        <Row>
-          <FillText>대회명</FillText>
-          <Input placeholder="대회명을 입력해주세요" />
-        </Row>
-        <Row>
-          <FillText>대상</FillText>
-          <Input placeholder="대상을 입력해주세요" />
-        </Row>
-        <Row>
-          <FillText>장소</FillText>
-          <Input placeholder="장소를 입력해주세요" />
-        </Row>
+        <RenderInput property="name" label="대회명" placeholder="대회명을 입력해주세요" />
+        <RenderInput property="target" label="대상" placeholder="대상을 입력해주세요" />
+        <RenderInput property="locate" label="장소" placeholder="장소를 입력해주세요" />
+
         <Row>
           <FillText>대회 일정</FillText>
           <Wrap>
@@ -48,8 +71,17 @@ const Register = () => {
           <FillText>상 등록</FillText>
           <AwardWrap>
             <Wrap>
-              <Input placeholder="상 이름을 입력해주세요" />
-              <DropBox width='180px' text="개수를 선택해주세요" options={options} />
+              <Input
+                name="awardName"
+                value={awardName}
+                placeholder="상 이름을 입력해주세요"
+                onChange={awardFormChange}
+              />
+              <DropBox
+                width='180px'
+                text="개수를 선택해주세요"
+                options={options}
+              />
               <PlusButton>
                 <Plus
                   size={18}
