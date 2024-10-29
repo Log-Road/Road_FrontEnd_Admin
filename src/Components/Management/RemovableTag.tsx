@@ -4,7 +4,7 @@ import styled from "styled-components"
 
 interface TagPropsType {
   text?: string,
-  count?: string
+  count?: number
 }
 
 export default function RemovableTag({ text, count }: TagPropsType) {
