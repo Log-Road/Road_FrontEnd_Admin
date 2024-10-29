@@ -5,7 +5,6 @@ import { color, font } from "@/Styles";
 import ActiveButton from "@/Components/Management/ActiveButton";
 import { useModal } from "@/Context/ModalContext";
 import { useGetClubList, useModifyClub } from "@/Utils/api/Club";
-import { DeleteClub } from "@/Components/Modals";
 
 const ClubManage = () => {
   const { openModal } = useModal()
