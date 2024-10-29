@@ -5,7 +5,7 @@ import { color, font } from "@/Styles";
 import ActiveButton from "@/Components/Management/ActiveButton";
 import { Contest } from "@/Components/Dummy/Contest";
 import { ContestType } from "@/Models/Manage";
-import { ISODateAlter } from "@/Utils/Date";
+import { covertISOtoKST } from "@/Utils/Date";
 import { ContestStatus } from "@/Utils/Status";
 import Recent from "@/Pages/ContestManage/Recent";
 import { useNavigate } from "react-router-dom";
@@ -66,7 +66,7 @@ const ContestManage = () => {
           {Contest.data.list.map(({ id, status, name, startDate, endDate }: ContestType) => (
             <TableRow key={id}>
               <TableData>
-                <DateText>{ISODateAlter(startDate)} ~ {ISODateAlter(endDate)}</DateText>
+                <DateText>{covertISOtoKST(startDate)} ~ {covertISOtoKST(endDate)}</DateText>
                 <StateText active={status === "PENDING_AWARD" || status === "IN_PROGRESS"}>
                   {ContestStatus(status)}
                 </StateText>

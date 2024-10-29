@@ -10,6 +10,7 @@ import RemovableTag from "@/Components/Management/RemovableTag"
 import Button from "@/Components/Common/Button"
 import { InputType } from "@/Models/Manage"
 import useFormStore from "@/Store/FormStore"
+import { useNavigate } from "react-router-dom"
 
 const options = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10']
 
@@ -31,10 +32,14 @@ const RenderInput = ({ property = '', label, placeholder }: InputType) => {
 }
 
 const Register = () => {
+  const navigation = useNavigate()
+
   const { form, handleChange, setForm } = useFormStore();
   const { name, target, locate, awardName, purpose } = form;
 
   const [selectOption, setSelectOption] = useState<string>("")
+  const [startDate, setStartDate] = useState<string>('');
+  const [endDate, setEndDate] = useState<string>('');
   const [awardList, setAwardList] = useState<Array<{ name: string; count: number }>>([]);
 
   const handleOptionChange = (value: string) => {
@@ -53,10 +58,23 @@ const Register = () => {
     }
   };
 
+  const handleStartDate = (date: string) => {
+    console.log(date)
+    setStartDate(date)
+  }
+
+  const handleSelectEndDate = (date: string) => {
+    setEndDate(date)
+  }
+
+  const handleUpload = () => {
+    console.log(competitionData)
+  }
+
   const competitionData = {
     name,
-    startDate: '',
-    endDate: '',
+    startDate,
+    endDate,
     purpose,
     audience: target,
     place: locate,
@@ -81,8 +99,8 @@ const Register = () => {
         <Row>
           <FillText>대회 일정</FillText>
           <Wrap>
-            <Calendar text="시작 일을 입력해주세요" />
-            <Calendar text="종료 일을 입력해주세요" />
+            <Calendar text="시작 일을 입력해주세요" onDateSelect={handleStartDate} />
+            <Calendar text="종료 일을 입력해주세요" onDateSelect={handleSelectEndDate} />
           </Wrap>
         </Row>
         <Row>
@@ -131,12 +149,12 @@ const Register = () => {
           width="200px"
           text="뒤로가기"
           type="PREV"
-          onClick={() => { }}
+          onClick={() => navigation('/contest')}
         />
         <Button
           width="200px"
           text="다음"
-          onClick={() => { }}
+          onClick={handleUpload}
         />
       </S.ButtonWrap>
     </S.Container>

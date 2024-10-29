@@ -2,15 +2,13 @@ import { Arrow1 } from "@/Assets"
 import styled from "styled-components"
 import { font, color } from "@/Styles"
 import { useState } from "react"
-
-interface PropsType {
-  text?: string
-}
+import { convertKSTtoUTC } from "@/Utils/Date"
 
 const daysOfWeek = ["일", "월", "화", "수", "목", "금", "토"];
 
-const Calendar = ({ text }: PropsType) => {
-  const [selectedDate, setSelectedDate] = useState<Date | null>(null);
+const Calendar = ({ text, onDateSelect }: { text: string, onDateSelect: (data: string) => void }) => {
+  const [open, setOpen] = useState<boolean>(false)
+  const [selectedDate, setSelectedDate] = useState<string>(text)
   const [currentDate, setCurrentDate] = useState(new Date());
 
   const year = currentDate.getFullYear();
@@ -55,7 +53,16 @@ const Calendar = ({ text }: PropsType) => {
   };
 
   const handleDateClick = (date: Date) => {
-    setSelectedDate(date);
+    setOpen(false)
+
+    const year = date.getFullYear()
+    const month = date.getMonth() + 1
+    const day = date.getDate()
+
+    setSelectedDate(`${year}-${month}-${day}`)
+
+    const sendDate = convertKSTtoUTC(date)
+    onDateSelect(sendDate)
   };
 
   const { firstDayOfMonth, lastDayOfMonth } = getStartAndEndDays();
@@ -63,8 +70,8 @@ const Calendar = ({ text }: PropsType) => {
 
   return (
     <Container>
-      <InputContainer>
-        <Text>{text}</Text>
+      <InputContainer onClick={() => setOpen(!open)}>
+        <Text>{selectedDate}</Text>
         <Arrow1
           size={20}
           color={color.gray[500]}
@@ -72,45 +79,50 @@ const Calendar = ({ text }: PropsType) => {
         />
       </InputContainer>
 
-      <CalendarContainer>
-        <ShiftWrap>
-          <Arrow1
-            size={20}
-            color={color.gray[500]}
-            onClick={() => handleMonthChange('prev')}
-          />
-          <TopText>{`${year}년 ${month + 1}월`}</TopText>
-          <Arrow1
-            size={20}
-            color={color.gray[500]}
-            rotate="right"
-            onClick={() => handleMonthChange('next')}
-          />
-        </ShiftWrap>
+      {
+        open && (
+          <CalendarContainer>
+            <ShiftWrap>
+              <Arrow1
+                size={20}
+                color={color.gray[500]}
+                onClick={() => handleMonthChange('prev')}
+              />
+              <TopText>{`${year}년 ${month + 1}월`}</TopText>
+              <Arrow1
+                size={20}
+                color={color.gray[500]}
+                rotate="right"
+                onClick={() => handleMonthChange('next')}
+              />
+            </ShiftWrap>
 
-        <DayWrap>
-          {daysOfWeek.map((day, index) => (
-            <Day key={index}>
-              <DayText>{day}</DayText>
-            </Day>
-          ))}
-        </DayWrap>
-
-        <Month>
-          {weeks.map((week, weekIndex) => (
-            <Week key={weekIndex}>
-              {week.map((date, dateIndex) => (
-                <DateWrap
-                  key={dateIndex}
-                  onClick={() => date && handleDateClick(date)}
-                >
-                  <DateText>{date ? date.getDate().toString() : ''}</DateText>
-                </DateWrap>
+            <DayWrap>
+              {daysOfWeek.map((day, index) => (
+                <Day key={index}>
+                  <DayText>{day}</DayText>
+                </Day>
               ))}
-            </Week>
-          ))}
-        </Month>
-      </CalendarContainer>
+            </DayWrap>
+
+            <Month>
+              {weeks.map((week, weekIndex) => (
+                <Week key={weekIndex}>
+                  {week.map((date, dateIndex) => (
+                    <DateWrap
+                      key={dateIndex}
+                      isHover={!!date}
+                      onClick={() => date && handleDateClick(date)}
+                    >
+                      <DateText>{date ? date.getDate().toString() : ''}</DateText>
+                    </DateWrap>
+                  ))}
+                </Week>
+              ))}
+            </Month>
+          </CalendarContainer>
+        )
+      }
     </Container>
   )
 }
@@ -140,7 +152,7 @@ const Text = styled.p`
 
 const CalendarContainer = styled.div`
 position: absolute;
-top: 55px;
+top: 45px;
 left: 0;
 display: flex;
 flex-direction: column;
@@ -191,17 +203,17 @@ const Week = styled.div`
   justify-content: space-between;
 `
 
-const DateWrap = styled.div`
+const DateWrap = styled.div<{ isHover: boolean }>`
   width: 30px;
   height: 30px;
   display: flex;
   justify-content: center;
   align-items: center;
-  cursor: pointer;
   border-radius: 8px;
+  cursor: ${({ isHover }) => (isHover ? 'pointer' : 'default')};
 
   &:hover {
-    background-color: ${color.gray[100]};
+    background-color:  ${({ isHover }) => isHover ? color.gray[100] : 'transparent'}
   }
 `
 
