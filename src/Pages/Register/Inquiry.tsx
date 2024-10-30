@@ -126,7 +126,5 @@ color: ${color.gray[700]};
 `
 
 const AwardTitle = styled.p`
-padding: 8px 0;
-border-bottom: 1px solid ${color.gray[200]};
 ${font.medium18}
 `
