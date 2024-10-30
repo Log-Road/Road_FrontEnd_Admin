@@ -8,7 +8,8 @@ import {
   DeleteClub,
   EditStudent,
   PostApprove,
-  PostRefuse
+  PostRefuse,
+  InquiryContest
 } from "@/Components/Modals";
 
 export default function Modal() {
@@ -29,6 +30,7 @@ export default function Modal() {
       case 'EditStudent': return <EditStudent />
       case 'PostApprove': return <PostApprove />
       case 'PostRefuse': return <PostRefuse />
+      case 'InquiryContest': return <InquiryContest />
       default: return null
     }
   }
@@ -65,7 +67,6 @@ const Background = styled.div`
 
 const Container = styled.div`
 min-width: 340px;
-max-height: 320px;
 display: flex;
 flex-direction: column;
 justify-content: space-between;
