@@ -67,13 +67,13 @@ export const useGetContestList = (page: string) => {
 export const useAddContest = () => {
   const { handleError } = ApiError()
 
-  return useMutation<{ id: string }, Error, ContestCreate[]>({
-    mutationFn: async (data: ContestCreate[]) => {
+  return useMutation<{ id: string }, Error, ContestCreate>({
+    mutationFn: async (data: ContestCreate) => {
       try {
         const response = await instance.post(`${path}`, data)
         toast.success("대회가 성공적으로 생성되었습니다.", { duration: 1500 });
         return response.data
-      } catch(error) {
+      } catch(error: any) {
         handleError(error)
         throw error
       }

@@ -1,7 +1,7 @@
 import { create } from 'zustand';
 
 interface FormState {
-  name: string;
+  contestName: string;
   target: string;
   locate: string;
   awardName: string;
@@ -16,7 +16,7 @@ interface FormStore {
 
 const useFormStore = create<FormStore>((set) => ({
   form: {
-    name: '',
+    contestName: '',
     target: '',
     locate: '',
     awardName: '',

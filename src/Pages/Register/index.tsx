@@ -11,6 +11,8 @@ import Button from "@/Components/Common/Button"
 import { InputType } from "@/Models/Manage"
 import useFormStore from "@/Store/FormStore"
 import { useNavigate } from "react-router-dom"
+import { useAddContest } from "@/Utils/api/Contest"
+import { ContestCreate } from "@/Models/Manage"
 
 const options = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10']
 
@@ -34,8 +36,9 @@ const RenderInput = ({ property = '', label, placeholder }: InputType) => {
 const Register = () => {
   const navigation = useNavigate()
 
+  const { mutate } = useAddContest()
   const { form, handleChange, setForm } = useFormStore();
-  const { name, target, locate, awardName, purpose } = form;
+  const { contestName, target, locate, awardName, purpose } = form;
 
   const [selectOption, setSelectOption] = useState<string>("")
   const [startDate, setStartDate] = useState<string>('');
@@ -67,11 +70,11 @@ const Register = () => {
   }
 
   const handleUpload = () => {
-    console.log(competitionData)
+    mutate(competitionData);
   }
 
-  const competitionData = {
-    name,
+  const competitionData: ContestCreate = {
+    name: contestName,
     startDate,
     endDate,
     purpose,
@@ -91,7 +94,7 @@ const Register = () => {
       </S.Header>
 
       <S.Content>
-        <RenderInput property="name" label="대회명" placeholder="대회명을 입력해주세요" />
+        <RenderInput property="contestName" label="대회명" placeholder="대회명을 입력해주세요" />
         <RenderInput property="target" label="대상" placeholder="대상을 입력해주세요" />
         <RenderInput property="locate" label="장소" placeholder="장소를 입력해주세요" />
 
