@@ -44,13 +44,14 @@ export const useGetContestDetail = (id: string) => {
 export const useGetContestList = (page: string) => {
   const { handleError } = ApiError()
 
-  return useQuery<ContestDefaultType[], Error>({
+  return useQuery({
     queryKey: ["ContestList", page],
     queryFn: async () => {
       try {
-        const response = await instance.get<ContestDefaultType[]>(`${path}/:${page}`)
-        return response.data
-      } catch(error) {
+        const { data } = await instance.get<ContestDefaultType>(`${path}/${page}`)
+        return data
+      } catch(error: any) {
+        console.error("ERROR", error.response.data)
         handleError(error);
         throw error;
       }

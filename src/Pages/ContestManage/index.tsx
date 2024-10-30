@@ -9,6 +9,8 @@ import { covertISOtoKST } from "@/Utils/Date";
 import { ContestStatus } from "@/Utils/Status";
 import Recent from "@/Pages/ContestManage/Recent";
 import { useNavigate } from "react-router-dom";
+import { useGetContestList } from "@/Utils/api/Contest";
+import { useState } from "react";
 
 type ContestStatusType = "ONGOING" | "IN_PROGRESS" | "PENDING_AWARD" | "CLOSED";
 
@@ -34,6 +36,13 @@ const RenderContestButtons = ({ status }: { status: ContestStatusType }) => {
 const ContestManage = () => {
 
   const navigation = useNavigate()
+  const [page, setPage] = useState<string>("0")
+
+  const {
+    data: contestListData,
+    isLoading: contestListLoading,
+    isError: contestListError
+  } = useGetContestList(page)
 
   return (
     <Container>
@@ -51,34 +60,40 @@ const ContestManage = () => {
       <Recent />
 
       <Table>
-        <TableHeader>
-          <TableColumn
-            width="170px"
-            style={{ textAlign: "center" }}
-          >
-            대회 일정
-          </TableColumn>
-          <TableColumn width="60px">진행상황</TableColumn>
-          <TableColumn width="200px">대회 이름</TableColumn>
-        </TableHeader>
+        {contestListLoading && <div>Loading...</div>}
+        {contestListError && <div>Error</div>}
+        {contestListData && (
+          <>
+            <TableHeader>
+              <TableColumn
+                width="170px"
+                style={{ textAlign: "center" }}
+              >
+                대회 일정
+              </TableColumn>
+              <TableColumn width="60px">진행상황</TableColumn>
+              <TableColumn width="200px">대회 이름</TableColumn>
+            </TableHeader>
 
-        <TableBody>
-          {Contest.data.list.map(({ id, status, name, startDate, endDate }: ContestType) => (
-            <TableRow key={id}>
-              <TableData>
-                <DateText>{covertISOtoKST(startDate)} ~ {covertISOtoKST(endDate)}</DateText>
-                <StateText active={status === "PENDING_AWARD" || status === "IN_PROGRESS"}>
-                  {ContestStatus(status)}
-                </StateText>
-                <Text>{name}</Text>
-              </TableData>
+            <TableBody>
+              {contestListData.data.list.map(({ id, status, name, startDate, endDate }: ContestType) => (
+                <TableRow key={id}>
+                  <TableData>
+                    <DateText>{covertISOtoKST(startDate)} ~ {covertISOtoKST(endDate)}</DateText>
+                    <StateText active={status === "PENDING_AWARD" || status === "IN_PROGRESS"}>
+                      {ContestStatus(status)}
+                    </StateText>
+                    <Text>{name}</Text>
+                  </TableData>
 
-              <ButtonWrap>
-                <RenderContestButtons status={status} />
-              </ButtonWrap>
-            </TableRow>
-          ))}
-        </TableBody>
+                  <ButtonWrap>
+                    <RenderContestButtons status={status} />
+                  </ButtonWrap>
+                </TableRow>
+              ))}
+            </TableBody>
+          </>
+        )}
       </Table>
     </Container>
   );
