@@ -9,6 +9,7 @@ import Post from "@/Pages/ProjectManage/Post";
 import Main from "@/Pages/Main"
 import ProjectManage from "@/Pages/ProjectManage"
 import Award from "@/Pages/Award";
+import Inquiry from "@/Pages/Register/Inquiry";
 
 export default function Router() {
   return (
@@ -25,6 +26,7 @@ export default function Router() {
 
         <Route path="/" element={<BackgroundLayout />}>
           <Route path="register" element={<Register />} />
+          <Route path="inquiry" element={<Inquiry />} />
           <Route path="post" element={<Post />} />
         </Route>
       </Routes>
