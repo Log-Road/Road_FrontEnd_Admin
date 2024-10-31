@@ -3,10 +3,12 @@ import * as S from "./style"
 import { color, font } from "@/Styles"
 import { Heart, Checking } from "@/Assets"
 import { useState } from "react"
+import { useCalculateSize } from "@/Hooks/useCalculateSize"
 
 const ProjectManage = () => {
 
   const [open, setOpen] = useState<boolean>(false)
+  const [divRef, size] = useCalculateSize()
 
   return (
     <Container>
@@ -22,8 +24,8 @@ const ProjectManage = () => {
                 <S.Text>100</S.Text>
               </S.Wrap>
               <S.Wrap>
-                <S.TeamType>동아리(Log)</S.TeamType>
-                <S.MemberWrap>
+                <S.TeamType ref={divRef}>동아리(Log)</S.TeamType>
+                <S.MemberWrap width={size.width}>
                   <S.Text>홍길동</S.Text>
                 </S.MemberWrap>
               </S.Wrap>

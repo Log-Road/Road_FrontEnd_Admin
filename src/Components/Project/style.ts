@@ -2,9 +2,9 @@ import styled from "styled-components"
 import { font, color } from "@/Styles"
 
 export const Container = styled.div`
-width: 280px;
-height: fit-content;
-max-height: 320px;
+width: 300px;
+min-height: fit-content;
+height: 330px;
 display: flex;
 flex-direction: column;
 border-radius: 8px;
@@ -18,11 +18,11 @@ export const Content = styled.div`
 display: flex;
 flex-direction: column;
 padding: 12px;
-gap: 8px;
+gap: 12px;
 `
 
 export const Image = styled.img`
-width: 280px;
+width: 300px;
 height: 140px;
 object-fit: cover;
 `
@@ -45,27 +45,44 @@ export const ProjectInfo = styled.p`
 `;
 
 export const Wrap = styled.div`
-  display: flex;
-  gap: 8px;
+width: 100%;
+height: 18px;
+display: flex;
+align-items: center;
+gap: 8px;
 `
 
 export const TeamType = styled.p`
 ${font.medium12}
 color: ${color.gray[700]};
+flex: 0 1 auto;
+white-space: nowrap;
 `
 
-export const MemberWrap = styled.div`
-display: flex;
-flex-wrap: wrap;
-gap: 8px;
-`
+export const MemberWrap = styled.div<{ width: number }>`
+  width: calc(100% - ${({ width }) => width}px);
+  display: flex;
+  align-items: center;
+  flex-wrap: nowrap;
+  overflow: hidden;
+  gap: 8px;
+`;
 
 export const Text = styled.p`
 ${font.regular12}
 color: ${color.gray[500]};
+display: inline-block;
+white-space: nowrap;
+overflow: hidden;
+text-overflow: ellipsis;
 `
 
 export const DateAndLikeWrap = styled.div`
 display: flex;
 justify-content: space-between;
+`
+
+export const HeartWrap = styled.div`
+display: flex;
+gap: 4px;
 `
