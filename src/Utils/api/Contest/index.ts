@@ -104,3 +104,26 @@ export const useEditContest = () => {
     },
   });
 };
+
+/**
+ * 대회 삭제 API
+ * @params id
+ * @returns
+ */
+
+export const useDeleteContest = () => {
+  const { handleError } = ApiError()
+
+  return useMutation<void, Error, { contestId: string }>({
+    mutationFn: async ({ contestId }) => {
+      try {
+        await instance.delete(`${path}/${contestId}`)
+        toast.success("대회가 삭제되었습니다.", { duration: 1500 })
+      } catch (error: any) {
+
+        handleError(error)
+        throw error
+      }
+    }
+  })
+}
