@@ -1,9 +1,7 @@
-import ApexCharts from 'apexcharts';
 import React from 'react';
 import ReactApexChart from 'react-apexcharts';
-import * as ReactDOM from 'react-dom';
+import ApexCharts from 'apexcharts';
 import { color } from '@/Styles';
-import styled from 'styled-components';
 
 interface ApexChartProps {
   series?: number[];
@@ -29,49 +27,100 @@ class ApexChart extends React.Component<ApexChartProps, ApexChartState> {
           animations: {
             enabled: true,
             easing: 'easeinout',
-            speed: 800,
+            speed: 1200,
             animateGradually: {
               enabled: true,
-              delay: 150
+              delay: 200,
             },
             dynamicAnimation: {
               enabled: true,
-              speed: 350
-            }
+              speed: 1000,
+            },
           },
-
+          offsetX: 0,
+          offsetY: 0
         },
         plotOptions: {
           radialBar: {
             hollow: {
               size: '65%',
             },
+            dataLabels: {
+              show: true,
+              name: {
+                fontSize: '32px',
+                fontFamily: "Pretendard-Medium",
+                color: color.black
+              },
+              value: {
+                fontSize: '20px',
+                color: color.gray[500],
+                offsetY: 5
+              },
+            },
           },
         },
         labels: props.labels || ['Cricket'],
         colors: [`${color.blue[300]}`],
+        grid: {
+          padding: {
+            left: 0,
+            right: 0,
+            top: 0,
+            bottom: 0
+          }
+        }
       },
     };
+  }
+
+  componentDidUpdate(prevProps: ApexChartProps) {
+    if (prevProps.series !== this.props.series) {
+      this.updateSeries(this.props.series || [0]);
+      this.setState(
+        { series: this.props.series || [0] },
+        () => {
+          ApexCharts.exec('radialBar', 'updateSeries', this.state.series);
+        }
+      );
+    }
+  }
+
+  animateSeries = (newSeries: number[]) => {
+    const totalSteps = 100
+    let currentStep = 0;
+
+    const interval = setInterval(() => {
+      if (currentStep >= totalSteps) {
+        clearInterval(interval);
+      } else {
+        const intermediateValue = (newSeries[0] * currentStep) / totalSteps;
+        ApexCharts.exec('radialBar', 'updateSeries', [intermediateValue]);
+        currentStep++;
+      }
+    }, 10);
+  };
+
+  updateSeries = (newSeries: number[]) => {
+    this.animateSeries(newSeries);
+  };
+
+  componentDidMount() {
+    this.updateSeries(this.state.series);
   }
 
   render() {
     return (
       <div>
-        <div id="chart">
-          <ReactApexChart
-            options={this.state.options}
-            series={this.state.series}
-            type="radialBar"
-            height={180}
-          />
-        </div>
-        <div id="html-dist"></div>
+        <ReactApexChart
+          options={this.state.options}
+          series={this.state.series}
+          type="radialBar"
+          height={180}
+        />
       </div>
     );
   }
 }
-
-const domContainer = document.querySelector('#root');
-ReactDOM.render(<ApexChart series={[]} labels={[]} />, domContainer);
 
 export default ApexChart;
