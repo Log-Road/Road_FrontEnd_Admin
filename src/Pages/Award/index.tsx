@@ -18,25 +18,26 @@ const Award = () => {
   return (
     <Container>
       <Content>
-        <ContestSection>
-          <TagWrap>
-            {["개인", "팀", "동아리"].map((value) => <SelectTag text={value} />)}
-          </TagWrap>
-          <SelectProject />
-          <SelectProject />
-          <Button text="시상 완료하기" active={finish} onClick={handleClickAward} />
-        </ContestSection>
-
-        <Body>
-          <Title>프로젝트 시상하기</Title>
+        <TopWrap>
+          <TitleWrap>
+            <Title>프로젝트 시상하기</Title>
+            <Button width="150px" text="시상 완료하기" active={finish} onClick={handleClickAward} />
+          </TitleWrap>
           <ContestInfo />
-          <ProjectWrap>
-            <AwardProject />
-            <AwardProject />
-            <AwardProject />
-            <AwardProject />
-          </ProjectWrap>
-        </Body>
+        </TopWrap>
+        <TagWrap>
+          {["개인", "팀", "동아리"].map((value) => <SelectTag key={value} text={value} />)}
+        </TagWrap>
+        <ProjectWrap>
+          <AwardProject />
+          <AwardProject />
+          <AwardProject />
+          <AwardProject />
+          <AwardProject />
+          <AwardProject />
+          <AwardProject />
+          <AwardProject />
+        </ProjectWrap>
       </Content>
     </Container>
   )
@@ -51,23 +52,22 @@ justify-content: center;
 `
 
 const Content = styled.div`
-width: 1200px;
+width: 1236px;
 display: flex;
+flex-direction: column;
 justify-content: space-between;
-gap: 20px;
+gap: 24px;
 `
 
-const ContestSection = styled.div`
-width: 300px;
-display: flex;
-flex-direction: column;
-gap: 8px;
+const TopWrap = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 `
 
-const Body = styled.div`
-display: flex;
-flex-direction: column;
-gap: 12px;
+const TitleWrap = styled.div`
+  display: flex;
+  justify-content: space-between;
 `
 
 const Title = styled.p`
