@@ -77,6 +77,6 @@ color: ${color.gray[600]};
 `
 
 const Flex = styled.div`
-  display: flex;
-  
+width: 500px;
+display: flex;
 `

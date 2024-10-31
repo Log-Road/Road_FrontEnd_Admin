@@ -9,7 +9,8 @@ import ContestInfo from "@/Pages/Award/ContestInfo"
 
 const Award = () => {
 
-  const [finish, setFinish] = useState(false)
+  const [award, setAward] = useState<boolean>(false)
+  const [select, setSelect] = useState<boolean>()
 
   const handleClickAward = () => {
     console.log("시상하기")
@@ -21,7 +22,12 @@ const Award = () => {
         <TopWrap>
           <TitleWrap>
             <Title>프로젝트 시상하기</Title>
-            <Button width="150px" text="시상 완료하기" active={finish} onClick={handleClickAward} />
+            <Button
+              width="150px"
+              text="시상 완료하기"
+              active={award}
+              onClick={handleClickAward}
+            />
           </TitleWrap>
           <ContestInfo />
         </TopWrap>
@@ -29,7 +35,7 @@ const Award = () => {
           {["개인", "팀", "동아리"].map((value) => <SelectTag key={value} text={value} />)}
         </TagWrap>
         <ProjectWrap>
-          <AwardProject />
+          <AwardProject select={select} onClick={() => setSelect(!select)} />
           <AwardProject />
           <AwardProject />
           <AwardProject />
