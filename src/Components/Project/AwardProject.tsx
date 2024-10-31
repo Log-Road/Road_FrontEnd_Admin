@@ -1,8 +1,12 @@
 import { Heart } from "@/Assets";
 import { color } from "@/Styles";
 import * as S from "./style";
+import { useCalculateSize } from "@/Hooks/useCalculateSize";
 
 export default function AwardProject() {
+
+  const [divRef, size] = useCalculateSize()
+
   return (
     <S.Container>
       <S.Image src="https://blog.kakaocdn.net/dn/0mySg/btqCUccOGVk/nQ68nZiNKoIEGNJkooELF1/img.jpg" />
@@ -15,8 +19,8 @@ export default function AwardProject() {
         </div>
 
         <S.Wrap>
-          <S.TeamType>동아리 (Log)</S.TeamType>
-          <S.MemberWrap>
+          <S.TeamType ref={divRef}>동아리 (Log)</S.TeamType>
+          <S.MemberWrap width={size.width}>
             <S.Text>홍길동</S.Text>
             <S.Text>신사임당</S.Text>
           </S.MemberWrap>
