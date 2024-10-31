@@ -9,7 +9,8 @@ import {
   EditStudent,
   PostApprove,
   PostRefuse,
-  InquiryContest
+  InquiryContest,
+  DeleteContest
 } from "@/Components/Modals";
 
 export default function Modal() {
@@ -31,6 +32,7 @@ export default function Modal() {
       case 'PostApprove': return <PostApprove />
       case 'PostRefuse': return <PostRefuse />
       case 'InquiryContest': return <InquiryContest />
+      case 'DeleteContest': return modalData ? <DeleteContest contestId={modalData}/> : null;
       default: return null
     }
   }

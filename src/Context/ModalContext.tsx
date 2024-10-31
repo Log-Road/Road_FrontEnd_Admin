@@ -8,6 +8,7 @@ export type ModalStateType =
   | 'PostApprove'
   | 'PostRefuse'
   | 'InquiryContest'
+  | 'DeleteContest'
   ;
 
 type ModalType = {

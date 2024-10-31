@@ -3,29 +3,40 @@ import Button from "@/Components/Management/Button";
 import { Plus } from "@/Assets";
 import { color, font } from "@/Styles";
 import ActiveButton from "@/Components/Management/ActiveButton";
-import { Contest } from "@/Components/Dummy/Contest";
 import { ContestType } from "@/Models/Manage";
 import { covertISOtoKST } from "@/Utils/Date";
 import { ContestStatus } from "@/Utils/Status";
 import Recent from "@/Pages/ContestManage/Recent";
 import { useNavigate } from "react-router-dom";
-import { useGetContestList } from "@/Utils/api/Contest";
-import { useState } from "react";
+import { useGetContestList, useGetContestDetail } from "@/Utils/api/Contest";
+import { useEffect, useState } from "react";
+import { useModal } from "@/Context/ModalContext";
+import useContestStore from "@/Store/useContestStore";
 
 type ContestStatusType = "ONGOING" | "IN_PROGRESS" | "PENDING_AWARD" | "CLOSED";
 
-const RenderContestButtons = ({ status }: { status: ContestStatusType }) => {
+const RenderContestButtons = ({ status, contestId }: { status: ContestStatusType, contestId: string }) => {
+  const navigation = useNavigate()
+
+  const { openModal } = useModal()
+
+  const handleClickModify = (contestId: string) => { }
+
+  const handleClickDelete = (contestId: string) => {
+    openModal("DeleteContest", contestId)
+  }
+
   switch (status) {
     case "ONGOING":
     case "IN_PROGRESS":
       return (
         <>
-          <ActiveButton text="수정하기" active={true} onClick={() => { }} />
-          <ActiveButton text="삭제하기" active={false} onClick={() => { }} />
+          <ActiveButton text="수정하기" active={true} onClick={() => handleClickModify(contestId)} />
+          <ActiveButton text="삭제하기" active={false} onClick={() => handleClickDelete(contestId)} />
         </>
       );
     case "PENDING_AWARD":
-      return <ActiveButton text="시상하기" active={true} onClick={() => { }} />;
+      return <ActiveButton text="시상하기" active={true} onClick={() => navigation('/award')} />;
     case "CLOSED":
       return <ActiveButton text="결과보기" active={true} onClick={() => { }} />;
     default:
@@ -34,15 +45,39 @@ const RenderContestButtons = ({ status }: { status: ContestStatusType }) => {
 };
 
 const ContestManage = () => {
-
-  const navigation = useNavigate()
+  const navigate = useNavigate()
   const [page, setPage] = useState<string>("0")
+  const [selectId, setSelectId] = useState<string>("")
 
   const {
     data: contestListData,
     isLoading: contestListLoading,
     isError: contestListError
   } = useGetContestList(page)
+
+  const { data } = useGetContestDetail(selectId);
+  const { setForm } = useContestStore()
+  const { openModal } = useModal()
+
+  const handleClickContest = (id: string) => {
+    setSelectId(id)
+    openModal('InquiryContest', null)
+  }
+
+  useEffect(() => {
+    if (data) {
+      setForm({
+        // id: data.id,
+        // name: data?.name,
+        // status: data?.status,
+        // startDate: data?.startDate,
+        // endDate: data?.endDate,
+        // purpose: data?.purpose,
+        // place: data?.place,
+        // audience: data?.audience
+      })
+    }
+  }, [data, setForm])
 
   return (
     <Container>
@@ -54,7 +89,7 @@ const ContestManage = () => {
         <Button
           icon={Plus}
           text="대회 추가"
-          onClick={() => navigation('/register')} />
+          onClick={() => navigate('/register')} />
       </Header>
 
       <Recent />
@@ -66,7 +101,7 @@ const ContestManage = () => {
           <>
             <TableHeader>
               <TableColumn
-                width="170px"
+                width="175px"
                 style={{ textAlign: "center" }}
               >
                 대회 일정
@@ -83,11 +118,11 @@ const ContestManage = () => {
                     <StateText active={status === "PENDING_AWARD" || status === "IN_PROGRESS"}>
                       {ContestStatus(status)}
                     </StateText>
-                    <Text>{name}</Text>
+                    <Text onClick={() => handleClickContest(id)}>{name}</Text>
                   </TableData>
 
                   <ButtonWrap>
-                    <RenderContestButtons status={status} />
+                    <RenderContestButtons status={status} contestId={id} />
                   </ButtonWrap>
                 </TableRow>
               ))}
@@ -184,10 +219,14 @@ const Text = styled.p`
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+
+  &:hover {
+    color: ${color.gray[500]};
+  }
 `;
 
 const DateText = styled.p`
-  width: 170px;
+  width: 175px;
   ${font.regular14}
   color: ${color.gray[500]};
 `

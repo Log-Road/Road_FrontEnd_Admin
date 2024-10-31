@@ -7,7 +7,6 @@ import { useDeleteClub } from "@/Utils/api/Club";
 export default function DeleteClub({ clubId }: { clubId: string }) {
 
   const { mutate: deleteClub } = useDeleteClub();
-
   const handleClickDelete = (clubId: string) => {
     try {
       deleteClub({ clubId }, {
