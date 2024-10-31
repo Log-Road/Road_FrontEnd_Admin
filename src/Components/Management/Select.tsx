@@ -24,6 +24,7 @@ justify-content: space-between;
 align-items: center;
 border: 1px solid ${({ selected }) => selected ? color.blue[300] : color.gray[200]};
 border-radius: 8px;
+background-color: ${color.white};
 
 &:hover {
   background-color: ${color.gray[100]};
