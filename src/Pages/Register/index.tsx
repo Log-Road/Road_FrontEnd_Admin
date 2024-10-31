@@ -9,7 +9,7 @@ import { color, font } from "@/Styles"
 import RemovableTag from "@/Components/Management/RemovableTag"
 import Button from "@/Components/Common/Button"
 import { InputType } from "@/Models/Manage"
-import useFormStore from "@/Store/FormStore"
+import useContestStore from "@/Store/useContestStore"
 import { useNavigate } from "react-router-dom"
 import { useAddContest } from "@/Utils/api/Contest"
 import { ContestCreate } from "@/Models/Manage"
@@ -17,7 +17,7 @@ import { ContestCreate } from "@/Models/Manage"
 const options = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10']
 
 const RenderInput = ({ property = '', label, placeholder }: InputType) => {
-  const { form, handleChange } = useFormStore();
+  const { form, handleChange } = useContestStore();
   const value = (form as Record<string, any>)[property] || '';
 
   return (
@@ -37,8 +37,8 @@ const Register = () => {
   const navigation = useNavigate()
 
   const { mutate } = useAddContest()
-  const { form, handleChange, setForm } = useFormStore();
-  const { contestName, target, locate, awardName, purpose } = form;
+  const { form, handleChange, setForm } = useContestStore();
+  const { name, place, audience, awardName, purpose } = form;
 
   const [selectOption, setSelectOption] = useState<string>("")
   const [startDate, setStartDate] = useState<string>('');
@@ -74,12 +74,12 @@ const Register = () => {
   }
 
   const competitionData: ContestCreate = {
-    name: contestName,
+    name,
     startDate,
     endDate,
     purpose,
-    audience: target,
-    place: locate,
+    audience,
+    place,
     awards: awardList,
   };
 

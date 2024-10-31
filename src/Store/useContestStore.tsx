@@ -1,12 +1,5 @@
 import { create } from 'zustand';
-
-interface FormState {
-  contestName: string;
-  target: string;
-  locate: string;
-  awardName: string;
-  purpose: string;
-}
+import { FormState } from '@/Models/Manage';
 
 interface FormStore {
   form: FormState;
@@ -14,13 +7,18 @@ interface FormStore {
   setForm: (newForm: Partial<FormState>) => void;
 }
 
-const useFormStore = create<FormStore>((set) => ({
+const useContestStore = create<FormStore>((set) => ({
   form: {
-    contestName: '',
-    target: '',
-    locate: '',
-    awardName: '',
+    id: '',
+    name: '',
+    status: "ONGOING",
+    startDate: '',
+    endDate: '',
     purpose: '',
+    audience: '',
+    place: '',
+    awardName: '',
+    awards: []
   },
   handleChange: (e) => {
     const { name, value } = e.target;
@@ -40,4 +38,4 @@ const useFormStore = create<FormStore>((set) => ({
     })),
 }));
 
-export default useFormStore;
+export default useContestStore;
