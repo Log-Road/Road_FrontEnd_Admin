@@ -70,6 +70,7 @@ const Register = () => {
   }
 
   const handleUpload = () => {
+    navigation('/contest')
     mutate(competitionData);
   }
 
