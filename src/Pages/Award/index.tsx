@@ -1,19 +1,26 @@
 import styled from "styled-components"
 import { color, font } from "@/Styles"
 import SelectTag from "@/Components/Common/SelectTag"
-import SelectProject from "@/Components/Project/SelectProject"
 import Button from "@/Components/Common/Button"
 import { useState } from "react"
 import AwardProject from "@/Components/Project/AwardProject"
 import ContestInfo from "@/Pages/Award/ContestInfo"
+import { useModal } from "@/Context/ModalContext"
 
 const Award = () => {
+
+  const { openModal } = useModal()
 
   const [award, setAward] = useState<boolean>(false)
   const [select, setSelect] = useState<boolean>()
 
   const handleClickAward = () => {
     console.log("시상하기")
+  }
+
+  const handleClickProject = () => {
+    // setSelect(!select)
+    openModal("Award", null)
   }
 
   return (
@@ -35,7 +42,7 @@ const Award = () => {
           {["개인", "팀", "동아리"].map((value) => <SelectTag key={value} text={value} />)}
         </TagWrap>
         <ProjectWrap>
-          <AwardProject select={select} onClick={() => setSelect(!select)} />
+          <AwardProject select={select} onClick={handleClickProject} />
           <AwardProject />
           <AwardProject />
           <AwardProject />
