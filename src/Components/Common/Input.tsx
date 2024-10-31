@@ -1,15 +1,18 @@
 import { color } from "@/Styles"
 import styled from "styled-components"
+import { ChangeEvent } from "react"
 
 interface InputPropsType {
+  name: string,
+  value: string,
   placeholder?: string,
-  onChange?: () => void,
+  onChange?: (e: ChangeEvent<HTMLInputElement>) => void,
   onClick?: () => void
 }
 
-const Input = ({ placeholder, onChange, onClick }: InputPropsType) => {
+const Input = ({ ...props }: InputPropsType) => {
   return (
-    <InputContainer placeholder={placeholder} />
+    <InputContainer {...props} />
   )
 }
 

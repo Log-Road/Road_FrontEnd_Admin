@@ -6,7 +6,10 @@ export type ModalStateType =
   | 'DeleteClub'
   | 'EditStudent'
   | 'PostApprove'
-  | 'PostRefuse';
+  | 'PostRefuse'
+  | 'InquiryContest'
+  | 'DeleteContest'
+  ;
 
 type ModalType = {
   modalState: ModalStateType,

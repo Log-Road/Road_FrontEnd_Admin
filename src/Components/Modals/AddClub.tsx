@@ -20,7 +20,7 @@ export default function AddClub() {
 
   const handleClickSubmit = async () => {
     if (clubName.trim().length > 0) {
-      const result = mutate({ isActive, clubName });
+      mutate({ isActive, clubName });
       closeModal()
     } else {
       toast.error("동아리 이름을 입력해주세요.");

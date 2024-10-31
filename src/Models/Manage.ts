@@ -47,6 +47,14 @@ export interface ContestDefaultType {
   statusMsg: string;
 }
 
+export interface ContestGetDetailType {
+  data: {
+    data: ContestDetailType
+  },
+  statusCode: number,
+  statusMsg: string
+}
+
 export interface ContestDetailType {
   id: string,
   name: string,
@@ -124,4 +132,22 @@ export interface ProjectType {
 
 export interface ProjectListType {
   list: ProjectType[]
+}
+
+export interface InputType {
+  property?: string,
+  label?: string,
+  placeholder: string
+}
+
+export interface FormState {
+  id: string,
+  name: string,
+  status: ContestStatusType,
+  startDate: string,
+  endDate: string,
+  purpose: string,
+  place: string,
+  audience: string,
+  awardName: string
 }

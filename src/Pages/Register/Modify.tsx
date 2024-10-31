@@ -11,7 +11,6 @@ import Button from "@/Components/Common/Button"
 import { InputType } from "@/Models/Manage"
 import useContestStore from "@/Store/useContestStore"
 import { useNavigate } from "react-router-dom"
-import { useAddContest } from "@/Utils/api/Contest"
 import { ContestCreate } from "@/Models/Manage"
 
 const options = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10']
@@ -33,10 +32,9 @@ const RenderInput = ({ property = '', label, placeholder }: InputType) => {
   )
 }
 
-const Register = () => {
+const Modify = () => {
   const navigation = useNavigate()
 
-  const { mutate } = useAddContest()
   const { form, handleChange, setForm } = useContestStore();
   const { name, place, audience, awardName, purpose } = form;
 
@@ -69,28 +67,13 @@ const Register = () => {
     setEndDate(date)
   }
 
-  const handleUpload = () => {
-    navigation('/contest')
-    mutate(competitionData);
-  }
-
-  const competitionData: ContestCreate = {
-    name,
-    startDate,
-    endDate,
-    purpose,
-    audience,
-    place,
-    awards: awardList,
-  };
-
   return (
     <S.Container>
       <S.Header>
-        <S.Title>대회 등록하기</S.Title>
+        <S.Title>대회 수정하기</S.Title>
         <S.InfoWrap>
           <S.Info>대회에 대한 설명과 필수 정보를 입력해주세요</S.Info>
-          <S.Info>등록 버튼을 누른 직후 대회가 진행됩니다</S.Info>
+          <S.Info>아래 버튼을 눌러 대회를 업데이트 해주세요</S.Info>
         </S.InfoWrap>
       </S.Header>
 
@@ -156,15 +139,15 @@ const Register = () => {
         />
         <Button
           width="200px"
-          text="등록"
-          onClick={handleUpload}
+          text="업로드"
+          onClick={() => {}}
         />
       </S.ButtonWrap>
     </S.Container>
   )
 }
 
-export default Register
+export default Modify
 
 const Row = styled.div`
 display: flex;

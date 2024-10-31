@@ -156,7 +156,7 @@ color: ${color.white};
 const StateText = styled.p<{ active: boolean }>`
 width: 70px;
 ${font.regular16}
-color: ${({ active }) => active ? color.blue[300] : color.gray[300]};
+color: ${({ active }) => active ? color.blue[300] : color.gray[500]};
 `
 
 const Text = styled.p<{ active: boolean }>`
