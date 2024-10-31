@@ -3,12 +3,13 @@ import styled from "styled-components"
 
 interface PropsType {
   text?: string,
-  select?: boolean
+  select?: boolean,
+  onClick?: () => void
 }
 
-export default function SelectTag({ text, select = false }: PropsType) {
+export default function SelectTag({ text, select = false, onClick }: PropsType) {
   return (
-    <TagContainer select={select}>
+    <TagContainer select={select} onClick={onClick}>
       <Text select={select}>{text}</Text>
     </TagContainer>
   )
