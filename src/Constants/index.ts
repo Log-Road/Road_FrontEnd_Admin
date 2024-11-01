@@ -11,3 +11,9 @@ export const SearchItems: SearchItemsType[] = [
   { label: "반", text: "반 선택하기", options: ['1', '2', '3', '4'] },
   { label: "학년", text: "학년 선택하기", options: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20'] },
 ];
+
+export const CategoryItems = [
+  {category: "PERSONAL", text: "개인"},
+  {category: "TEAM", text: "팀"},
+  {category: "CLUB", text: "동아리"}
+]

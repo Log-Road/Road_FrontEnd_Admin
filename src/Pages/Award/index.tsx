@@ -6,6 +6,7 @@ import { useState } from "react"
 import AwardProject from "@/Components/Project/AwardProject"
 import ContestInfo from "@/Pages/Award/ContestInfo"
 import { useModal } from "@/Context/ModalContext"
+import { CategoryItems } from "@/Constants"
 
 const Award = () => {
 
@@ -13,6 +14,7 @@ const Award = () => {
 
   const [award, setAward] = useState<boolean>(false)
   const [select, setSelect] = useState<boolean>()
+  const [selectCategory, setSelectCategory] = useState<string>()
 
   const handleClickAward = () => {
     console.log("시상하기")
@@ -39,7 +41,14 @@ const Award = () => {
           <ContestInfo />
         </TopWrap>
         <TagWrap>
-          {["개인", "팀", "동아리"].map((value) => <SelectTag key={value} text={value} />)}
+          {CategoryItems.map(({ category, text }) =>
+            <SelectTag
+              key={category}
+              text={text}
+              select={category === selectCategory}
+              onClick={() => setSelectCategory(category)}
+            />
+          )}
         </TagWrap>
         <ProjectWrap>
           <AwardProject select={select} onClick={handleClickProject} />

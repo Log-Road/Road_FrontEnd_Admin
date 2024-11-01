@@ -8,3 +8,10 @@ export interface SearchItemsType {
   text?: string,
   options?: Array<string>
 }
+
+type CategoryType = "PERSONAL" | "TEAM" | "CLUB"
+
+export interface CategoryItems {
+  category?: CategoryType,
+  text?: string
+}
