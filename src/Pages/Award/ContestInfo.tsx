@@ -1,8 +1,16 @@
 import Graph from "@/Components/Management/Graph"
+import { useModal } from "@/Context/ModalContext"
 import { color, font } from "@/Styles"
 import styled from "styled-components"
 
 const ContestInfo = () => {
+
+  const { openModal } = useModal()
+
+  const handleClickPendingVoteList = () => {
+    openModal("PendingVoters", null)
+  }
+
   return (
     <Container>
       <InfoWrap>
@@ -13,7 +21,7 @@ const ContestInfo = () => {
           </ContestNameAndDate>
           <Info>(간단한 대회 목적) 이 대회는 실시함으로써  학생들의 실력을 향상시키고 자신의 실력을 되돌아 볼 기회를 주어지게 된다 여기에 대회 정보가 입력되어 있으면 좋지 않을까 하는 생각으로 써봅니다 </Info>
         </TextWrap>
-        <Button>투표 미참원 리스트 확인하러가기</Button>
+        <Button onClick={handleClickPendingVoteList}>투표 미참원 리스트 확인하러가기</Button>
       </InfoWrap>
       <Flex>
         <Graph series={[40.0]} labels={["학생 투표율"]} />

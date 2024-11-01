@@ -14,7 +14,7 @@ const Award = () => {
 
   const [award, setAward] = useState<boolean>(false)
   const [select, setSelect] = useState<boolean>()
-  const [selectCategory, setSelectCategory] = useState<string>()
+  const [selectCategory, setSelectCategory] = useState<string>("PERSONAL")
 
   const handleClickAward = () => {
     console.log("시상하기")
