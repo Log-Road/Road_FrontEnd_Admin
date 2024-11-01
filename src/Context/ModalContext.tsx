@@ -9,6 +9,8 @@ export type ModalStateType =
   | 'PostRefuse'
   | 'InquiryContest'
   | 'DeleteContest'
+  | 'Award'
+  | 'PendingVoters'
   ;
 
 type ModalType = {

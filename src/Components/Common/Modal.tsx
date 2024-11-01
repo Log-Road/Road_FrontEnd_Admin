@@ -10,7 +10,9 @@ import {
   PostApprove,
   PostRefuse,
   InquiryContest,
-  DeleteContest
+  DeleteContest,
+  Award,
+  PendingVoters
 } from "@/Components/Modals";
 
 export default function Modal() {
@@ -33,6 +35,8 @@ export default function Modal() {
       case 'PostRefuse': return <PostRefuse />
       case 'InquiryContest': return <InquiryContest />
       case 'DeleteContest': return modalData ? <DeleteContest contestId={modalData}/> : null;
+      case 'Award' : return <Award />
+      case 'PendingVoters': return <PendingVoters />
       default: return null
     }
   }

@@ -3,15 +3,44 @@ import { font, color } from "@/Styles"
 
 export const Container = styled.div`
 width: 300px;
-min-height: fit-content;
-height: 330px;
+height: fit-content;
 display: flex;
 flex-direction: column;
 border-radius: 8px;
-border: 1px solid ${color.gray[200]};
+border: 1.5px solid ${color.gray[200]};
 box-shadow : 0 4px 10px 10px rgba(228, 228, 228, 0.1);
 background-color: ${color.white};
 overflow: hidden;
+`
+
+export const AwardContainer = styled.div<{select: boolean}>`
+position: relative;
+width: 300px;
+height: fit-content;
+display: flex;
+flex-direction: column;
+border-radius: 8px;
+border: 1.5px solid ${({select}) => select ? color.blue[300] : color.gray[200]};
+box-shadow : 0 4px 10px 10px rgba(228, 228, 228, 0.1);
+background-color: ${color.white};
+overflow: hidden;
+`
+
+export const Tag = styled.div`
+position: absolute;
+top: 0;
+left: 0;
+display: flex;
+justify-content: center;
+align-items: center;
+padding: 8px 12px;
+background-color: ${color.blue[300]};
+border-radius: 0 0 8px 0;
+`
+
+export const TagText = styled.p`
+${font.medium16}
+color: ${color.white};
 `
 
 export const Content = styled.div`

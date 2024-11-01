@@ -1,42 +1,65 @@
 import styled from "styled-components"
 import { color, font } from "@/Styles"
 import SelectTag from "@/Components/Common/SelectTag"
-import SelectProject from "@/Components/Project/SelectProject"
 import Button from "@/Components/Common/Button"
 import { useState } from "react"
 import AwardProject from "@/Components/Project/AwardProject"
 import ContestInfo from "@/Pages/Award/ContestInfo"
+import { useModal } from "@/Context/ModalContext"
+import { CategoryItems } from "@/Constants"
 
 const Award = () => {
 
-  const [finish, setFinish] = useState(false)
+  const { openModal } = useModal()
+
+  const [award, setAward] = useState<boolean>(false)
+  const [select, setSelect] = useState<boolean>()
+  const [selectCategory, setSelectCategory] = useState<string>("PERSONAL")
 
   const handleClickAward = () => {
     console.log("시상하기")
   }
 
+  const handleClickProject = () => {
+    // setSelect(!select)
+    openModal("Award", null)
+  }
+
   return (
     <Container>
       <Content>
-        <ContestSection>
-          <TagWrap>
-            {["개인", "팀", "동아리"].map((value) => <SelectTag text={value} />)}
-          </TagWrap>
-          <SelectProject />
-          <SelectProject />
-          <Button text="시상 완료하기" active={finish} onClick={handleClickAward} />
-        </ContestSection>
-
-        <Body>
-          <Title>프로젝트 시상하기</Title>
+        <TopWrap>
+          <TitleWrap>
+            <Title>프로젝트 시상하기</Title>
+            <Button
+              width="150px"
+              text="시상 완료하기"
+              active={award}
+              onClick={handleClickAward}
+            />
+          </TitleWrap>
           <ContestInfo />
-          <ProjectWrap>
-            <AwardProject />
-            <AwardProject />
-            <AwardProject />
-            <AwardProject />
-          </ProjectWrap>
-        </Body>
+        </TopWrap>
+        <TagWrap>
+          {CategoryItems.map(({ category, text }) =>
+            <SelectTag
+              key={category}
+              text={text}
+              select={category === selectCategory}
+              onClick={() => setSelectCategory(category)}
+            />
+          )}
+        </TagWrap>
+        <ProjectWrap>
+          <AwardProject select={select} onClick={handleClickProject} />
+          <AwardProject />
+          <AwardProject />
+          <AwardProject />
+          <AwardProject />
+          <AwardProject />
+          <AwardProject />
+          <AwardProject />
+        </ProjectWrap>
       </Content>
     </Container>
   )
@@ -51,23 +74,22 @@ justify-content: center;
 `
 
 const Content = styled.div`
-width: 1200px;
+width: 1236px;
 display: flex;
+flex-direction: column;
 justify-content: space-between;
-gap: 20px;
+gap: 24px;
 `
 
-const ContestSection = styled.div`
-width: 300px;
-display: flex;
-flex-direction: column;
-gap: 8px;
+const TopWrap = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 `
 
-const Body = styled.div`
-display: flex;
-flex-direction: column;
-gap: 12px;
+const TitleWrap = styled.div`
+  display: flex;
+  justify-content: space-between;
 `
 
 const Title = styled.p`

@@ -3,12 +3,24 @@ import { color } from "@/Styles";
 import * as S from "./style";
 import { useCalculateSize } from "@/Hooks/useCalculateSize";
 
-export default function AwardProject() {
+interface PropsType {
+  select?: boolean,
+  onClick?: () => void
+}
+
+export default function AwardProject({ select = false, onClick }: PropsType) {
 
   const [divRef, size] = useCalculateSize()
 
   return (
-    <S.Container>
+    <S.AwardContainer onClick={onClick} select={select}>
+      {
+        select &&
+        <S.Tag>
+          <S.TagText>금상</S.TagText>
+        </S.Tag>
+      }
+
       <S.Image src="https://blog.kakaocdn.net/dn/0mySg/btqCUccOGVk/nQ68nZiNKoIEGNJkooELF1/img.jpg" />
 
       <S.Content>
@@ -28,12 +40,12 @@ export default function AwardProject() {
 
         <S.DateAndLikeWrap>
           <S.Text>2023.03.25</S.Text>
-          <S.Wrap>
+          <S.HeartWrap>
             <Heart size={16} color={color.gray[300]} />
             <S.Text>0</S.Text>
-          </S.Wrap>
+          </S.HeartWrap>
         </S.DateAndLikeWrap>
       </S.Content>
-    </S.Container>
+    </S.AwardContainer>
   )
 }
