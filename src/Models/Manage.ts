@@ -147,5 +147,6 @@ export interface FormState {
   purpose: string,
   place: string,
   audience: string,
-  awardName: string
+  awardName: string,
+  awards: [{name: string, count: number}]
 }
