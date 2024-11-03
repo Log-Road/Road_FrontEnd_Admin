@@ -36,7 +36,7 @@ export default function Modal() {
       case 'InquiryContest': return <InquiryContest />
       case 'DeleteContest': return modalData ? <DeleteContest contestId={modalData}/> : null;
       case 'Award' : return <Award />
-      case 'PendingVoters': return <PendingVoters />
+      case 'PendingVoters': return modalData ? <PendingVoters contestId={modalData} /> : null
       default: return null
     }
   }
