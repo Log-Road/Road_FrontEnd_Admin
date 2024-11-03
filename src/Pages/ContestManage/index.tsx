@@ -55,9 +55,9 @@ const ContestManage = () => {
     isError: contestListError
   } = useGetContestList(page)
 
-  const { data } = useGetContestDetail(selectId);
   const { setForm } = useContestStore()
   const { openModal } = useModal()
+  const { data } = useGetContestDetail(selectId || '');
 
   const handleClickContest = (id: string) => {
     setSelectId(id)
@@ -66,18 +66,10 @@ const ContestManage = () => {
 
   useEffect(() => {
     if (data) {
-      setForm({
-        // id: data.id,
-        // name: data?.name,
-        // status: data?.status,
-        // startDate: data?.startDate,
-        // endDate: data?.endDate,
-        // purpose: data?.purpose,
-        // place: data?.place,
-        // audience: data?.audience
-      })
+      setForm(data.data[0]);
+      console.log(data)
     }
-  }, [data, setForm])
+  }, [data, setForm]);
 
   return (
     <Container>

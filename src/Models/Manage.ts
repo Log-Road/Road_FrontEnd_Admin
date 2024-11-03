@@ -48,9 +48,7 @@ export interface ContestDefaultType {
 }
 
 export interface ContestGetDetailType {
-  data: {
-    data: ContestDetailType
-  },
+  data: ContestDetailType[]
   statusCode: number,
   statusMsg: string
 }

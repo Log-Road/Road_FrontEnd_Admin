@@ -3,7 +3,7 @@ import instance from '@/Utils/axios';
 import ApiError from '@/Utils/axios/ApiError';
 import toast from 'react-hot-toast';
 import {
-  ContestDetailType,
+  ContestGetDetailType,
   ContestDefaultType,
   ContestCreate,
   ContestModify
@@ -20,11 +20,11 @@ const path = '/competition'
 export const useGetContestDetail = (id: string) => {
   const { handleError } = ApiError();
 
-  return useQuery<ContestDetailType[], Error>({
+  return useQuery<ContestGetDetailType, Error>({
     queryKey: ["ContestDetail", id],
     queryFn: async () => {
       try {
-        const response = await instance.get<ContestDetailType[]>(`${path}/inform/${id}`);
+        const response = await instance.get<ContestGetDetailType>(`${path}/inform/${id}`);
         return response.data;
       } catch (error) {
         handleError(error);
