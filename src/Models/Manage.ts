@@ -91,7 +91,11 @@ export interface ContestModify {
 }
 
 export interface RecentContest {
-  list: ContestType[]
+  data: {
+    list: ContestType[]
+  }
+  statusCode: number,
+  statusMsg: string
 }
 
 export interface AwardItem {

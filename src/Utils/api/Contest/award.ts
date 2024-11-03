@@ -15,11 +15,11 @@ const path = '/competition'
 export const useGetRecentContest = () => {
   const { handleError } = ApiError()
 
-  return useQuery<RecentContest[], Error>({
+  return useQuery<RecentContest, Error>({
     queryKey: ["RecentContest"],
     queryFn: async () => {
       try {
-        const response = await instance.get<RecentContest[]>(`${path}/recent`)
+        const response = await instance.get<RecentContest>(`${path}/recent`)
         return response.data
       } catch(error) {
         handleError(error)
