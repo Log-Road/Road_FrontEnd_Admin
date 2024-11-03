@@ -20,7 +20,7 @@ export default function Router() {
           <Route path="contest" element={<ContestManage />} />
           <Route path="main" element={<Main />} />
           <Route path="project" element={<ProjectManage />} />
-          <Route path="award" element={<Award />} />
+          <Route path="/award/:id" element={<Award />} />
         </Route>
 
         <Route path="/" element={<BackgroundLayout />}>

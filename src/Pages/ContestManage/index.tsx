@@ -43,7 +43,7 @@ const RenderContestButtons = ({
         </>
       );
     case "PENDING_AWARD":
-      return <ActiveButton text="시상하기" active={true} onClick={() => navigation('/award')} />;
+      return <ActiveButton text="시상하기" active={true} onClick={() => navigation(`/award/${contestId}`)} />;
     case "CLOSED":
       return <ActiveButton text="결과보기" active={true} onClick={() => { }} />;
     default:
