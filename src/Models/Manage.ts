@@ -107,7 +107,7 @@ export interface AwardingData {
   list: AwardItem[];
 }
 
-export type CategoryType = "student" | "teacher";
+export type CategoryType = "Student" | "Teacher";
 
 export interface NoParticipate {
   id: string,
@@ -117,7 +117,11 @@ export interface NoParticipate {
 }
 
 export interface NoParticipateList {
-  list: NoParticipate[]
+  data: {
+    list: NoParticipate[]
+  },
+  statusCode: number,
+  statusMsg: string
 }
 
 export interface ProjectType {

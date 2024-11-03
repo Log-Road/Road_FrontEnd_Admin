@@ -83,7 +83,7 @@ export const useGetVote = (id: string) => {
 export const useGetUnVoteUsers = (id: string, category: CategoryType) => {
   const { handleError } = ApiError();
 
-  return useQuery<NoParticipateList[], Error>({
+  return useQuery<NoParticipateList, Error>({
     queryKey: ["UnVoteList", id, category],
     queryFn: async () => {
       try {

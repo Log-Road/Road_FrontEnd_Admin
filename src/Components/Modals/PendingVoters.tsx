@@ -1,20 +1,25 @@
 import { NonParticipants } from "@/Components/Dummy/NonParticipants"
 import { color, font } from "@/Styles"
+import { useGetUnVoteUsers } from "@/Utils/api/Contest/award"
 import styled from "styled-components"
 
-export default function PendingVoters() {
+export default function PendingVoters({ contestId }: { contestId: string }) {
+
+  const { data } = useGetUnVoteUsers(contestId, "Student");
+
+
   return (
     <>
       <Container>
         {
-          NonParticipants.list.map(({ id, name, number, category }) => (
-            <PersonWrap key={id}>
-              <Person>
+          data?.data.list.map(({ id, name, number, category }) => (
+            <VoterItem key={id}>
+              <VoterDetails>
                 <Name>{name}</Name>
-                <Category>{category === "Student" ? "학생" : "선생님"}</Category>
-              </Person>
-              <StudentId>{number}</StudentId>
-            </PersonWrap>
+                <StudentId>{number}</StudentId>
+              </VoterDetails>
+              <Category>{category === "Student" ? "학생" : "선생님"}</Category>
+            </VoterItem>
           ))
         }
       </Container>
@@ -28,13 +33,13 @@ flex-direction: column;
 gap: 8px;
 `
 
-const PersonWrap = styled.div`
+const VoterItem = styled.div`
 display: flex;
 justify-content: space-between;
-padding: 8px 0;
+padding: 8px 20px;
 `
 
-const Person = styled.div`
+const VoterDetails = styled.div`
   display: flex;
   align-items: flex-end;
   gap: 4px;
