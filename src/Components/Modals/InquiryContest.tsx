@@ -1,14 +1,16 @@
 import styled from "styled-components"
 import { font, color } from "@/Styles"
 import Tag from "@/Components/Common/Tag"
+import { useGetContestDetail } from "@/Utils/api/Contest"
 import useContestStore from "@/Store/useContestStore"
-import { ContestStatus } from "@/Utils/Status"
+import { useEffect } from "react"
 
-const Inquiry = () => {
+const Inquiry = ({ contestId }: { contestId: string }) => {
 
-  const { form } = useContestStore()
+  const { data } = useGetContestDetail(contestId)
+  const { form, setForm } = useContestStore()
 
-  const covertUTCtoDate = (utcDate: string) => {
+  const convertUTCtoDate = (utcDate: string) => {
     const kor = new Date(utcDate)
     kor.setHours(kor.getHours() + 9)
 
@@ -18,11 +20,17 @@ const Inquiry = () => {
     return result
   }
 
+  useEffect(() => {
+    if (data?.data) {
+      setForm(data.data)
+    }
+  }, [data, setForm]);
+
   return (
     <Content>
       <TopWrap>
         <ProjectName>{form.name}</ProjectName>
-        <DateText>{covertUTCtoDate(form.startDate)} ~ {covertUTCtoDate(form.endDate)}</DateText>
+        <DateText>{convertUTCtoDate(form.startDate)} ~ {convertUTCtoDate(form.endDate)}</DateText>
       </TopWrap>
       <Column>
         <InfoWrap>
@@ -41,7 +49,6 @@ const Inquiry = () => {
       <AwardSection>
         <AwardTitle>시상할 상 목록</AwardTitle>
         <TagWrap>
-          {form.awardName}
           <Tag text="금상" />
           <Tag text="은상" />
         </TagWrap>

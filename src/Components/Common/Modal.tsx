@@ -33,7 +33,7 @@ export default function Modal() {
       case 'EditStudent': return <EditStudent />
       case 'PostApprove': return <PostApprove />
       case 'PostRefuse': return <PostRefuse />
-      case 'InquiryContest': return <InquiryContest />
+      case 'InquiryContest': return modalData ? <InquiryContest contestId={modalData}/> : null
       case 'DeleteContest': return modalData ? <DeleteContest contestId={modalData}/> : null;
       case 'Award' : return <Award />
       case 'PendingVoters': return modalData ? <PendingVoters contestId={modalData} /> : null

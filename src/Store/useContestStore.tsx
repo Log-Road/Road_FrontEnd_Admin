@@ -4,7 +4,7 @@ import { FormState } from '@/Models/Manage';
 interface FormStore {
   form: FormState;
   handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  setForm: (newForm: Partial<FormState>) => void;
+  setForm: (newForm: any) => void;
   resetForm: () => void
 }
 

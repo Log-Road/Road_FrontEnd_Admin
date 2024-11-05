@@ -68,7 +68,7 @@ const ContestManage = () => {
 
   const handleClickContest = (id: string) => {
     setSelectId(id)
-    openModal('InquiryContest', null)
+    openModal('InquiryContest', id)
   }
 
   const handleClickModify = (id: string) => {
