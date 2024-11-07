@@ -5,7 +5,7 @@ interface FormStore {
   form: FormState;
   handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   setForm: (newForm: any) => void;
-  resetForm: () => void
+  resetForm: () => void;
 }
 
 const initialFormState: FormState = {
@@ -44,7 +44,7 @@ const useContestStore = create<FormStore>((set) => ({
 
   resetForm: () => {
     set({ form: initialFormState })
-  }
+  },
 }));
 
 export default useContestStore;
