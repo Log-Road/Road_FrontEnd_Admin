@@ -15,7 +15,7 @@ const Inquiry = ({ contestId }: { contestId: string }) => {
     kor.setHours(kor.getHours() + 9)
 
     const newDate = kor.toLocaleString()
-    const result = newDate.substring(0, 10)
+    const result = newDate.substring(0, 11)
 
     return result
   }
