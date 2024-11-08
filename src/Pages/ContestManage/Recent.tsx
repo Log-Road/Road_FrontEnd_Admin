@@ -1,15 +1,27 @@
 import { color, font } from "@/Styles"
+import { useGetRecentContest } from "@/Utils/api/Contest/award"
 import styled from "styled-components"
+import { covertISOtoKST } from "@/Utils/Date"
+import { useNavigate } from "react-router-dom"
 
 const Recent = () => {
+  const navigate = useNavigate()
+  const { data } = useGetRecentContest()
+
   return (
-    <RecentWrap>
-      <TextWrap>
-        <ContestName>2024 교내 해커톤</ContestName>
-        <DateText>2024.01.01 ~ 2024.01.03</DateText>
-      </TextWrap>
-      <Button>시상하기</Button>
-    </RecentWrap>
+    <>
+      {
+        data?.data.list.map(({ id, name, startDate, endDate }) => (
+          <RecentWrap key={id}>
+            <TextWrap>
+              <ContestName>{name}</ContestName>
+              <DateText>{covertISOtoKST(startDate)} ~ {covertISOtoKST(endDate)}</DateText>
+            </TextWrap>
+            <Button onClick={() => navigate(`/award/${id}`)}>시상하기</Button>
+          </RecentWrap>
+        ))
+      }
+    </>
   )
 }
 

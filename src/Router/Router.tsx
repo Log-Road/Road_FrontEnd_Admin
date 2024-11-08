@@ -9,7 +9,6 @@ import Post from "@/Pages/ProjectManage/Post";
 import Main from "@/Pages/Main"
 import ProjectManage from "@/Pages/ProjectManage"
 import Award from "@/Pages/Award";
-import Modify from "@/Pages/Register/Modify";
 
 export default function Router() {
   return (
@@ -21,12 +20,11 @@ export default function Router() {
           <Route path="contest" element={<ContestManage />} />
           <Route path="main" element={<Main />} />
           <Route path="project" element={<ProjectManage />} />
-          <Route path="award" element={<Award />} />
+          <Route path="/award/:id" element={<Award />} />
         </Route>
 
         <Route path="/" element={<BackgroundLayout />}>
           <Route path="register" element={<Register />} />
-          <Route path="modify" element={<Modify />} />
           <Route path="post" element={<Post />} />
         </Route>
       </Routes>

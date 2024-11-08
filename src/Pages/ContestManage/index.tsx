@@ -15,12 +15,19 @@ import useContestStore from "@/Store/useContestStore";
 
 type ContestStatusType = "ONGOING" | "IN_PROGRESS" | "PENDING_AWARD" | "CLOSED";
 
-const RenderContestButtons = ({ status, contestId }: { status: ContestStatusType, contestId: string }) => {
+const RenderContestButtons = ({
+  status,
+  contestId,
+  handleClickModify
+}: {
+  status: ContestStatusType,
+  contestId: string,
+  handleClickModify: (contestId: string) => void
+}) => {
+
   const navigation = useNavigate()
 
   const { openModal } = useModal()
-
-  const handleClickModify = (contestId: string) => { }
 
   const handleClickDelete = (contestId: string) => {
     openModal("DeleteContest", contestId)
@@ -36,7 +43,7 @@ const RenderContestButtons = ({ status, contestId }: { status: ContestStatusType
         </>
       );
     case "PENDING_AWARD":
-      return <ActiveButton text="시상하기" active={true} onClick={() => navigation('/award')} />;
+      return <ActiveButton text="시상하기" active={true} onClick={() => navigation(`/award/${contestId}`)} />;
     case "CLOSED":
       return <ActiveButton text="결과보기" active={true} onClick={() => { }} />;
     default:
@@ -55,29 +62,26 @@ const ContestManage = () => {
     isError: contestListError
   } = useGetContestList(page)
 
-  const { data } = useGetContestDetail(selectId);
   const { setForm } = useContestStore()
   const { openModal } = useModal()
+  const { data } = useGetContestDetail(selectId || '');
 
   const handleClickContest = (id: string) => {
     setSelectId(id)
-    openModal('InquiryContest', null)
+    openModal('InquiryContest', id)
+  }
+
+  const handleClickModify = (id: string) => {
+    setSelectId(id)
+    navigate(`/register?contestId=${id}`)
   }
 
   useEffect(() => {
     if (data) {
-      setForm({
-        // id: data.id,
-        // name: data?.name,
-        // status: data?.status,
-        // startDate: data?.startDate,
-        // endDate: data?.endDate,
-        // purpose: data?.purpose,
-        // place: data?.place,
-        // audience: data?.audience
-      })
+      setForm(data.data[0]);
+      console.log(data)
     }
-  }, [data, setForm])
+  }, [data, setForm]);
 
   return (
     <Container>
@@ -122,7 +126,11 @@ const ContestManage = () => {
                   </TableData>
 
                   <ButtonWrap>
-                    <RenderContestButtons status={status} contestId={id} />
+                    <RenderContestButtons
+                      status={status}
+                      contestId={id}
+                      handleClickModify={handleClickModify}
+                    />
                   </ButtonWrap>
                 </TableRow>
               ))}

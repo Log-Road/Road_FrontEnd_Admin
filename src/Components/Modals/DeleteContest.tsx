@@ -10,11 +10,7 @@ export default function DeleteContest({ contestId }: { contestId: string }) {
 
   const handleClickDelete = (contestId: string) => {
     console.log("contestId", contestId)
-    deleteContest({ contestId }, {
-      onSuccess: () => {
-        window.location.reload();
-      }
-    })
+    deleteContest(contestId)
   }
 
   return (

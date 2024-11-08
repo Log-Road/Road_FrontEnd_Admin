@@ -3,11 +3,13 @@ import instance from '@/Utils/axios';
 import ApiError from '@/Utils/axios/ApiError';
 import toast from 'react-hot-toast';
 import {
-  ContestDetailType,
+  ContestGetDetailType,
   ContestDefaultType,
   ContestCreate,
   ContestModify
 } from "@/Models/Manage";
+import { useModal } from "@/Context/ModalContext";
+import { useQueryClient } from "react-query";
 
 const path = '/competition'
 
@@ -20,11 +22,11 @@ const path = '/competition'
 export const useGetContestDetail = (id: string) => {
   const { handleError } = ApiError();
 
-  return useQuery<ContestDetailType[], Error>({
+  return useQuery<ContestGetDetailType, Error>({
     queryKey: ["ContestDetail", id],
     queryFn: async () => {
       try {
-        const response = await instance.get<ContestDetailType[]>(`${path}/inform/${id}`);
+        const response = await instance.get<ContestGetDetailType>(`${path}/inform/${id}`);
         return response.data;
       } catch (error) {
         handleError(error);
@@ -113,14 +115,15 @@ export const useEditContest = () => {
 
 export const useDeleteContest = () => {
   const { handleError } = ApiError()
+  const { closeModal } = useModal()
 
-  return useMutation<void, Error, { contestId: string }>({
-    mutationFn: async ({ contestId }) => {
+  return useMutation<void, Error, string>({
+    mutationFn: async (contestId) => {
       try {
         await instance.delete(`${path}/${contestId}`)
+        closeModal()
         toast.success("대회가 삭제되었습니다.", { duration: 1500 })
       } catch (error: any) {
-
         handleError(error)
         throw error
       }

@@ -48,9 +48,7 @@ export interface ContestDefaultType {
 }
 
 export interface ContestGetDetailType {
-  data: {
-    data: ContestDetailType
-  },
+  data: ContestDetailType[]
   statusCode: number,
   statusMsg: string
 }
@@ -93,7 +91,11 @@ export interface ContestModify {
 }
 
 export interface RecentContest {
-  list: ContestType[]
+  data: {
+    list: ContestType[]
+  }
+  statusCode: number,
+  statusMsg: string
 }
 
 export interface AwardItem {
@@ -105,7 +107,7 @@ export interface AwardingData {
   list: AwardItem[];
 }
 
-export type CategoryType = "student" | "teacher";
+export type CategoryType = "Student" | "Teacher";
 
 export interface NoParticipate {
   id: string,
@@ -115,7 +117,11 @@ export interface NoParticipate {
 }
 
 export interface NoParticipateList {
-  list: NoParticipate[]
+  data: {
+    list: NoParticipate[]
+  },
+  statusCode: number,
+  statusMsg: string
 }
 
 export interface ProjectType {
@@ -149,5 +155,6 @@ export interface FormState {
   purpose: string,
   place: string,
   audience: string,
-  awardName: string
+  awardName: string,
+  awards: [{name: string, count: number}]
 }

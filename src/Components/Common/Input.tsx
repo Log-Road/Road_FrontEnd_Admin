@@ -10,18 +10,22 @@ interface InputPropsType {
   onClick?: () => void
 }
 
-const Input = ({ ...props }: InputPropsType) => {
+const Input = ({ onChange, onClick, ...props }: InputPropsType) => {
   return (
-    <InputContainer {...props} />
+    <InputContainer 
+      onChange={onChange} 
+      onClick={onClick} 
+      {...props} 
+    />
   )
 }
 
 export default Input
 
 const InputContainer = styled.input`
-width: 100%;
-padding: 8px 16px;
-border: none;
-border-radius: 4px;
-background-color: ${color.gray[100]};
+  width: 100%;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  background-color: ${color.gray[100]};
 `

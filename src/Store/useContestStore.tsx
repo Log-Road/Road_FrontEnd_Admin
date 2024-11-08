@@ -4,22 +4,26 @@ import { FormState } from '@/Models/Manage';
 interface FormStore {
   form: FormState;
   handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  setForm: (newForm: Partial<FormState>) => void;
+  setForm: (newForm: any) => void;
+  resetForm: () => void;
+}
+
+const initialFormState: FormState = {
+  id: '',
+  name: '',
+  status: "ONGOING",
+  startDate: '',
+  endDate: '',
+  purpose: '',
+  audience: '',
+  place: '',
+  awardName: '',
+  awards: [{ name: '', count: 0 }]
 }
 
 const useContestStore = create<FormStore>((set) => ({
-  form: {
-    id: '',
-    name: '',
-    status: "ONGOING",
-    startDate: '',
-    endDate: '',
-    purpose: '',
-    audience: '',
-    place: '',
-    awardName: '',
-    awards: []
-  },
+  form: initialFormState,
+
   handleChange: (e) => {
     const { name, value } = e.target;
     set((state) => ({
@@ -29,6 +33,7 @@ const useContestStore = create<FormStore>((set) => ({
       },
     }));
   },
+
   setForm: (newForm) =>
     set((state) => ({
       form: {
@@ -36,6 +41,10 @@ const useContestStore = create<FormStore>((set) => ({
         ...newForm,
       },
     })),
+
+  resetForm: () => {
+    set({ form: initialFormState })
+  },
 }));
 
 export default useContestStore;

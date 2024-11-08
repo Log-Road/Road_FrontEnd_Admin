@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import * as S from "./style"
 import styled from "styled-components"
 import Input from "@/Components/Common/Input"
@@ -11,13 +11,15 @@ import Button from "@/Components/Common/Button"
 import { InputType } from "@/Models/Manage"
 import useContestStore from "@/Store/useContestStore"
 import { useNavigate } from "react-router-dom"
-import { useAddContest } from "@/Utils/api/Contest"
-import { ContestCreate } from "@/Models/Manage"
+import { useAddContest, useEditContest, useGetContestDetail } from "@/Utils/api/Contest"
+import { ContestStatusType, FormState } from "@/Models/Manage"
+import { useSearchParams } from 'react-router-dom';
+import { format } from 'date-fns';
 
 const options = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10']
 
 const RenderInput = ({ property = '', label, placeholder }: InputType) => {
-  const { form, handleChange } = useContestStore();
+  const { form, setForm } = useContestStore();
   const value = (form as Record<string, any>)[property] || '';
 
   return (
@@ -27,7 +29,7 @@ const RenderInput = ({ property = '', label, placeholder }: InputType) => {
         name={property}
         value={value}
         placeholder={placeholder}
-        onChange={handleChange}
+        onChange={(e) => setForm({ [property]: e.target.value })}
       />
     </Row>
   )
@@ -36,74 +38,104 @@ const RenderInput = ({ property = '', label, placeholder }: InputType) => {
 const Register = () => {
   const navigation = useNavigate()
 
-  const { mutate } = useAddContest()
-  const { form, handleChange, setForm } = useContestStore();
-  const { name, place, audience, awardName, purpose } = form;
+  const [searchParams] = useSearchParams();
+  const contestId = searchParams.get('contestId');
 
-  const [selectOption, setSelectOption] = useState<string>("")
-  const [startDate, setStartDate] = useState<string>('');
-  const [endDate, setEndDate] = useState<string>('');
-  const [awardList, setAwardList] = useState<Array<{ name: string; count: number }>>([]);
+  const { data } = useGetContestDetail(contestId || '')
+  const { form, handleChange, setForm, resetForm } = useContestStore();
+  const { name, place, audience, awardName, purpose, awards, startDate, endDate } = form;
 
-  const handleOptionChange = (value: string) => {
-    setSelectOption(value)
-  }
+  const { mutate: AddMutate } = useAddContest()
+  const { mutate: ModifyMutate } = useEditContest()
+
+  const [awardCount, setAwardCount] = useState<number>(0);
+
+  useEffect(() => {
+    if (contestId && data) {
+      setForm(data.data)
+    } else {
+      resetForm();
+    }
+  }, [contestId, data, setForm, resetForm]);
 
   const handleAddAward = () => {
-    if (awardName && selectOption) {
-      const newAward = {
-        name: awardName,
-        count: parseInt(selectOption),
-      };
-      setAwardList((prevList) => [...prevList, newAward]);
-      setForm({ awardName: '' });
-      setSelectOption("");
+    if (awardName && awardCount > 0) {
+      const newAward = { name: awardName, count: awardCount };
+
+      setForm((prevForm: FormState) => ({
+        ...prevForm,
+        awards: [...prevForm.awards, newAward],
+        awardName: '',
+      }));
+
+      setAwardCount(0);
     }
   };
 
-  const handleStartDate = (date: string) => {
-    setStartDate(date)
-  }
-
-  const handleSelectEndDate = (date: string) => {
-    setEndDate(date)
-  }
-
   const handleUpload = () => {
-    navigation('/contest')
-    mutate(competitionData);
-  }
+    const competitionData = {
+      name,
+      startDate,
+      endDate,
+      purpose,
+      audience,
+      place,
+      awards,
+    };
+    AddMutate(competitionData);
+    navigation('/contest');
+  };
 
-  const competitionData: ContestCreate = {
-    name,
-    startDate,
-    endDate,
-    purpose,
-    audience,
-    place,
-    awards: awardList,
+  const handleModify = () => {
+    const competitionEditData = {
+      ...form,
+      status: "ONGOING" as ContestStatusType,
+      startDate,
+      endDate,
+      awards,
+    };
+    ModifyMutate({ id: contestId || '', data: competitionEditData }, {
+      onSuccess: () => {
+        navigation('/contest');
+      },
+      onError: (error) => {
+        console.error("Failed to modify contest:", error);
+      }
+    });
   };
 
   return (
     <S.Container>
       <S.Header>
-        <S.Title>대회 등록하기</S.Title>
+        <S.Title>{contestId ? "대회 수정하기" : "대회 등록하기"}</S.Title>
         <S.InfoWrap>
           <S.Info>대회에 대한 설명과 필수 정보를 입력해주세요</S.Info>
-          <S.Info>등록 버튼을 누른 직후 대회가 진행됩니다</S.Info>
+          <S.Info>아래 버튼을 눌러 대회를 등록해주세요</S.Info>
         </S.InfoWrap>
       </S.Header>
 
       <S.Content>
-        <RenderInput property="contestName" label="대회명" placeholder="대회명을 입력해주세요" />
-        <RenderInput property="target" label="대상" placeholder="대상을 입력해주세요" />
-        <RenderInput property="locate" label="장소" placeholder="장소를 입력해주세요" />
+        <RenderInput property="name" label="대회명" placeholder="대회명을 입력해주세요" />
+        <RenderInput property="audience" label="대상" placeholder="대상을 입력해주세요" />
+        <RenderInput property="place" label="장소" placeholder="장소를 입력해주세요" />
 
         <Row>
           <FillText>대회 일정</FillText>
           <Wrap>
-            <Calendar text="시작 일을 입력해주세요" onDateSelect={handleStartDate} />
-            <Calendar text="종료 일을 입력해주세요" onDateSelect={handleSelectEndDate} />
+            <Calendar
+              text="시작 일을 입력해주세요"
+              value={startDate}
+              onDateSelect={(date) => {
+                const formattedDate = format(date, 'yyyy-MM-dd');
+                setForm({ startDate: formattedDate });
+              }} />
+            <Calendar
+              text="종료 일을 입력해주세요"
+              value={endDate}
+              onDateSelect={(date) => {
+                const formattedDate = format(date, 'yyyy-MM-dd');
+                setForm({ endDate: formattedDate });
+              }} />
           </Wrap>
         </Row>
         <Row>
@@ -128,7 +160,7 @@ const Register = () => {
                 width='180px'
                 text="개수를 선택해주세요"
                 options={options}
-                onChange={handleOptionChange}
+                onChange={(selectedOption) => setAwardCount(Number(selectedOption))}
               />
               <PlusButton>
                 <Plus
@@ -139,7 +171,7 @@ const Register = () => {
               </PlusButton>
             </Wrap>
             <S.TagWrap>
-              {awardList.map(({ name, count }, index) => (
+              {awards.map(({ name, count }, index) => (
                 <RemovableTag key={index} text={name} count={count} />
               ))}
             </S.TagWrap>
@@ -156,8 +188,8 @@ const Register = () => {
         />
         <Button
           width="200px"
-          text="등록"
-          onClick={handleUpload}
+          text={contestId ? "수정" : "등록"}
+          onClick={contestId ? handleModify : handleUpload}
         />
       </S.ButtonWrap>
     </S.Container>
