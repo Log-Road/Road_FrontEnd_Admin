@@ -1,3 +1,9 @@
+export interface HeaderInformationType {
+  name: string, 
+  text: string,
+  path: string
+}
+
 export interface FooterInformationType {
   title?: string,
   info?: string

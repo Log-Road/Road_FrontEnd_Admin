@@ -1,4 +1,10 @@
-import { FooterInformationType, SearchItemsType } from "@/Models"
+import { HeaderInformationType, FooterInformationType, SearchItemsType } from "@/Models"
+
+export const HeaderInformation: HeaderInformationType[] = [
+  { name: "clubManage", text: "대회관리", path: "/contest"},
+  { name: "personManage", text: "인원관리", path: "/person"},
+  { name: "clubManage", text: "동아리 관리", path: "/club"}
+]
 
 export const FooterInformation: FooterInformationType[] = [
   {title: "DSM을 위한 프로젝트 저장소", info: "BackEnd 유나현 | FrontEnd 김호선 박예빈 임다영"},
