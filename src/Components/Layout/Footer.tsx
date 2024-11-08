@@ -21,10 +21,10 @@ export default function Footer() {
 
 const Container = styled.div`
 width: 100%;
-height: 180px;
+height: fit-content;
 display: flex;
 flex-direction: column;
-padding: 32px 70px;
+padding: 32px 70px 55px;
 gap: 18px;
 background-color: ${color.gray[800]};
 `
@@ -32,6 +32,12 @@ background-color: ${color.gray[800]};
 const InfoWrap = styled.div`
 display: flex;
 gap: 50px;
+
+@media screen and (max-width: 1023px) {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+ }
 `
 
 const Box = styled.div`
