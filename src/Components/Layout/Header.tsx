@@ -1,19 +1,26 @@
 import styled from "styled-components"
 import { Bell, Search, User } from "@/Assets";
 import { color, font } from "@/Styles";
+import { useNavigate } from "react-router-dom";
+import { HeaderInformation } from "@/Constants";
 
 export default function Header() {
-  const list = ["대회관리", "인원관리", "동아리 관리"];
+  const navigate = useNavigate()
   const userName = "홍길동"
 
   return (
     <Container>
       <Content>
         <LogoAndListWrap>
-          <Logo>ROAD</Logo>
+          <Logo onClick={() => navigate("/main")}>ROAD</Logo>
           <ListWrap>
-            {list.map((value) =>
-              <Text key={value}>{value}</Text>
+            {HeaderInformation.map(({name, path, text}) =>
+              <Text
+                key={name}
+                onClick={() => navigate(path)}
+              >
+                {text}
+              </Text>
             )}
           </ListWrap>
         </LogoAndListWrap>
