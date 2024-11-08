@@ -8,6 +8,8 @@ import {
   ContestCreate,
   ContestModify
 } from "@/Models/Manage";
+import { useModal } from "@/Context/ModalContext";
+import { useQueryClient } from "react-query";
 
 const path = '/competition'
 
@@ -113,14 +115,15 @@ export const useEditContest = () => {
 
 export const useDeleteContest = () => {
   const { handleError } = ApiError()
+  const { closeModal } = useModal()
 
-  return useMutation<void, Error, { contestId: string }>({
-    mutationFn: async ({ contestId }) => {
+  return useMutation<void, Error, string>({
+    mutationFn: async (contestId) => {
       try {
         await instance.delete(`${path}/${contestId}`)
+        closeModal()
         toast.success("대회가 삭제되었습니다.", { duration: 1500 })
       } catch (error: any) {
-
         handleError(error)
         throw error
       }
