@@ -1,18 +1,25 @@
 import { Arrow1 } from "@/Assets"
 import styled from "styled-components"
 import { font, color } from "@/Styles"
-import { useState } from "react"
-import { convertKSTtoUTC } from "@/Utils/Date"
+import { useEffect, useState } from "react"
+import { convertKSTtoUTC, covertISOtoKST } from "@/Utils/Date"
 
 const daysOfWeek = ["일", "월", "화", "수", "목", "금", "토"];
 
-const Calendar = ({ text, onDateSelect }: { text: string, onDateSelect: (data: string) => void }) => {
+const Calendar = ({ text, value, onDateSelect }: { text: string, value: string, onDateSelect: (data: string) => void }) => {
   const [open, setOpen] = useState<boolean>(false)
   const [selectedDate, setSelectedDate] = useState<string>(text)
   const [currentDate, setCurrentDate] = useState(new Date());
 
   const year = currentDate.getFullYear();
   const month = currentDate.getMonth();
+
+  useEffect(() => {
+    if (value) {
+      setSelectedDate(covertISOtoKST(value));
+      setCurrentDate(new Date(value));
+    }
+  }, [value]);
 
   const getStartAndEndDays = () => {
     const firstDayOfMonth = new Date(year, month, 1);

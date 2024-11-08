@@ -12,8 +12,9 @@ import { InputType } from "@/Models/Manage"
 import useContestStore from "@/Store/useContestStore"
 import { useNavigate } from "react-router-dom"
 import { useAddContest, useEditContest, useGetContestDetail } from "@/Utils/api/Contest"
-import { ContestStatusType } from "@/Models/Manage"
+import { ContestStatusType, FormState } from "@/Models/Manage"
 import { useSearchParams } from 'react-router-dom';
+import { format } from 'date-fns';
 
 const options = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10']
 
@@ -123,8 +124,20 @@ const Register = () => {
         <Row>
           <FillText>대회 일정</FillText>
           <Wrap>
-            <Calendar text="시작 일을 입력해주세요" onDateSelect={setStartDate} />
-            <Calendar text="종료 일을 입력해주세요" onDateSelect={setEndDate} />
+            <Calendar
+              text="시작 일을 입력해주세요"
+              value={startDate}
+              onDateSelect={(date) => {
+                const formattedDate = format(date, 'yyyy-MM-dd');
+                setForm({ startDate: formattedDate });
+              }} />
+            <Calendar
+              text="종료 일을 입력해주세요"
+              value={endDate}
+              onDateSelect={(date) => {
+                const formattedDate = format(date, 'yyyy-MM-dd');
+                setForm({ endDate: formattedDate });
+              }} />
           </Wrap>
         </Row>
         <Row>
