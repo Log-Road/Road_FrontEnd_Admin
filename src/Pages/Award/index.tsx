@@ -2,15 +2,17 @@ import styled from "styled-components"
 import { color, font } from "@/Styles"
 import SelectTag from "@/Components/Common/SelectTag"
 import Button from "@/Components/Common/Button"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import AwardProject from "@/Components/Project/AwardProject"
 import { useModal } from "@/Context/ModalContext"
 import { CategoryItems } from "@/Constants"
 import Graph from "@/Components/Management/Graph"
 import { useParams } from 'react-router-dom';
+import { useGetVote } from "@/Utils/api/Contest/award"
 
 const Award = () => {
   const { id } = useParams()
+  const { data: voteData } = useGetVote(id || '')
   const { openModal } = useModal()
 
   const [award, setAward] = useState<boolean>(false)
@@ -51,8 +53,8 @@ const Award = () => {
               <VoteInfoButton onClick={() => openModal("PendingVoters", id || '')}>투표 미참원 리스트 확인하러가기</VoteInfoButton>
             </ContestDetails>
             <GraphsSection>
-              <Graph series={[40.0]} labels={["학생 투표율"]} />
-              <Graph series={[50.0]} labels={["선생님 투표율"]} />
+              <Graph series={[voteData?.student || 0]} labels={["학생 투표율"]} />
+              <Graph series={[voteData?.student || 0]} labels={["선생님 투표율"]} />
             </GraphsSection>
           </ContestOverview>
 
