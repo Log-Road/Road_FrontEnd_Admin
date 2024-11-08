@@ -43,33 +43,32 @@ const Register = () => {
 
   const { data } = useGetContestDetail(contestId || '')
   const { form, handleChange, setForm, resetForm } = useContestStore();
-  const { name, place, audience, awardName, purpose, awards } = form;
+  const { name, place, audience, awardName, purpose, awards, startDate, endDate } = form;
 
   const { mutate: AddMutate } = useAddContest()
   const { mutate: ModifyMutate } = useEditContest()
 
-  const [startDate, setStartDate] = useState<string>('');
-  const [endDate, setEndDate] = useState<string>('');
   const [awardCount, setAwardCount] = useState<number>(0);
-  const [awardList, setAwardList] = useState<Array<{ name: string; count: number }>>([]);
 
   useEffect(() => {
     if (contestId && data) {
-      setForm(data)
+      setForm(data.data)
     } else {
       resetForm();
     }
   }, [contestId, data, setForm, resetForm]);
 
   const handleAddAward = () => {
-    if (awardName && awards.length) {
-      const newAward = {
-        name: awardName,
-        count: awardCount,
-      };
-      setAwardList((prevList) => [...prevList, newAward]);
+    if (awardName && awardCount > 0) {
+      const newAward = { name: awardName, count: awardCount };
+
+      setForm((prevForm: FormState) => ({
+        ...prevForm,
+        awards: [...prevForm.awards, newAward],
+        awardName: '',
+      }));
+
       setAwardCount(0);
-      setForm({ ...form, awardName: '' });
     }
   };
 
@@ -81,9 +80,8 @@ const Register = () => {
       purpose,
       audience,
       place,
-      awards: awardList,
+      awards,
     };
-    console.log("보내는 데이터 확인", competitionData)
     AddMutate(competitionData);
     navigation('/contest');
   };
@@ -94,7 +92,7 @@ const Register = () => {
       status: "ONGOING" as ContestStatusType,
       startDate,
       endDate,
-      awards: awardList,
+      awards,
     };
     ModifyMutate({ id: contestId || '', data: competitionEditData }, {
       onSuccess: () => {
@@ -173,7 +171,7 @@ const Register = () => {
               </PlusButton>
             </Wrap>
             <S.TagWrap>
-              {awardList.map(({ name, count }, index) => (
+              {awards.map(({ name, count }, index) => (
                 <RemovableTag key={index} text={name} count={count} />
               ))}
             </S.TagWrap>
