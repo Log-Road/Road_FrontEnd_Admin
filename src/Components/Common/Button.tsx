@@ -3,6 +3,7 @@ import { color } from "@/Styles";
 
 interface PropsType {
   width?: string;
+  padding?: string;
   text?: string;
   active?: boolean;
   type?: "CHECK" | "CANCEL" | "PREV";
@@ -11,6 +12,7 @@ interface PropsType {
 
 export default function AssentButton({
   width = '100%',
+  padding = '8px',
   text,
   active = false,
   type = "CHECK",
@@ -33,6 +35,7 @@ export default function AssentButton({
   return (
     <Container
       width={width}
+      padding={padding}
       type={type}
       active={active}
       bgColor={getColor()}
@@ -43,9 +46,9 @@ export default function AssentButton({
   );
 }
 
-const Container = styled.button<{ width: string; type: "CHECK" | "CANCEL" | "PREV"; active: boolean; bgColor: string; }>`
+const Container = styled.button<{ width: string; padding: string; type: "CHECK" | "CANCEL" | "PREV"; active: boolean; bgColor: string; }>`
   width: ${({ width }) => width};
-  padding: 8px;
+  padding: ${({ padding }) => padding};
   border: none;
   border-radius: 4px;
   background-color: ${({ bgColor }) => bgColor};
