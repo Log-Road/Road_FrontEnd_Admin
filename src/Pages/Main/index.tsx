@@ -2,8 +2,15 @@ import { Arrow1, BentArrow, Board, AwardBackground, GuideBackground } from "@/As
 import Button from "@/Components/Common/Button"
 import styled from "styled-components"
 import { font, color } from "@/Styles"
+import { useGetRecentContest } from "@/Utils/api/Contest/award"
+import { covertISOtoKST } from "@/Utils/Date"
+import { useNavigate } from "react-router-dom"
 
 const Main = () => {
+  const navigation = useNavigate()
+  const { data } = useGetRecentContest()
+  const recentContest = data?.data.list[0] ?? null;
+
   return (
     <Container>
 
@@ -23,12 +30,14 @@ const Main = () => {
         </ProjectWrapper>
 
         <AwardAndGuideWrapper>
-          <AwardWrapper>
+          <AwardWrapper onClick={() => navigation(`/award/${recentContest?.id ?? ''}`)}>
             <TextWrapper>
               <WrapperTitleText>최근 대회 시상하기</WrapperTitleText>
-              <InfoText>2024 교내 해커톤</InfoText>
+              <InfoText>{recentContest?.name || '대회 정보 없음'}</InfoText>
             </TextWrapper>
-            <DateText>2024.05.04 ~ 2024.05.12</DateText>
+            <DateText>
+              {covertISOtoKST(recentContest?.startDate || '')} ~ {covertISOtoKST(recentContest?.endDate || '')}
+            </DateText>
           </AwardWrapper>
 
           <GuideWrapper>
