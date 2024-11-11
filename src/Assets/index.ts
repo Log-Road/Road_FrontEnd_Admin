@@ -22,6 +22,7 @@ export * from "./Cancel"
 export * from "./Check"
 export * from "./Checking"
 export * from "./BentArrow"
+
 export { default as AwardBackground } from "./AwardBackground.png";
 export { default as GuideBackground } from "./GuideBackground.png";
 

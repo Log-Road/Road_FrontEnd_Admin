@@ -28,9 +28,7 @@ const Main = () => {
               <WrapperTitleText>최근 대회 시상하기</WrapperTitleText>
               <InfoText>2024 교내 해커톤</InfoText>
             </TextWrapper>
-            <AwardListWrapper>
-              <AwardNameText>금상 은상 동상 인기상</AwardNameText>
-            </AwardListWrapper>
+            <DateText>2024.05.04 ~ 2024.05.12</DateText>
           </AwardWrapper>
 
           <GuideWrapper>
@@ -46,7 +44,9 @@ const Main = () => {
         </AwardAndGuideWrapper>
 
       </MainSection>
-      <Board />
+      <ImageSection>
+        <Board />
+      </ImageSection>
     </Container>
   )
 }
@@ -64,6 +64,14 @@ width: 520px;
 display: flex;
 flex-direction: column;
 gap: 12px;
+`
+
+const ImageSection = styled.div`
+display: none;
+
+@media screen and (min-width: 1024px) {
+  display: block;
+}
 `
 
 const Title = styled.p`
@@ -127,14 +135,8 @@ background-repeat: no-repeat;
 background-size: cover;
 `
 
-const AwardListWrapper = styled.div`
-display: flex;
-flex-wrap: wrap;
-gap: 4px;
-`
-
-const AwardNameText = styled.p`
-${font.medium14}
+const DateText = styled.p`
+${font.regular14}
 color: ${color.white};
 `
 
