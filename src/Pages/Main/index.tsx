@@ -1,135 +1,172 @@
-import { Arrow2, Work, Board } from "@/Assets";
-import styled from "styled-components";
-import { color, font } from "@/Styles"
+import { Arrow1, BentArrow, Board, AwardBackground, GuideBackground } from "@/Assets"
+import Button from "@/Components/Common/Button"
+import styled from "styled-components"
+import { font, color } from "@/Styles"
 
 const Main = () => {
   return (
     <Container>
-      <MainContainer>
-        <MainSection>
-          <SectionTitle>
-            <Accent>DSM의 프로젝트</Accent>를<br /> 저장하고 통합하는 공간
-          </SectionTitle>
 
-          <ProjectWrapper>
-            <TextWrapper>
-              <ProjectText>프로젝트 관리하기</ProjectText>
-              <InfoText>글 승인 및 반려하기</InfoText>
-            </TextWrapper>
-            <ArrowWrapper>
-              <Arrow2 color={color.white} rotate="right" />
-            </ArrowWrapper>
-          </ProjectWrapper>
+      <MainSection>
+        <Title>
+          <Accent>DSM의 프로젝트</Accent>를<br /> 저장하고 통합하는 공간
+        </Title>
 
-          <ContestWrapper>
+        <ProjectWrapper>
+          <TextWrapper>
+            <WrapperTitleText>프로젝트 관리하기</WrapperTitleText>
+            <InfoText>대회 프로젝트 승인 및 반려</InfoText>
+          </TextWrapper>
+          <ArrowWrapper>
+            <Arrow1 size={36} color={color.white} rotate="right" />
+          </ArrowWrapper>
+        </ProjectWrapper>
+
+        <AwardAndGuideWrapper>
+          <AwardWrapper>
             <TextWrapper>
-              <div>
-                <ContestText>현재 진행중인 대회가 있다면?</ContestText>
-                <ContestText>대회 진행하러가기</ContestText>
-              </div>
-              <ContestInfoText>대회를 모아보고 관리하러 가기</ContestInfoText>
+              <WrapperTitleText>최근 대회 시상하기</WrapperTitleText>
+              <InfoText>2024 교내 해커톤</InfoText>
             </TextWrapper>
-            {/* <Work /> */}
-          </ContestWrapper>
-        </MainSection>
-        <Board />
-      </MainContainer>
+            <AwardListWrapper>
+              <AwardNameText>금상 은상 동상 인기상</AwardNameText>
+            </AwardListWrapper>
+          </AwardWrapper>
+
+          <GuideWrapper>
+            <GuideArrowWrapper>
+              <BentArrow size={20} color={color.white} />
+            </GuideArrowWrapper>
+            <div>
+              <GuideTitle>가이드라인</GuideTitle>
+              <DescriptionText>ROAD를 더욱 활용하는 방법 웹문서로 알아보기</DescriptionText>
+            </div>
+            <Button text="확인하러가기" padding="4px" />
+          </GuideWrapper>
+        </AwardAndGuideWrapper>
+
+      </MainSection>
+      <Board />
     </Container>
-  );
-};
+  )
+}
 
-export default Main;
+export default Main
 
 const Container = styled.div`
-width: 100%;
-height: 100%;
-display: flex;
-justify-content: center;
-align-items: center;
-`;
-
-const MainContainer = styled.div`
-width: 1000px;
 display: flex;
 justify-content: space-between;
 align-items: center;
 `
 
 const MainSection = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  gap: 12px;
-`;
+width: 520px;
+display: flex;
+flex-direction: column;
+gap: 12px;
+`
 
-const SectionTitle = styled.p`
-${font.semi32}
-line-height: 120%;
-`;
+const Title = styled.p`
+${font.medium32}
+`
 
 const Accent = styled.span`
+${font.semi32}
 color: ${color.blue[500]};
-`;
+`
 
 const ProjectWrapper = styled.div`
 display: flex;
-width: 500px;
 justify-content: space-between;
-padding: 20px 32px;
+align-items: center;
+padding: 24px 36px;
 border-radius: 20px;
-background-color: ${color.blue[600]};
-`;
+background-color: ${color.blue[300]};
+`
 
 const TextWrapper = styled.div`
 display: flex;
 flex-direction: column;
-justify-content: space-between;
-`;
+gap: 4px;
+`
 
-const ProjectText = styled.p`
+const WrapperTitleText = styled.p`
 ${font.medium24}
 color: ${color.white};
-`;
+`
 
 const InfoText = styled.p`
-${font.medium14}
+${font.regular16}
 color: ${color.white};
-`;
+`
 
 const ArrowWrapper = styled.div`
-width: 50px;
-height: 50px;
+display: flex;
+justify-content: center;
+align-items: center;
+padding: 2px;
+border: 1.4px solid ${color.white};
+border-radius: 100px;
+`
+
+const AwardAndGuideWrapper = styled.div`
+display: flex;
+justify-content: space-between;
+gap: 12px;
+`
+
+const AwardWrapper = styled.div`
+flex: 1;
+display: flex;
+flex-direction: column;
+justify-content: space-between;
+padding: 24px 36px;
+border-radius: 20px;
+background-image: url(${AwardBackground});
+background-repeat: no-repeat;
+background-size: cover;
+`
+
+const AwardListWrapper = styled.div`
+display: flex;
+flex-wrap: wrap;
+gap: 4px;
+`
+
+const AwardNameText = styled.p`
+${font.medium14}
+color: ${color.white};
+`
+
+const GuideWrapper = styled.div`
+width: 140px;
+display: flex;
+flex-direction: column;
+justify-content: space-between;
+gap: 12px;
+padding: 24px 12px;
+border-radius: 20px;
+background-image: url(${GuideBackground});
+background-repeat: no-repeat;
+background-size: cover;
+box-shadow : 0px 0px 12px 5px ${color.gray[100]};
+`
+
+const GuideArrowWrapper = styled.span`
+width: fit-content;
 display: flex;
 justify-content: center;
 align-items: center;
 padding: 8px;
-border-radius: 100px;
-border: 1.5px solid ${color.white};
-`;
+border-radius: 100%;
+background-color: ${color.blue[500]};
+`
 
-const ContestWrapper = styled.div`
-position: relative;
-display: flex;
-width: 500px;
-height: 160px;
-padding: 30px;
-border-radius: 20px;
-background-color: ${color.blue[200]};
-`;
+const GuideTitle = styled.p`
+${font.medium18}
+`
 
-const ContestText = styled.p`
-${font.medium24}
-color: ${color.blue[700]};
-line-height: 130%;
-`;
-
-const ContestInfoText = styled.p`
-${font.medium14}
-color: ${color.blue[700]};
-`;
-
-const WorkImage = styled.img`
-  position: absolute;
-  bottom: 0;
-  right: 0;
+const DescriptionText = styled.p`
+${font.regular12}
+color: ${color.gray[600]};
 `
