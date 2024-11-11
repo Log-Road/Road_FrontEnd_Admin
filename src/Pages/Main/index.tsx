@@ -19,10 +19,10 @@ const Main = () => {
           <Accent>DSM의 프로젝트</Accent>를<br /> 저장하고 통합하는 공간
         </Title>
 
-        <ProjectWrapper>
+        <ProjectWrapper onClick={() => navigation(`/contest`)}>
           <TextWrapper>
             <WrapperTitleText>프로젝트 관리하기</WrapperTitleText>
-            <InfoText>대회 프로젝트 승인 및 반려</InfoText>
+            <InfoText>글 승인 및 반려 하러가기</InfoText>
           </TextWrapper>
           <ArrowWrapper>
             <Arrow1 size={36} color={color.white} rotate="right" />
