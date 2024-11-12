@@ -30,8 +30,8 @@ export default function Notice() {
 
 const Container = styled.div`
 position: absolute;
-top: 0;
-left: 0;
+top: 36px;
+right: 0;
 width: 340px;
 height: 380px;
 padding: 24px 32px;

@@ -18,7 +18,7 @@ export default function Header() {
         <LogoAndListWrap>
           <Logo onClick={() => navigate("/main")}>ROAD</Logo>
           <ListWrap>
-            {HeaderInformation.map(({name, path, text}) =>
+            {HeaderInformation.map(({ name, path, text }) =>
               <Text
                 key={name}
                 onClick={() => navigate(path)}
@@ -30,8 +30,8 @@ export default function Header() {
         </LogoAndListWrap>
         <ListWrap>
           <IconWrap>
-            <Bell color={color.gray[500]} onClick={() => openModal("Notice", null)}/>
-            { isOpen && <Notice/>}
+            <Bell color={color.gray[500]} onClick={() => openModal("Notice", null)} />
+            {isOpen && <Notice />}
             <Search color={color.gray[500]} />
             <User color={color.gray[500]} />
           </IconWrap>
@@ -74,6 +74,7 @@ gap: 20px;
 `
 
 const IconWrap = styled.div`
+  position: relative;
   display: flex;
   gap: 20px;
 
