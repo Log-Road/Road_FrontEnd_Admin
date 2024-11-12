@@ -21,6 +21,7 @@ export * from "./Status"
 export * from "./Cancel"
 export * from "./Check"
 export * from "./Checking"
+export * from "./NoNotice"
 
 export { ReactComponent as Board } from "./Board.svg"
 export { ReactComponent as Work } from './Work.svg'

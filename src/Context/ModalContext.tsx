@@ -11,6 +11,7 @@ export type ModalStateType =
   | 'DeleteContest'
   | 'Award'
   | 'PendingVoters'
+  | 'Notice'
   ;
 
 type ModalType = {

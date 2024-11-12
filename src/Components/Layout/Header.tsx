@@ -3,10 +3,14 @@ import { Bell, Search, User } from "@/Assets";
 import { color, font } from "@/Styles";
 import { useNavigate } from "react-router-dom";
 import { HeaderInformation } from "@/Constants";
+import { useModal } from "@/Context/ModalContext"
+import Notice from "@/Components/Modals/Notice";
 
 export default function Header() {
   const navigate = useNavigate()
   const userName = "홍길동"
+
+  const { isOpen, openModal } = useModal()
 
   return (
     <Container>
@@ -26,7 +30,8 @@ export default function Header() {
         </LogoAndListWrap>
         <ListWrap>
           <IconWrap>
-            <Bell color={color.gray[500]} />
+            <Bell color={color.gray[500]} onClick={() => openModal("Notice", null)}/>
+            { isOpen && <Notice/>}
             <Search color={color.gray[500]} />
             <User color={color.gray[500]} />
           </IconWrap>
